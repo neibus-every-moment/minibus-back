@@ -1,14 +1,16 @@
 package com.minibus.domain.post;
 
 import com.minibus.domain.BaseTimeEntity;
+import com.minibus.domain.emoticon.Emoticon;
 import com.minibus.domain.image.Image;
+import com.minibus.domain.region.Region;
 import com.minibus.domain.report.Report;
+import com.minibus.domain.transport.Transport;
 import com.minibus.type.PostStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.util.ArrayList;

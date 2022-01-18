@@ -1,4 +1,4 @@
-package com.minibus.domain.post;
+package com.minibus.domain.region;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

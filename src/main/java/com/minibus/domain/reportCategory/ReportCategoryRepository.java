@@ -1,4 +1,4 @@
-package com.minibus.domain.report;
+package com.minibus.domain.reportCategory;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

@@ -1,4 +1,4 @@
-package com.minibus.domain.report;
+package com.minibus.domain.reportEtcDetail;
 
 import com.minibus.domain.report.Report;
 import lombok.AllArgsConstructor;

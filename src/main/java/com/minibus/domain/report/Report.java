@@ -2,6 +2,8 @@ package com.minibus.domain.report;
 
 import com.minibus.domain.BaseTimeEntity;
 import com.minibus.domain.post.Post;
+import com.minibus.domain.reportCategory.ReportCategory;
+import com.minibus.domain.reportEtcDetail.ReportEtcDetail;
 import com.minibus.type.ReportStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

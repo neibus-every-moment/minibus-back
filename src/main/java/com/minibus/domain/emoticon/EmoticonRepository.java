@@ -1,4 +1,4 @@
-package com.minibus.domain.post;
+package com.minibus.domain.emoticon;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

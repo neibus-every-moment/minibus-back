@@ -1,4 +1,4 @@
-package com.minibus.domain.post;
+package com.minibus.domain.transport;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

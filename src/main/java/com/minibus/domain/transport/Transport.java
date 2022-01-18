@@ -1,4 +1,4 @@
-package com.minibus.domain.report;
+package com.minibus.domain.transport;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,12 +12,12 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "REPORT_CATEGORY")
-public class ReportCategory {
+@Table(name = "TRANSPORT")
+public class Transport {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private String content;
+    private String name;
 }
