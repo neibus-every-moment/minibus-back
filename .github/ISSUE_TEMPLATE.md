@@ -5,9 +5,9 @@
 ## UX Flow
 
 ## Checklist
-- [ ]
-- [ ]
-- [ ]
+- *[ ]
+- *[ ]
+- *[ ]
 ## Image Reference
 
 ## Links
