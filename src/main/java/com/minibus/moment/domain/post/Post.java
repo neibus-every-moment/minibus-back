@@ -52,4 +52,12 @@ public class Post extends BaseTimeEntity {
 
     @Enumerated(EnumType.STRING)
     private PostStatus postStatus;
+
+    public void upCountLike() {
+        likeCount = getLikeCount() + 1L;
+    }
+
+    public void downCountLike() {
+        likeCount = getLikeCount() - 1L;
+    }
 }

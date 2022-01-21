@@ -5,10 +5,7 @@ import com.minibus.moment.domain.post.Post;
 import com.minibus.moment.domain.reportCategory.ReportCategory;
 import com.minibus.moment.domain.reportEtcDetail.ReportEtcDetail;
 import com.minibus.moment.type.ReportStatus;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 

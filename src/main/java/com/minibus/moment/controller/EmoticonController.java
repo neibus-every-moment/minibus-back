@@ -1,25 +1,22 @@
 package com.minibus.moment.controller;
 
-import com.minibus.moment.domain.transport.Transport;
-import com.minibus.moment.dto.TransportDto;
-import com.minibus.moment.service.TransService;
+import com.minibus.moment.dto.EmoticonDto;
+import com.minibus.moment.service.EmoticonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
 @RequestMapping("/api")
 @RequiredArgsConstructor
 @RestController
-public class TransController {
+public class EmoticonController {
 
-    private final TransService transService;
+    private final EmoticonService emoticonService;
 
     @GetMapping("/transport/list")
-    public TransportDto getTransportList() {
-        TransportDto transportList = transService.getTransportList();
-        return transportList;
+    public EmoticonDto getTransportList() {
+        EmoticonDto emoticonList = emoticonService.getEmoticonList();
+        return emoticonList;
     }
 }

@@ -1,10 +1,7 @@
 package com.minibus.moment.domain.reportEtcDetail;
 
 import com.minibus.moment.domain.report.Report;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 

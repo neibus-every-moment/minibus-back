@@ -1,9 +1,6 @@
 package com.minibus.moment.domain.transport;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -20,4 +17,5 @@ public class Transport {
     private Integer id;
 
     private String name;
+
 }
