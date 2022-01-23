@@ -13,32 +13,35 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString
 public class PostDto {
+
+    private Long id;
 
     private String content;
 
-    private String transportName;
+    private String transportation;
 
     private String regionName;
 
-    private String emoticonUrl;
+    private String emoticon;
 
-    private List<String> imageUrlList;
+    private List<String> imageList;
 
     private Long likeCount;
 
     private LocalDateTime createdAt;
 
-    public static PostDto from(Post post){
+    public static PostDto from(Post post) {
         return PostDto.builder()
+                .id(post.getId())
                 .content(post.getContent())
-                .transportName(post.getContent())
                 .regionName(post.getRegion().getName())
-                .transportName(post.getTransport().getName())
-                .emoticonUrl("resource/emoticon/" + post.getEmoticon().getName())
-                .imageUrlList(post.getImageList().stream()
-                                .map(Image::getPath)
-                                .collect(Collectors.toList()))
+                .transportation(post.getTransportation().getEmoji() + " " + post.getTransportation().getName())
+                .emoticon(post.getEmoticon().getEmoji() + " " + post.getEmoticon().getName())
+                .imageList(post.getImageList().stream()
+                        .map(Image::getPath)
+                        .collect(Collectors.toList()))
                 .likeCount(post.getLikeCount())
                 .createdAt(post.getCreatedAt())
                 .build();
