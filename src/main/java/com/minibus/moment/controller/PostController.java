@@ -1,6 +1,7 @@
 package com.minibus.moment.controller;
 
 import com.minibus.moment.dto.PostDto;
+import com.minibus.moment.dto.PostInput;
 import com.minibus.moment.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -39,10 +40,18 @@ public class PostController {
         return postPage;
     }
 
-    @PatchMapping("/post/like/{postId}")
-    public ResponseEntity<?> postLike(@PathVariable Long postId, Errors errors) {
-        postService.likeCount(postId, errors);
-        return ResponseEntity.ok().build();
+    @PatchMapping("/post/{postId}/like")
+    public void postLike(@PathVariable Long postId) {
+        postService.likeCount(postId);
     }
 
+    @PatchMapping("/post/{postId}/like/cancel")
+    public void postLikeCancel(@PathVariable Long postId) {
+        postService.likeCancelCount(postId);
+    }
+
+    @PostMapping("/post/createPost")
+    public void createPost(@RequestBody PostInput postInput) {
+
+    }
 }

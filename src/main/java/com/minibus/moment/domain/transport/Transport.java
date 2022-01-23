@@ -18,4 +18,5 @@ public class Transport {
 
     private String name;
 
+    private String transportationEmoji;
 }

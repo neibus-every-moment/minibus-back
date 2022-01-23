@@ -14,10 +14,4 @@ public class TransportDto {
 //    private String name;
     private List<Transport> data;
 
-//    public static TransportDto from(Transport transport) {
-//        return TransportDto.builder()
-//                .id(transport.getId())
-//                .name(transport.getName())
-//                .build();
-//    }
 }

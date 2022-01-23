@@ -14,8 +14,8 @@ public class EmoticonController {
 
     private final EmoticonService emoticonService;
 
-    @GetMapping("/transport/list")
-    public EmoticonDto getTransportList() {
+    @GetMapping("/emoticon/list")
+    public EmoticonDto getEmoticonList() {
         EmoticonDto emoticonList = emoticonService.getEmoticonList();
         return emoticonList;
     }

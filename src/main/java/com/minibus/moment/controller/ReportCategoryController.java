@@ -17,7 +17,7 @@ public class ReportCategoryController {
     private final ReportCategoryService reportCategoryService;
 
     @GetMapping("/reportCategory/list")
-    public ReportCategoryDto getRegionList() {
+    public ReportCategoryDto getReportCategoryList() {
         ReportCategoryDto reportCategoryList = reportCategoryService.getReportCategoryList();
         return reportCategoryList;
     }

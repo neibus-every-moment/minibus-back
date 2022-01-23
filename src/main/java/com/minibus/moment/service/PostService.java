@@ -13,6 +13,7 @@ import com.minibus.moment.exception.RegionNotFoundException;
 import com.minibus.moment.exception.TransportNotFoundException;
 import com.minibus.moment.type.PostStatus;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.coyote.Response;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -30,6 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class PostService {
@@ -80,30 +82,20 @@ public class PostService {
         return regionSortBestLike.map(PostDto::from);
     }
 
-    public void likeCount(@PathVariable Long postId, Errors errors) {
-        List<ResponseError> responseErrorList = new ArrayList<>();
-        if (errors.hasErrors()) {
-            errors.getAllErrors().stream().forEach((e) -> {
-                responseErrorList.add(ResponseError.of((FieldError) e));
-            });
-        }
+    public void likeCount(@PathVariable Long postId) {
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new PostNotFoundException("해당 게시글은 존재하지 않습니다."));
 
         post.upCountLike();
+        postRepository.save(post);
     }
 
-    public void likeCancelCount(@PathVariable Long postId, Errors errors) {
-        List<ResponseError> responseErrorList = new ArrayList<>();
-        if (errors.hasErrors()) {
-            errors.getAllErrors().stream().forEach((e) -> {
-                responseErrorList.add(ResponseError.of((FieldError) e));
-            });
-        }
+    public void likeCancelCount(@PathVariable Long postId) {
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new PostNotFoundException("해당 게시글은 존재하지 않습니다."));
 
         post.downCountLike();
+        postRepository.save(post);
     }
 
     @ExceptionHandler(PostNotFoundException.class)
