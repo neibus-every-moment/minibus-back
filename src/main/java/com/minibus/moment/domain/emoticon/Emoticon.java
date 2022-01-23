@@ -20,4 +20,6 @@ public class Emoticon {
     private Integer id;
 
     private String name;
+
+    private String emoji;
 }
