@@ -2,7 +2,7 @@ package com.minibus.moment.domain.report;
 
 import com.minibus.moment.domain.BaseTimeEntity;
 import com.minibus.moment.domain.post.Post;
-import com.minibus.moment.domain.reportCategory.ReportCategory;
+import com.minibus.moment.domain.reportReason.ReportReason;
 import com.minibus.moment.domain.reportEtcDetail.ReportEtcDetail;
 import com.minibus.moment.type.ReportStatus;
 import lombok.AllArgsConstructor;
@@ -25,8 +25,8 @@ public class Report extends BaseTimeEntity {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "REPORT_CAT_ID")
-    private ReportCategory reportCategory;
+    @JoinColumn(name = "REPORT_REASON_ID")
+    private ReportReason reportReason;
 
     @ManyToOne
     @JoinColumn(name = "POST_ID")
@@ -35,5 +35,6 @@ public class Report extends BaseTimeEntity {
     @OneToOne(mappedBy = "report")
     private ReportEtcDetail reportEtcDetail;
 
+    @Enumerated(EnumType.STRING)
     private ReportStatus reportStatus;
 }
