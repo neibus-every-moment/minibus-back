@@ -12,7 +12,7 @@ public class RegionDto {
     private Integer id;
     private String RegionName;
 
-    public static RegionDto from(Region region){
+    public static RegionDto from(Region region) {
         return RegionDto.builder()
                 .id(region.getId())
                 .RegionName(region.getName())

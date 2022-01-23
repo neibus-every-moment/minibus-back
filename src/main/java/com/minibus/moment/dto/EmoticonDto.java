@@ -14,7 +14,7 @@ public class EmoticonDto {
 
     private String emoticon;
 
-    public static EmoticonDto from(Emoticon emoticon){
+    public static EmoticonDto from(Emoticon emoticon) {
         return EmoticonDto.builder()
                 .id(emoticon.getId())
                 .emoticon(emoticon.getEmoji() + " " + emoticon.getName())

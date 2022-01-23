@@ -14,7 +14,7 @@ public class TransportationDto {
 
     private String transportation;
 
-    public static TransportationDto from(Transportation transportation){
+    public static TransportationDto from(Transportation transportation) {
         return TransportationDto.builder()
                 .id(transportation.getId())
                 .transportation(transportation.getEmoji() + " " + transportation.getName())

@@ -15,7 +15,7 @@ public class ReportDto {
     private String reportReason;
     private String reportStatus;
 
-    public static ReportDto from(Report report){
+    public static ReportDto from(Report report) {
         return ReportDto.builder()
                 .id(report.getId())
                 .postId(report.getPost().getId())

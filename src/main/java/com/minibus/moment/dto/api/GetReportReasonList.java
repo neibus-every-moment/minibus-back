@@ -2,7 +2,6 @@ package com.minibus.moment.dto.api;
 
 import com.minibus.moment.dto.ReportReasonDto;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -13,7 +12,7 @@ public class GetReportReasonList {
     @Getter
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class Response{
+    public static class Response {
         private List<ReportReasonDto> data;
     }
 }

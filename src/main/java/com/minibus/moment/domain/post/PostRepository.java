@@ -3,7 +3,6 @@ package com.minibus.moment.domain.post;
 import com.minibus.moment.domain.region.Region;
 import com.minibus.moment.domain.transportation.Transportation;
 import com.minibus.moment.type.PostStatus;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 

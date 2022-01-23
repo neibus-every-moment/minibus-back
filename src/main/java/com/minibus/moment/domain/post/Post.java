@@ -54,10 +54,11 @@ public class Post extends BaseTimeEntity {
     private PostStatus postStatus;
 
     public void upLikeCount() {
-        likeCount = getLikeCount()+1L;
+        likeCount = getLikeCount() + 1L;
     }
-    public void downLikeCount(){
-        likeCount = getLikeCount()-1L;
+
+    public void downLikeCount() {
+        likeCount = getLikeCount() - 1L;
     }
 
 }

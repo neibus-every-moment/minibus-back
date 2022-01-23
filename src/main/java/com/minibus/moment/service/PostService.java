@@ -16,7 +16,8 @@ import com.minibus.moment.domain.reportReason.ReportReason;
 import com.minibus.moment.domain.reportReason.ReportReasonRepository;
 import com.minibus.moment.domain.transportation.Transportation;
 import com.minibus.moment.domain.transportation.TransportationRepository;
-import com.minibus.moment.dto.*;
+import com.minibus.moment.dto.PostDto;
+import com.minibus.moment.dto.ReportReasonDto;
 import com.minibus.moment.dto.api.CreatePost;
 import com.minibus.moment.dto.api.GetPostList;
 import com.minibus.moment.dto.api.ReportPost;
@@ -172,7 +173,7 @@ public class PostService {
 
         // Todo 저장소에 실제 이미지를 저장하고 URL을 반환 하는 작업 구현 필요
         String[] list = request.getBase64Image().split(" ");
-        String imageUrl = list[list.length-1];
+        String imageUrl = list[list.length - 1];
         //
 
         Image image = Image.builder()

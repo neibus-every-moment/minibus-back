@@ -2,7 +2,6 @@ package com.minibus.moment.dto.api;
 
 import com.minibus.moment.dto.EmoticonDto;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -13,7 +12,7 @@ public class GetEmoticonList {
     @Getter
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class Response{
+    public static class Response {
         List<EmoticonDto> data;
     }
 }

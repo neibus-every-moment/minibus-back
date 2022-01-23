@@ -1,7 +1,10 @@
 package com.minibus.moment.dto.api;
 
 import com.minibus.moment.dto.PostDto;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 public class CreatePost {
 
