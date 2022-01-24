@@ -17,7 +17,7 @@ public class EmoticonDto {
     public static EmoticonDto from(Emoticon emoticon) {
         return EmoticonDto.builder()
                 .id(emoticon.getId())
-                .emoticon(emoticon.getEmoji() + " " + emoticon.getName())
+                .emoticon(emoticon.getName())
                 .build();
     }
 }
