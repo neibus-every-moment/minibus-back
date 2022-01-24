@@ -28,7 +28,6 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -162,6 +161,10 @@ public class PostService {
     public Long createPost(CreatePost.Request request) {
         Region region = regionRepository.findByNameEquals(request.getRegionName()).orElseThrow();
         Transportation transportation = transportRepository.findByNameEquals(request.getTransportationName()).orElseThrow();
+        if(!emoticonRepository.findByNameEquals(request.getEmoticonName()).isPresent()) {
+            Emoticon newEmoticon = Emoticon.builder().name(request.getEmoticonName()).build();
+            emoticonRepository.save(newEmoticon);
+        }
         Emoticon emoticon = emoticonRepository.findByNameEquals(request.getEmoticonName()).orElseThrow();
 
         Post post = Post.builder()
@@ -175,17 +178,18 @@ public class PostService {
         postRepository.save(post);
 
         // Todo 저장소에 실제 이미지를 저장하고 URL을 반환 하는 작업 구현 필요
-        String[] list = request.getBase64Image().split(" ");
-        String base64image = list[list.length - 1];
-        String fileName = LocalDate.now() + "_" + post.getId();
-        String imageUrl = ImageUploader.upload(base64image, fileName ,"png");
-        //
-        Image image = Image.builder()
-                .post(post)
-                .path(imageUrl)
-                .build();
-        imageRepository.save(image);
-
+        if(request.getBase64Image() != null) {
+            String[] list = request.getBase64Image().split(" ");
+            String base64image = list[list.length - 1];
+            String fileName = LocalDate.now() + "_" + post.getId();
+            String imageUrl = ImageUploader.upload(base64image, fileName, "png");
+            //
+            Image image = Image.builder()
+                    .post(post)
+                    .path(imageUrl)
+                    .build();
+            imageRepository.save(image);
+        }
         return post.getId();
     }
 
