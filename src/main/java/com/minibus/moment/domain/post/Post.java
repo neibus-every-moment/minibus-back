@@ -5,7 +5,7 @@ import com.minibus.moment.domain.emoticon.Emoticon;
 import com.minibus.moment.domain.image.Image;
 import com.minibus.moment.domain.region.Region;
 import com.minibus.moment.domain.report.Report;
-import com.minibus.moment.domain.transport.Transport;
+import com.minibus.moment.domain.transportation.Transportation;
 import com.minibus.moment.type.PostStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -36,7 +36,7 @@ public class Post extends BaseTimeEntity {
 
     @ManyToOne
     @JoinColumn(name = "TRANSPORT_ID")
-    private Transport transport;
+    private Transportation transportation;
 
     @ManyToOne
     @JoinColumn(name = "EMOTICON_ID")
@@ -52,4 +52,13 @@ public class Post extends BaseTimeEntity {
 
     @Enumerated(EnumType.STRING)
     private PostStatus postStatus;
+
+    public void upLikeCount() {
+        likeCount = getLikeCount() + 1L;
+    }
+
+    public void downLikeCount() {
+        likeCount = getLikeCount() - 1L;
+    }
+
 }
