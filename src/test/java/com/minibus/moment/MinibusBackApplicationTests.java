@@ -1,4 +1,4 @@
-package com.minibus;
+package com.minibus.moment;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
