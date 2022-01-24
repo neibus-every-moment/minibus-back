@@ -4,6 +4,7 @@ import com.minibus.moment.domain.emoticon.Emoticon;
 import com.minibus.moment.domain.emoticon.EmoticonRepository;
 import com.minibus.moment.domain.image.Image;
 import com.minibus.moment.domain.image.ImageRepository;
+import com.minibus.moment.domain.image.ImageUploader;
 import com.minibus.moment.domain.post.Post;
 import com.minibus.moment.domain.post.PostRepository;
 import com.minibus.moment.domain.region.Region;
@@ -26,6 +27,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -173,20 +176,15 @@ public class PostService {
 
         // Todo 저장소에 실제 이미지를 저장하고 URL을 반환 하는 작업 구현 필요
         String[] list = request.getBase64Image().split(" ");
-        String imageUrl = list[list.length - 1];
+        String base64image = list[list.length - 1];
+        String fileName = LocalDate.now() + "_" + post.getId();
+        String imageUrl = ImageUploader.upload(base64image, fileName ,"png");
         //
-
         Image image = Image.builder()
                 .post(post)
                 .path(imageUrl)
                 .build();
         imageRepository.save(image);
-
-        Image image2 = Image.builder()
-                .post(post)
-                .path(imageUrl)
-                .build();
-        imageRepository.save(image2);
 
         return post.getId();
     }
