@@ -64,13 +64,13 @@ public class PostController {
     }
 
     @PostMapping("/post")
-    public boolean createPost(@RequestBody CreatePost.Request request) {
-        return postService.createPost(request);
+    public CreatePost.Response createPost(@RequestBody CreatePost.Request request) {
+        return new CreatePost.Response(postService.createPost(request));
     }
 
-    @GetMapping("/one")
-    public CreatePost.Response getOne() {
-        return new CreatePost.Response(postService.getOne());
+    @GetMapping("/post/{postId}")
+    public GetPost.Response getPost(@PathVariable Long postId) {
+        return new GetPost.Response(postService.getPost(postId));
     }
 
 

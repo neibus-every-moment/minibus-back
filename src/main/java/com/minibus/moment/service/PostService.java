@@ -156,7 +156,7 @@ public class PostService {
     }
 
     @Transactional
-    public boolean createPost(CreatePost.Request request) {
+    public Long createPost(CreatePost.Request request) {
         Region region = regionRepository.findByNameEquals(request.getRegionName()).orElseThrow();
         Transportation transportation = transportRepository.findByNameEquals(request.getTransportationName()).orElseThrow();
         Emoticon emoticon = emoticonRepository.findByNameEquals(request.getEmoticonName()).orElseThrow();
@@ -188,11 +188,11 @@ public class PostService {
                 .build();
         imageRepository.save(image2);
 
-        return true;
+        return post.getId();
     }
 
-    public PostDto getOne() {
-        Post post = postRepository.findTopByOrderByIdDesc().orElseThrow();
+    public PostDto getPost(Long postId) {
+        Post post = postRepository.findById(postId).orElseThrow();
         return PostDto.from(post);
     }
 

@@ -24,6 +24,6 @@ public class CreatePost {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class Response {
-        private PostDto data;
+        private Long data;
     }
 }

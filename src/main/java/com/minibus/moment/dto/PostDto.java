@@ -22,7 +22,7 @@ public class PostDto {
 
     private String transportation;
 
-    private String regionName;
+    private String region;
 
     private String emoticon;
 
@@ -36,7 +36,7 @@ public class PostDto {
         return PostDto.builder()
                 .id(post.getId())
                 .content(post.getContent())
-                .regionName(post.getRegion().getName())
+                .region(post.getRegion().getName())
                 .transportation(post.getTransportation().getEmoji() + " " + post.getTransportation().getName())
                 .emoticon(post.getEmoticon().getEmoji() + " " + post.getEmoticon().getName())
                 .imageList(post.getImageList().stream()
