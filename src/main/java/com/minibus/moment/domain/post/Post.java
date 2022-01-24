@@ -16,6 +16,9 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.minibus.moment.type.PostStatus.BLIND;
+import static com.minibus.moment.type.PostStatus.VISIBLE;
+
 
 @Getter
 @NoArgsConstructor
@@ -61,4 +64,11 @@ public class Post extends BaseTimeEntity {
         likeCount = getLikeCount() - 1L;
     }
 
+    public void blind() {
+        postStatus = BLIND;
+    }
+
+    public void restore(){
+        postStatus = VISIBLE;
+    }
 }
