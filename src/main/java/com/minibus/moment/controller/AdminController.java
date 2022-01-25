@@ -1,16 +1,22 @@
 package com.minibus.moment.controller;
 
+
 import com.minibus.moment.dto.RegionDto;
 import com.minibus.moment.dto.TransportationDto;
 import com.minibus.moment.service.RegionService;
 import com.minibus.moment.service.TransportationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import com.minibus.moment.dto.api.admin.BlindPost;
+import com.minibus.moment.dto.api.admin.RestorePost;
+import com.minibus.moment.service.BlindService;
+
 
 @RequestMapping("/api/admin")
 @RequiredArgsConstructor
 @RestController
 public class AdminController {
+
 
     private final TransportationService transportationService;
     private final RegionService regionService;
@@ -54,17 +60,16 @@ public class AdminController {
     @DeleteMapping("delete/region")
     public void deleteRegion(@RequestBody RegionDto.Request request) {
         regionService.deleteRegionInTable(request.getRegion());
+
+    private final BlindService blindService;
+
+    @PostMapping("/blind")
+    public boolean blindPost(@RequestBody BlindPost.Request request){
+        return blindService.blindPost(request);
     }
 
+    @PostMapping("/restore")
+    public boolean restorePost(@RequestBody RestorePost.Request request){
+        return blindService.restorePost(request);
+    }
 }
-//이모티콘 / 지역 / 교통 수정 및 삭제기능 추가하였습니다.
-//
-//1. 이모티콘
-// - 프론트와 협의하 이모티콘 리스트는 자체 구현하는것으로 갈음
-// - 이모티콘 엔티티에 name 만 있으면 되므로 이모지 컬럼 및 관련 코드 삭제
-// - 이모티콘 테이블에 없는 이모티콘으로 등록 요청 시 새로 이모티콘 새로 등록
-//
-//2. 지역/교통
-// - 테이블에서 지역/교통 이름 수정
-// - 포스트에서 지역/교통 수정
-// - 삭제

@@ -37,4 +37,13 @@ public class Report extends BaseTimeEntity {
 
     @Enumerated(EnumType.STRING)
     private ReportStatus reportStatus;
+
+    public void complete() {
+        reportStatus = ReportStatus.COMPLETE;
+    }
+
+    public void keep() {
+        reportStatus = ReportStatus.KEEP;
+    }
+
 }
