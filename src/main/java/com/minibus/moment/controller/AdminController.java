@@ -60,6 +60,7 @@ public class AdminController {
     @DeleteMapping("delete/region")
     public void deleteRegion(@RequestBody RegionDto.Request request) {
         regionService.deleteRegionInTable(request.getRegion());
+    }
 
     private final BlindService blindService;
 
