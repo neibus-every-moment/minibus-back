@@ -9,13 +9,33 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class RegionDto {
+
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class Request {
+        private Integer id;
+        private String region;
+    }
+
     private Integer id;
-    private String Region;
+    private String region;
+
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class RequestIncludingPost {
+        private Integer id;
+        private String region;
+        private Long postId;
+    }
 
     public static RegionDto from(Region region) {
         return RegionDto.builder()
                 .id(region.getId())
-                .Region(region.getName())
+                .region(region.getName())
                 .build();
     }
 }

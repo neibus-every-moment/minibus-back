@@ -38,7 +38,7 @@ public class PostDto {
                 .content(post.getContent())
                 .region(post.getRegion().getName())
                 .transportation(post.getTransportation().getEmoji() + " " + post.getTransportation().getName())
-                .emoticon(post.getEmoticon().getEmoji() + " " + post.getEmoticon().getName())
+                .emoticon(post.getEmoticon().getName())
                 .imageList(post.getImageList().stream()
                         .map(Image::getPath)
                         .collect(Collectors.toList()))
