@@ -27,23 +27,26 @@ public class RegionService {
     // Todo  지역 추가, 업데이트, 삭제 메서드 구현
 
     // 지역 테이블에 새로운 지역 추가
-    public void newRegion(RegionDto regionDto) {
-        Region newRegion = Region.builder()
-                .name(regionDto.getRegion())
-                .build();
-        regionRepository.save(newRegion);
+    public boolean newRegion(RegionDto.Request request) {
+        if(!regionRepository.findByNameEquals(request.getRegion()).isPresent()) {
+            Region newRegion = Region.builder()
+                    .name(request.getRegion())
+                    .build();
+            regionRepository.save(newRegion);
+            return true;
+        } else return false;
     }
 
     // 지역 테이블의 지역 이름 변경
     @Transactional
-    public void editRegionNameInTable(RegionDto regionDto){
-        regionRepository.findById(regionDto.getId()).orElseThrow().builder().name(regionDto.getRegion()).build();
+    public void editRegionNameInTable(RegionDto.Request request){
+        regionRepository.findById(request.getId()).orElseThrow().builder().name(request.getRegion()).build();
     }
 
     // 포스트의 지역 변경
     @Transactional
-    public void editRegionInPost(Long postId, String region){
-        postRepository.findById(postId).orElseThrow().builder().region(regionRepository.findByNameEquals(region).orElseThrow()).build();
+    public void editRegionInPost(RegionDto.RequestIncludingPost request){
+        postRepository.findById(request.getPostId()).orElseThrow().builder().region(regionRepository.findByNameEquals(request.getRegion()).orElseThrow()).build();
     }
 
     // 지역 테이블에서 지역 삭제

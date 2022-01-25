@@ -27,27 +27,34 @@ public class TransportationService {
     // Todo 교통 수단 추가, 업데이트, 삭제 메서드 구현
 
     // 교통수단 테이블에 새로운 교통수단 추가
-    public void newTransportation(TransportationDto transportationDto) {
-        Transportation newTransportation = Transportation.builder()
-                .name(transportationDto.getTransportation())
-                .build();
-        transportationRepository.save(newTransportation);
+    public boolean newTransportation(TransportationDto.Request request) {
+        //Todo Validation
+        if(!transportationRepository.findByNameEquals(request.getTransportationName()).isPresent()) {
+            Transportation newTransportation = Transportation.builder()
+                    .name(request.getTransportationName())
+                    .emoji(request.getEmoji())
+                    .build();
+            transportationRepository.save(newTransportation);
+            return true;
+        } else return false;
     }
 
     // 교통수단 테이블의 교통수단 이름 변경
     @Transactional
-    public void editTransportationNameInTable(TransportationDto transportationDto){
-        transportationRepository.findById(transportationDto.getId()).orElseThrow().builder().name(transportationDto.getTransportation()).build();
+    public void editTransportationNameInTable(TransportationDto.Request request){
+        transportationRepository.findById(request.getId()).orElseThrow().builder()
+                .name(request.getTransportationName())
+                .build();
     }
 
     // 포스트의 교통수단 변경
     @Transactional
-    public void editTransportationInPost(Long postId, String transportation){
-        postRepository.findById(postId).orElseThrow().builder().transportation(transportationRepository.findByNameEquals(transportation).orElseThrow()).build();
+    public void editTransportationInPost(TransportationDto.RequestIncludingPost request){
+        postRepository.findById(request.getPostId()).orElseThrow().builder().transportation(transportationRepository.findByNameEquals(request.getTransportationName()).orElseThrow()).build();
     }
 
     // 교통수단 테이블에서 교통수단 삭제
-    public void deleteTransportationInTable(String transportation) {
-        transportationRepository.delete(transportationRepository.findByNameEquals(transportation).orElseThrow());
+    public void deleteTransportationInTable(TransportationDto.Request request) {
+        transportationRepository.delete(transportationRepository.findByNameEquals(request.getTransportationName()).orElseThrow());
     }
 }
