@@ -1,18 +1,11 @@
 package com.minibus.moment.controller;
 
 import com.minibus.moment.dto.api.*;
-import com.minibus.moment.exception.EmoticonNotFoundException;
-import com.minibus.moment.exception.PostNotFoundException;
-import com.minibus.moment.exception.RegionNotFoundException;
-import com.minibus.moment.exception.TransportationNotFoundException;
 import com.minibus.moment.service.EmoticonService;
 import com.minibus.moment.service.PostService;
 import com.minibus.moment.service.RegionService;
 import com.minibus.moment.service.TransportationService;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.TransientPropertyValueException;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/api")
@@ -41,18 +34,18 @@ public class PostController {
         return new GetReportReasonList.Response(postService.getReportReasonList());
     }
 
-    @PostMapping("/list/best")
-    public GetPostList.Response getPostListBest(@RequestBody GetPostList.Request request) {
+    @GetMapping("/list/best")
+    public GetPostList.Response getPostListBest(GetPostList.Request request) {
         return new GetPostList.Response(postService.getPostListBest(request));
     }
 
-    @PostMapping("/list/newest")
-    public GetPostList.Response getPostListNewest(@RequestBody GetPostList.Request request) {
+    @GetMapping("/list/newest")
+    public GetPostList.Response getPostListNewest(GetPostList.Request request) {
         return new GetPostList.Response(postService.getPostListNewest(request));
     }
 
     @PostMapping("/post/report")
-    public boolean reportPost(@RequestBody ReportPost.Request request){
+    public boolean reportPost(@RequestBody ReportPost.Request request) {
         return postService.reportPost(request);
     }
 
