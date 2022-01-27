@@ -28,6 +28,11 @@ public class PostController {
         return new GetRegionList.Response(regionService.getRegionList());
     }
 
+    @GetMapping("/emoticons")
+    public GetEmoticonList.Response getEmoticonList() {
+        return new GetEmoticonList.Response(emoticonService.getEmoticonList());
+    }
+
 
     @GetMapping("/reasons")
     public GetReportReasonList.Response getReportReasonList() {
