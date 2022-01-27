@@ -4,7 +4,6 @@ import com.minibus.moment.domain.emoticon.Emoticon;
 import com.minibus.moment.domain.emoticon.EmoticonRepository;
 import com.minibus.moment.domain.image.Image;
 import com.minibus.moment.domain.image.ImageRepository;
-import com.minibus.moment.domain.image.ImageUploader;
 import com.minibus.moment.domain.post.Post;
 import com.minibus.moment.domain.post.PostRepository;
 import com.minibus.moment.domain.region.Region;
@@ -25,17 +24,14 @@ import com.minibus.moment.dto.api.ReportPost;
 import com.minibus.moment.exception.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
-import java.time.LocalDate;
+import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static com.minibus.moment.type.PostStatus.VISIBLE;
@@ -163,7 +159,7 @@ public class PostService {
     }
 
     @Transactional
-    public Long createPost(CreatePost.Request request) {
+    public Long createPost(List<MultipartFile> multipartFileList, CreatePost.Request request) {
         Region region = regionRepository.findByNameEquals(request.getRegionName())
                 .orElseThrow(() -> new RegionNotFoundException("카테고리에서 지역을 선택해주세요.")
         );
@@ -173,7 +169,6 @@ public class PostService {
         Emoticon emoticon = emoticonRepository.findByNameEquals(request.getEmoticonName())
                 .orElseThrow(() -> new EmoticonNotFoundException("카테고리에서 이모티콘을 선택해주세요.")
         );
-
         Post post = Post.builder()
                 .content(request.getContent())
                 .region(region)
@@ -183,19 +178,31 @@ public class PostService {
                 .postStatus(VISIBLE)
                 .build();
         postRepository.save(post);
-
+//        if(request.getBase64Image() != null) {
+//            String[] list = request.getBase64Image().split(" ");
+//            String base64image = list[list.length - 1];
+//            String fileName = LocalDate.now() + "_" + post.getId();
+//            String imageUrl = ImageUploader.upload(base64image, fileName, "png");
+//            //
+//            Image image = Image.builder()
+//                    .post(post)
+//                    .path(imageUrl)
+//                    .build();
+//            imageRepository.save(image);
         // Todo 저장소에 실제 이미지를 저장하고 URL을 반환 하는 작업 구현 필요
-        if(request.getBase64Image() != null) {
-            String[] list = request.getBase64Image().split(" ");
-            String base64image = list[list.length - 1];
-            String fileName = LocalDate.now() + "_" + post.getId();
-            String imageUrl = ImageUploader.upload(base64image, fileName, "png");
-            //
-            Image image = Image.builder()
-                    .post(post)
-                    .path(imageUrl)
-                    .build();
-            imageRepository.save(image);
+        try{
+            String baseDir = "C:\\FACAM_DEV\\Github\\minibus-back\\build\\resources";
+            for(MultipartFile file: multipartFileList) {
+                String filePath = baseDir + "\\" + file.getOriginalFilename();
+                file.transferTo(new File(filePath));
+                Image saveImage = Image.builder()
+                        .path(filePath)
+                        .post(post)
+                        .build();
+                imageRepository.save(saveImage);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         return post.getId();
     }

@@ -1,19 +1,15 @@
 package com.minibus.moment.controller;
 
 import com.minibus.moment.dto.api.*;
-import com.minibus.moment.exception.EmoticonNotFoundException;
-import com.minibus.moment.exception.PostNotFoundException;
-import com.minibus.moment.exception.RegionNotFoundException;
-import com.minibus.moment.exception.TransportationNotFoundException;
 import com.minibus.moment.service.EmoticonService;
 import com.minibus.moment.service.PostService;
 import com.minibus.moment.service.RegionService;
 import com.minibus.moment.service.TransportationService;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.TransientPropertyValueException;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @RequestMapping("/api")
 @RequiredArgsConstructor
@@ -67,8 +63,10 @@ public class PostController {
     }
 
     @PostMapping("/post")
-    public CreatePost.Response createPost(@RequestBody CreatePost.Request request) {
-        return new CreatePost.Response(postService.createPost(request));
+    public CreatePost.Response createPost(
+            @RequestPart("img") List<MultipartFile> multipartFileList,
+            @RequestPart("request") CreatePost.Request request) {
+        return new CreatePost.Response(postService.createPost(multipartFileList, request));
     }
 
     @GetMapping("/post/{postId}")
