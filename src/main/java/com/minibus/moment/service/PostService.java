@@ -22,13 +22,13 @@ import com.minibus.moment.dto.api.CreatePost;
 import com.minibus.moment.dto.api.GetPostList;
 import com.minibus.moment.dto.api.ReportPost;
 import com.minibus.moment.exception.*;
+import com.minibus.moment.service.uploader.S3Uploader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
-import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -49,6 +49,7 @@ public class PostService {
     private final ReportRepository reportRepository;
     private final ReportReasonRepository reportReasonRepository;
     private final ReportEtcDetailRepository reportEtcDetailRepository;
+    private final S3Uploader s3Uploader;
 
     public List<ReportReasonDto> getReportReasonList() {
         return reportReasonRepository.findAll().stream()
@@ -152,7 +153,6 @@ public class PostService {
                     .report(report)
                     .content(request.getDetail())
                     .build();
-
             reportEtcDetailRepository.save(reportEtcDetail);
         }
         return true;
@@ -191,12 +191,9 @@ public class PostService {
 //            imageRepository.save(image);
         // Todo 저장소에 실제 이미지를 저장하고 URL을 반환 하는 작업 구현 필요
         try{
-            String baseDir = "C:\\FACAM_DEV\\Github\\minibus-back\\build\\resources";
             for(MultipartFile file: multipartFileList) {
-                String filePath = baseDir + "\\" + file.getOriginalFilename();
-                file.transferTo(new File(filePath));
                 Image saveImage = Image.builder()
-                        .path(filePath)
+                        .path(s3Uploader.upload(file, file.getOriginalFilename()))
                         .post(post)
                         .build();
                 imageRepository.save(saveImage);
