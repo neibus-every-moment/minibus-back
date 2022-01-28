@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -29,7 +30,7 @@ public class S3Uploader {
     }
 
     private String upload(File uploadFile, String fileName) {
-        String saveDirectory = "minibus-imange-testfolder" + "/" + fileName;
+        String saveDirectory = "minibus-imange-testfolder/" + LocalDateTime.now() + "_" + fileName;
         String uploadImageUrl = putS3(uploadFile, saveDirectory);
         removeNewFile(uploadFile);
         return uploadImageUrl;
