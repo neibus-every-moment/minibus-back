@@ -25,17 +25,12 @@ import com.minibus.moment.dto.api.ReportPost;
 import com.minibus.moment.exception.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static com.minibus.moment.type.PostStatus.VISIBLE;
@@ -62,26 +57,32 @@ public class PostService {
 
     public List<PostDto> getPostListNewest(GetPostList.Request request) {
         List<Post> postList;
-        String transportationString = request.getTransportationName();
-        String regionString = request.getRegionName();
+        List<String> transportationNameList = request.getTransportationName();
+        if (transportationNameList == null) {
+            transportationNameList = new ArrayList<>();
+        }
+        List<String> regionNameList = request.getRegionName();
+        if (regionNameList == null) {
+            regionNameList = new ArrayList<>();
+        }
         PageRequest pageRequest = PageRequest.of(request.getStart(), request.getSize());
 
-        if (transportationString == null && regionString == null) {
+        if (transportationNameList.isEmpty() && regionNameList.isEmpty()) {
             postList = postRepository.findAllByPostStatusEqualsOrderByCreatedAtDesc(
                     VISIBLE, pageRequest);
-        } else if (transportationString != null && regionString != null) {
-            List<Transportation> transportationList = mapToTransportation(transportationString);
-            List<Region> regionList = mapToRegion(regionString);
+        } else if (!transportationNameList.isEmpty() && !regionNameList.isEmpty()) {
+            List<Transportation> transportationList = mapToTransportation(transportationNameList);
+            List<Region> regionList = mapToRegion(regionNameList);
             postList = postRepository.findAllByPostStatusEqualsAndTransportationIsInAndRegionIsInOrderByCreatedAtDesc(
                     VISIBLE, transportationList, regionList, pageRequest
             );
-        } else if (transportationString != null) {
-            List<Transportation> transportationList = mapToTransportation(transportationString);
+        } else if (!transportationNameList.isEmpty()) {
+            List<Transportation> transportationList = mapToTransportation(transportationNameList);
             postList = postRepository.findAllByPostStatusEqualsAndTransportationIsInOrderByCreatedAtDesc(
                     VISIBLE, transportationList, pageRequest
             );
         } else {
-            List<Region> regionList = mapToRegion(regionString);
+            List<Region> regionList = mapToRegion(regionNameList);
             postList = postRepository.findAllByPostStatusEqualsAndRegionIsInOrderByCreatedAtDesc(
                     VISIBLE, regionList, pageRequest
             );
@@ -91,26 +92,32 @@ public class PostService {
 
     public List<PostDto> getPostListBest(GetPostList.Request request) {
         List<Post> postList;
-        String transportationString = request.getTransportationName();
-        String regionString = request.getRegionName();
+        List<String> transportationNameList = request.getTransportationName();
+        if (transportationNameList == null) {
+            transportationNameList = new ArrayList<>();
+        }
+        List<String> regionNameList = request.getRegionName();
+        if (regionNameList == null) {
+            regionNameList = new ArrayList<>();
+        }
         PageRequest pageRequest = PageRequest.of(request.getStart(), request.getSize());
 
-        if (transportationString == null && regionString == null) {
+        if (transportationNameList.isEmpty() && regionNameList.isEmpty()) {
             postList = postRepository.findAllByPostStatusEqualsOrderByLikeCountDesc(
                     VISIBLE, pageRequest);
-        } else if (transportationString != null && regionString != null) {
-            List<Transportation> transportationList = mapToTransportation(transportationString);
-            List<Region> regionList = mapToRegion(regionString);
+        } else if (!transportationNameList.isEmpty() && !regionNameList.isEmpty()) {
+            List<Transportation> transportationList = mapToTransportation(transportationNameList);
+            List<Region> regionList = mapToRegion(regionNameList);
             postList = postRepository.findAllByPostStatusEqualsAndTransportationIsInAndRegionIsInOrderByLikeCountDesc(
                     VISIBLE, transportationList, regionList, pageRequest
             );
-        } else if (transportationString != null) {
-            List<Transportation> transportationList = mapToTransportation(transportationString);
+        } else if (!transportationNameList.isEmpty()) {
+            List<Transportation> transportationList = mapToTransportation(transportationNameList);
             postList = postRepository.findAllByPostStatusEqualsAndTransportationIsInOrderByLikeCountDesc(
                     VISIBLE, transportationList, pageRequest
             );
         } else {
-            List<Region> regionList = mapToRegion(regionString);
+            List<Region> regionList = mapToRegion(regionNameList);
             postList = postRepository.findAllByPostStatusEqualsAndRegionIsInOrderByLikeCountDesc(
                     VISIBLE, regionList, pageRequest
             );
@@ -130,7 +137,7 @@ public class PostService {
     public boolean cancelLike(Long postId) {
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new PostNotFoundException("해당 포스트를 찾지 못했습니다.")
-        );
+                );
         post.downLikeCount();
         return true;
     }
@@ -139,10 +146,10 @@ public class PostService {
     public boolean reportPost(ReportPost.Request request) {
         ReportReason reportReason = reportReasonRepository.findById(request.getReportReasonId())
                 .orElseThrow(() -> new ReportReasonId("신고 사유가 존재하지 않습니다.")
-        );
+                );
         Post post = postRepository.findById(request.getId())
                 .orElseThrow(() -> new PostNotFoundException("해당 포스트를 찾지 못했습니다.")
-        );
+                );
 
         Report report = Report.builder()
                 .reportReason(reportReason)
@@ -165,14 +172,14 @@ public class PostService {
     @Transactional
     public Long createPost(CreatePost.Request request) {
         Region region = regionRepository.findByNameEquals(request.getRegionName())
-                .orElseThrow(() -> new RegionNotFoundException("카테고리에서 지역을 선택해주세요.")
-        );
+                .orElseThrow(() -> new RegionNotFoundException("해당 지역이 존재하지 않습니다.")
+                );
         Transportation transportation = transportRepository.findByNameEquals(request.getTransportationName())
-                .orElseThrow(() -> new TransportationNotFoundException("카테고리에서 교통 수단을 선택해주세요.")
-        );
+                .orElseThrow(() -> new TransportationNotFoundException("해당 교통수단이 존재하지 않습니다.")
+                );
         Emoticon emoticon = emoticonRepository.findByNameEquals(request.getEmoticonName())
-                .orElseThrow(() -> new EmoticonNotFoundException("카테고리에서 이모티콘을 선택해주세요.")
-        );
+                .orElseThrow(() -> new EmoticonNotFoundException("해당 이모티콘이 존재하지 않습니다.")
+                );
 
         Post post = Post.builder()
                 .content(request.getContent())
@@ -185,7 +192,7 @@ public class PostService {
         postRepository.save(post);
 
         // Todo 저장소에 실제 이미지를 저장하고 URL을 반환 하는 작업 구현 필요
-        if(request.getBase64Image() != null) {
+        if (request.getBase64Image() != null) {
             String[] list = request.getBase64Image().split(" ");
             String base64image = list[list.length - 1];
             String fileName = LocalDate.now() + "_" + post.getId();
@@ -206,18 +213,18 @@ public class PostService {
         return PostDto.from(post);
     }
 
-    public List<Transportation> mapToTransportation(String string) {
-        return Arrays.stream(string.split(",")).map(
-                t -> transportRepository.findByNameEquals(t)
-                        .orElseThrow(() -> new TransportationNotFoundException("하나 이상의 교통수단을 선택해주세요.")
+    public List<Transportation> mapToTransportation(List<String> list) {
+        return list.stream().map(
+                t -> transportRepository.findByNameEquals(t).orElseThrow(
+                        () -> new TransportationNotFoundException("해당 교통수단이 존재하지 않습니다.")
                 )
         ).collect(Collectors.toList());
     }
 
-    public List<Region> mapToRegion(String string) {
-        return Arrays.stream(string.split(",")).map(
-                r -> regionRepository.findByNameEquals(r)
-                        .orElseThrow(() -> new RegionNotFoundException("하나 이상의 지역을 선택해주세요.")
+    public List<Region> mapToRegion(List<String> list) {
+        return list.stream().map(
+                r -> regionRepository.findByNameEquals(r).orElseThrow(
+                        () -> new RegionNotFoundException("해당 지역이 존재하지 않습니다.")
                 )
         ).collect(Collectors.toList());
     }
