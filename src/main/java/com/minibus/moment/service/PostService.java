@@ -25,6 +25,7 @@ import com.minibus.moment.dto.api.ReportPost;
 import com.minibus.moment.exception.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.server.DelegatingServerHttpResponse;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -76,17 +77,18 @@ public class PostService {
             postList = postRepository.findAllByPostStatusEqualsAndTransportationIsInAndRegionIsInOrderByCreatedAtDesc(
                     VISIBLE, transportationList, regionList, pageRequest
             );
-        } else if (!transportationNameList.isEmpty()) {
+        } else if (!transportationNameList.isEmpty() && regionNameList.isEmpty()) {
             List<Transportation> transportationList = mapToTransportation(transportationNameList);
             postList = postRepository.findAllByPostStatusEqualsAndTransportationIsInOrderByCreatedAtDesc(
                     VISIBLE, transportationList, pageRequest
             );
-        } else {
+        } else if (transportationNameList.isEmpty() && !regionNameList.isEmpty()){
             List<Region> regionList = mapToRegion(regionNameList);
             postList = postRepository.findAllByPostStatusEqualsAndRegionIsInOrderByCreatedAtDesc(
                     VISIBLE, regionList, pageRequest
             );
         }
+        else return null;
         return postList.stream().map(PostDto::from).collect(Collectors.toList());
     }
 
@@ -111,17 +113,18 @@ public class PostService {
             postList = postRepository.findAllByPostStatusEqualsAndTransportationIsInAndRegionIsInOrderByLikeCountDesc(
                     VISIBLE, transportationList, regionList, pageRequest
             );
-        } else if (!transportationNameList.isEmpty()) {
+        } else if (!transportationNameList.isEmpty() && regionNameList.isEmpty()) {
             List<Transportation> transportationList = mapToTransportation(transportationNameList);
             postList = postRepository.findAllByPostStatusEqualsAndTransportationIsInOrderByLikeCountDesc(
                     VISIBLE, transportationList, pageRequest
             );
-        } else {
+        } else if (transportationNameList.isEmpty() && !regionNameList.isEmpty()) {
             List<Region> regionList = mapToRegion(regionNameList);
             postList = postRepository.findAllByPostStatusEqualsAndRegionIsInOrderByLikeCountDesc(
                     VISIBLE, regionList, pageRequest
             );
         }
+        else return null;
         return postList.stream().map(PostDto::from).collect(Collectors.toList());
     }
 
