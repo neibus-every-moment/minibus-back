@@ -57,7 +57,6 @@ public class OAuthAttributes {
                 .name(name)
                 .email(email)
                 .role(Role.USER)
-                .password(new BCryptPasswordEncoder().encode("비밀번호"))
                 .build();
     }
 }
