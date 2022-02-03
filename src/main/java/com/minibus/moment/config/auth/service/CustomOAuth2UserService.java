@@ -38,6 +38,7 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
         OAuth2UserService delegate = new DefaultOAuth2UserService();
         OAuth2User oAuth2User = delegate.loadUser(userRequest);
 
+        System.out.println("delegate = " + delegate);
         String registrationId = userRequest.getClientRegistration().getRegistrationId(); //플랫폼 확인(Google, kakao)
         String userNameAttributeName = userRequest.getClientRegistration() //구글: sub, 카카오: id
                 .getProviderDetails().getUserInfoEndpoint().getUserNameAttributeName();

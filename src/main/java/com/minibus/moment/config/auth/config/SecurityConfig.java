@@ -28,19 +28,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .headers().frameOptions().disable()
                 .and()
-                .authorizeRequests()
-                .antMatchers("/my-page/**").authenticated()
-                .anyRequest().permitAll()
+                    .authorizeRequests()
+                    .antMatchers("/css/**","/images/**","/js/**","h2-console/**").permitAll()
+                    .anyRequest().authenticated()
                 .and()
                 .logout()
-                .logoutSuccessUrl("/")
                 .and()
-                .formLogin()
-                .loginPage("/oauth-login")
-                .and()
-                .oauth2Login()
-                .defaultSuccessUrl("/login-success",true)
-                .userInfoEndpoint()
-                .userService(customOAuth2UserService);
+                    .oauth2Login()
+                    .userInfoEndpoint()
+                    .userService(customOAuth2UserService);
     }
 }

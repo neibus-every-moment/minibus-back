@@ -20,7 +20,7 @@ public class MinibusBackApplication {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**").allowedOrigins("http://front-server.com");
+                registry.addMapping("/**").allowedOrigins("http://localhost:3000");
             }
         };
     }

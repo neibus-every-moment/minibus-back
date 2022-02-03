@@ -17,7 +17,7 @@ public class User {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
-    private String username;
+    private String name;
 
     @JsonIgnore
     private String password;
@@ -28,7 +28,7 @@ public class User {
     private Role role;
 
     public User update(String name) {
-        this.username = name;
+        this.name = name;
         return this;
     }
 

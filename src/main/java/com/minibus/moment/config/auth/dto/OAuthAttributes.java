@@ -20,6 +20,7 @@ public class OAuthAttributes {
     private String nameAttributeKey;
     private String name;
     private String email;
+    private String provider;
 
     public static OAuthAttributes of(String registrationId,
                                      String userNameAttributeName,
@@ -53,7 +54,7 @@ public class OAuthAttributes {
 
     public User toEntity() {
         return User.builder()
-                .username(name)
+                .name(name)
                 .email(email)
                 .role(Role.USER)
                 .password(new BCryptPasswordEncoder().encode("비밀번호"))
