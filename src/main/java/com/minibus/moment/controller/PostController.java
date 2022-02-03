@@ -23,13 +23,18 @@ public class PostController {
         return new GetTransportationList.Response(transportationService.getTransportationList());
     }
 
-    @GetMapping("/regions")
+    @GetMapping("/region")
     public GetRegionList.Response getRegionList() {
         return new GetRegionList.Response(regionService.getRegionList());
     }
 
+    @GetMapping("/emoticon")
+    public GetEmoticonList.Response getEmoticonList() {
+        return new GetEmoticonList.Response(emoticonService.getEmoticonList());
+    }
 
-    @GetMapping("/reasons")
+
+    @GetMapping("/reason")
     public GetReportReasonList.Response getReportReasonList() {
         return new GetReportReasonList.Response(postService.getReportReasonList());
     }
