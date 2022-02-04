@@ -1,5 +1,6 @@
 package com.minibus.moment.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.minibus.moment.domain.image.Image;
 import com.minibus.moment.domain.post.Post;
 import lombok.*;
@@ -30,6 +31,7 @@ public class PostDto {
 
     private Long likeCount;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
     private LocalDateTime createdAt;
 
     public static PostDto from(Post post) {
