@@ -25,10 +25,13 @@ import com.minibus.moment.dto.api.ReportPost;
 import com.minibus.moment.exception.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.server.DelegatingServerHttpResponse;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ObjectUtils;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -57,74 +60,60 @@ public class PostService {
     }
 
     public List<PostDto> getPostListNewest(GetPostList.Request request) {
-        List<Post> postList;
-        List<String> transportationNameList = request.getTransportationName();
-        if (transportationNameList == null) {
-            transportationNameList = new ArrayList<>();
-        }
-        List<String> regionNameList = request.getRegionName();
-        if (regionNameList == null) {
-            regionNameList = new ArrayList<>();
-        }
-        PageRequest pageRequest = PageRequest.of(request.getStart(), request.getSize());
 
-        if (transportationNameList.isEmpty() && regionNameList.isEmpty()) {
+        List<Post> postList = new ArrayList<>();
+        List<String> transportationNameList = request.getTransportationName();
+        List<String> regionNameList = request.getRegionName();
+        PageRequest pageRequest = PageRequest.of(request.getStart(), request.getSize(), Sort.by(Sort.Order.desc("")));
+        if (ObjectUtils.isEmpty(transportationNameList) && ObjectUtils.isEmpty(regionNameList)) {
             postList = postRepository.findAllByPostStatusEqualsOrderByCreatedAtDesc(
                     VISIBLE, pageRequest);
-        } else if (!transportationNameList.isEmpty() && !regionNameList.isEmpty()) {
+        } else if (!ObjectUtils.isEmpty(transportationNameList) && !ObjectUtils.isEmpty(regionNameList)) {
             List<Transportation> transportationList = mapToTransportation(transportationNameList);
             List<Region> regionList = mapToRegion(regionNameList);
             postList = postRepository.findAllByPostStatusEqualsAndTransportationIsInAndRegionIsInOrderByCreatedAtDesc(
                     VISIBLE, transportationList, regionList, pageRequest
             );
-        } else if (!transportationNameList.isEmpty() && regionNameList.isEmpty()) {
+        } else if (!ObjectUtils.isEmpty(transportationNameList) && ObjectUtils.isEmpty(regionNameList)) {
             List<Transportation> transportationList = mapToTransportation(transportationNameList);
             postList = postRepository.findAllByPostStatusEqualsAndTransportationIsInOrderByCreatedAtDesc(
                     VISIBLE, transportationList, pageRequest
             );
-        } else if (transportationNameList.isEmpty() && !regionNameList.isEmpty()){
+        } else if (ObjectUtils.isEmpty(transportationNameList) && !ObjectUtils.isEmpty(regionNameList)){
             List<Region> regionList = mapToRegion(regionNameList);
             postList = postRepository.findAllByPostStatusEqualsAndRegionIsInOrderByCreatedAtDesc(
                     VISIBLE, regionList, pageRequest
             );
         }
-        else return null;
         return postList.stream().map(PostDto::from).collect(Collectors.toList());
     }
 
     public List<PostDto> getPostListBest(GetPostList.Request request) {
-        List<Post> postList;
+        List<Post> postList = new ArrayList<>();
         List<String> transportationNameList = request.getTransportationName();
-        if (transportationNameList == null) {
-            transportationNameList = new ArrayList<>();
-        }
         List<String> regionNameList = request.getRegionName();
-        if (regionNameList == null) {
-            regionNameList = new ArrayList<>();
-        }
         PageRequest pageRequest = PageRequest.of(request.getStart(), request.getSize());
-
-        if (transportationNameList.isEmpty() && regionNameList.isEmpty()) {
+        if (ObjectUtils.isEmpty(transportationNameList) && ObjectUtils.isEmpty(regionNameList)) {
             postList = postRepository.findAllByPostStatusEqualsOrderByLikeCountDesc(
                     VISIBLE, pageRequest);
-        } else if (!transportationNameList.isEmpty() && !regionNameList.isEmpty()) {
+        } else if (!ObjectUtils.isEmpty(transportationNameList) && !ObjectUtils.isEmpty(regionNameList)) {
             List<Transportation> transportationList = mapToTransportation(transportationNameList);
             List<Region> regionList = mapToRegion(regionNameList);
             postList = postRepository.findAllByPostStatusEqualsAndTransportationIsInAndRegionIsInOrderByLikeCountDesc(
                     VISIBLE, transportationList, regionList, pageRequest
             );
-        } else if (!transportationNameList.isEmpty() && regionNameList.isEmpty()) {
+
+        } else if (!ObjectUtils.isEmpty(transportationNameList) && ObjectUtils.isEmpty(regionNameList)) {
             List<Transportation> transportationList = mapToTransportation(transportationNameList);
             postList = postRepository.findAllByPostStatusEqualsAndTransportationIsInOrderByLikeCountDesc(
                     VISIBLE, transportationList, pageRequest
             );
-        } else if (transportationNameList.isEmpty() && !regionNameList.isEmpty()) {
+        } else if (ObjectUtils.isEmpty(transportationNameList) && !ObjectUtils.isEmpty(regionNameList)){
             List<Region> regionList = mapToRegion(regionNameList);
             postList = postRepository.findAllByPostStatusEqualsAndRegionIsInOrderByLikeCountDesc(
                     VISIBLE, regionList, pageRequest
             );
         }
-        else return null;
         return postList.stream().map(PostDto::from).collect(Collectors.toList());
     }
 
