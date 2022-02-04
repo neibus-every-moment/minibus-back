@@ -30,7 +30,7 @@ public class S3Uploader {
     }
 
     private String upload(File uploadFile, String fileName) {
-        String saveDirectory = "minibus-imange-testfolder/" + LocalDateTime.now() + "_" + fileName;
+        String saveDirectory = "minibus-image-testfolder/" + LocalDateTime.now() + "_" + fileName;
         String uploadImageUrl = putS3(uploadFile, saveDirectory);
         removeNewFile(uploadFile);
         return uploadImageUrl;

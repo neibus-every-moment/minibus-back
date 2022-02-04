@@ -28,15 +28,14 @@ import org.springframework.data.domain.PageRequest;
 
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
-import java.util.Arrays;
+
 import org.springframework.data.domain.Sort;
-import org.springframework.http.server.DelegatingServerHttpResponse;
 import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
-import java.time.LocalDate;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -186,18 +185,6 @@ public class PostService {
                 .postStatus(VISIBLE)
                 .build();
         postRepository.save(post);
-//        if(request.getBase64Image() != null) {
-//            String[] list = request.getBase64Image().split(" ");
-//            String base64image = list[list.length - 1];
-//            String fileName = LocalDate.now() + "_" + post.getId();
-//            String imageUrl = ImageUploader.upload(base64image, fileName, "png");
-//            //
-//            Image image = Image.builder()
-//                    .post(post)
-//                    .path(imageUrl)
-//                    .build();
-//            imageRepository.save(image);
-        // Todo 저장소에 실제 이미지를 저장하고 URL을 반환 하는 작업 구현 필요
 
         try{
             for(MultipartFile file: multipartFileList) {
