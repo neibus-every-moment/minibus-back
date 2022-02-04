@@ -40,7 +40,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.minibus.moment.type.PostStatus.VISIBLE;
+import static com.minibus.moment.type.Status.VISIBLE;
 import static com.minibus.moment.type.ReportStatus.BEFORE;
 
 @Service
@@ -70,22 +70,22 @@ public class PostService {
         List<String> regionNameList = request.getRegionName();
         PageRequest pageRequest = PageRequest.of(request.getStart(), request.getSize(), Sort.by(Sort.Order.desc("")));
         if (ObjectUtils.isEmpty(transportationNameList) && ObjectUtils.isEmpty(regionNameList)) {
-            postList = postRepository.findAllByPostStatusEqualsOrderByCreatedAtDesc(
+            postList = postRepository.findAllByStatusEqualsOrderByCreatedAtDesc(
                     VISIBLE, pageRequest);
         } else if (!ObjectUtils.isEmpty(transportationNameList) && !ObjectUtils.isEmpty(regionNameList)) {
             List<Transportation> transportationList = mapToTransportation(transportationNameList);
             List<Region> regionList = mapToRegion(regionNameList);
-            postList = postRepository.findAllByPostStatusEqualsAndTransportationIsInAndRegionIsInOrderByCreatedAtDesc(
+            postList = postRepository.findAllByStatusEqualsAndTransportationIsInAndRegionIsInOrderByCreatedAtDesc(
                     VISIBLE, transportationList, regionList, pageRequest
             );
         } else if (!ObjectUtils.isEmpty(transportationNameList) && ObjectUtils.isEmpty(regionNameList)) {
             List<Transportation> transportationList = mapToTransportation(transportationNameList);
-            postList = postRepository.findAllByPostStatusEqualsAndTransportationIsInOrderByCreatedAtDesc(
+            postList = postRepository.findAllByStatusEqualsAndTransportationIsInOrderByCreatedAtDesc(
                     VISIBLE, transportationList, pageRequest
             );
         } else if (ObjectUtils.isEmpty(transportationNameList) && !ObjectUtils.isEmpty(regionNameList)){
             List<Region> regionList = mapToRegion(regionNameList);
-            postList = postRepository.findAllByPostStatusEqualsAndRegionIsInOrderByCreatedAtDesc(
+            postList = postRepository.findAllByStatusEqualsAndRegionIsInOrderByCreatedAtDesc(
                     VISIBLE, regionList, pageRequest
             );
         }
@@ -98,44 +98,27 @@ public class PostService {
         List<String> regionNameList = request.getRegionName();
         PageRequest pageRequest = PageRequest.of(request.getStart(), request.getSize());
         if (ObjectUtils.isEmpty(transportationNameList) && ObjectUtils.isEmpty(regionNameList)) {
-            postList = postRepository.findAllByPostStatusEqualsOrderByLikeCountDesc(
+            postList = postRepository.findAllByStatusEqualsOrderByLikeCountDesc(
                     VISIBLE, pageRequest);
         } else if (!ObjectUtils.isEmpty(transportationNameList) && !ObjectUtils.isEmpty(regionNameList)) {
             List<Transportation> transportationList = mapToTransportation(transportationNameList);
             List<Region> regionList = mapToRegion(regionNameList);
-            postList = postRepository.findAllByPostStatusEqualsAndTransportationIsInAndRegionIsInOrderByLikeCountDesc(
+            postList = postRepository.findAllByStatusEqualsAndTransportationIsInAndRegionIsInOrderByLikeCountDesc(
                     VISIBLE, transportationList, regionList, pageRequest
             );
 
         } else if (!ObjectUtils.isEmpty(transportationNameList) && ObjectUtils.isEmpty(regionNameList)) {
             List<Transportation> transportationList = mapToTransportation(transportationNameList);
-            postList = postRepository.findAllByPostStatusEqualsAndTransportationIsInOrderByLikeCountDesc(
+            postList = postRepository.findAllByStatusEqualsAndTransportationIsInOrderByLikeCountDesc(
                     VISIBLE, transportationList, pageRequest
             );
         } else if (ObjectUtils.isEmpty(transportationNameList) && !ObjectUtils.isEmpty(regionNameList)){
             List<Region> regionList = mapToRegion(regionNameList);
-            postList = postRepository.findAllByPostStatusEqualsAndRegionIsInOrderByLikeCountDesc(
+            postList = postRepository.findAllByStatusEqualsAndRegionIsInOrderByLikeCountDesc(
                     VISIBLE, regionList, pageRequest
             );
         }
         return postList.stream().map(PostDto::from).collect(Collectors.toList());
-    }
-
-    @Transactional
-    public boolean like(Long postId) {
-        Post post = postRepository.findById(postId)
-                .orElseThrow(() -> new PostNotFoundException("해당 포스트를 찾지 못했습니다."));
-        post.upLikeCount();
-        return true;
-    }
-
-    @Transactional
-    public boolean cancelLike(Long postId) {
-        Post post = postRepository.findById(postId)
-                .orElseThrow(() -> new PostNotFoundException("해당 포스트를 찾지 못했습니다.")
-                );
-        post.downLikeCount();
-        return true;
     }
 
     @Transactional
@@ -182,7 +165,7 @@ public class PostService {
                 .emoticon(emoticon)
                 .transportation(transportation)
                 .likeCount(0L)
-                .postStatus(VISIBLE)
+                .status(VISIBLE)
                 .build();
         postRepository.save(post);
 

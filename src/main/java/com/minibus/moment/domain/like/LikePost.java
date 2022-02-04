@@ -1,9 +1,8 @@
-package com.minibus.moment.domain.comment;
+package com.minibus.moment.domain.like;
 
 import com.minibus.moment.domain.BaseTimeEntity;
 import com.minibus.moment.domain.post.Post;
 import com.minibus.moment.domain.user.User;
-import com.minibus.moment.type.Status;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -16,23 +15,17 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "COMMENT")
-public class Comment extends BaseTimeEntity {
-
+@Table(name = "LIKE_POST")
+public class LikePost extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String content;
-
     @ManyToOne
-    @JoinColumn(name = "USER_ID")
+    @JoinColumn
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "POST_ID")
+    @JoinColumn
     private Post post;
-
-    private Status status;
-
 }

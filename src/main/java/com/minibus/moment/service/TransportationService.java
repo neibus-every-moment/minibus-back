@@ -32,7 +32,6 @@ public class TransportationService {
         if(!transportationRepository.findByNameEquals(request.getTransportationName()).isPresent()) {
             Transportation newTransportation = Transportation.builder()
                     .name(request.getTransportationName())
-                    .emoji(request.getEmoji())
                     .build();
             transportationRepository.save(newTransportation);
             return true;

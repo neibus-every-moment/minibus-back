@@ -57,15 +57,6 @@ public class PostController {
         return postService.reportPost(request);
     }
 
-    @PutMapping("/post/{postId}/like")
-    public boolean likePost(@PathVariable Long postId) {
-        return postService.like(postId);
-    }
-
-    @PutMapping("/post/{postId}/cancel")
-    public boolean cancelLikePost(@PathVariable Long postId) {
-        return postService.cancelLike(postId);
-    }
 
     @PostMapping("/post")
     public CreatePost.Response createPost(
