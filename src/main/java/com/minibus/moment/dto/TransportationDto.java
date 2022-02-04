@@ -16,7 +16,6 @@ public class TransportationDto {
     @AllArgsConstructor
     public static class Request {
         private Integer id;
-        private String emoji;
         private String transportationName;
     }
 
@@ -26,7 +25,6 @@ public class TransportationDto {
     @AllArgsConstructor
     public static class RequestIncludingPost {
         private Integer id;
-        private String emoji;
         private String transportationName;
         private Long postId;
     }
@@ -38,7 +36,7 @@ public class TransportationDto {
     public static TransportationDto from(Transportation transportation) {
         return TransportationDto.builder()
                 .id(transportation.getId())
-                .transportation(transportation.getEmoji() + " " + transportation.getName())
+                .transportation(transportation.getName())
                 .build();
     }
 }

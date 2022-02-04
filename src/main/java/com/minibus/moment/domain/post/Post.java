@@ -6,7 +6,8 @@ import com.minibus.moment.domain.image.Image;
 import com.minibus.moment.domain.region.Region;
 import com.minibus.moment.domain.report.Report;
 import com.minibus.moment.domain.transportation.Transportation;
-import com.minibus.moment.type.PostStatus;
+import com.minibus.moment.domain.user.User;
+import com.minibus.moment.type.Status;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -16,8 +17,8 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.minibus.moment.type.PostStatus.BLIND;
-import static com.minibus.moment.type.PostStatus.VISIBLE;
+import static com.minibus.moment.type.Status.BLIND;
+import static com.minibus.moment.type.Status.VISIBLE;
 
 
 @Getter
@@ -32,6 +33,10 @@ public class Post extends BaseTimeEntity {
     private Long id;
 
     private String content;
+
+    @ManyToOne
+    @JoinColumn(name = "USER_ID")
+    private User user;
 
     @ManyToOne
     @JoinColumn(name = "REGION_ID")
@@ -54,21 +59,13 @@ public class Post extends BaseTimeEntity {
     private List<Report> reportList = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
-    private PostStatus postStatus;
-
-    public void upLikeCount() {
-        likeCount = getLikeCount() + 1L;
-    }
-
-    public void downLikeCount() {
-        likeCount = getLikeCount() - 1L;
-    }
+    private Status status;
 
     public void blind() {
-        postStatus = BLIND;
+        status = BLIND;
     }
 
     public void restore(){
-        postStatus = VISIBLE;
+        status = VISIBLE;
     }
 }

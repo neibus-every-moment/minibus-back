@@ -10,11 +10,13 @@ spring:
     password:
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: create-drop
     show-sql: true
     defer-datasource-initialization: true
   sql:
     init:
       platform: h2
+  servlet:
+    multipart:
 server:
   port: 8080

@@ -7,6 +7,9 @@ import com.minibus.moment.service.RegionService;
 import com.minibus.moment.service.TransportationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @RequestMapping("/api")
 @RequiredArgsConstructor
@@ -23,13 +26,18 @@ public class PostController {
         return new GetTransportationList.Response(transportationService.getTransportationList());
     }
 
-    @GetMapping("/regions")
+    @GetMapping("/region")
     public GetRegionList.Response getRegionList() {
         return new GetRegionList.Response(regionService.getRegionList());
     }
 
+    @GetMapping("/emoticon")
+    public GetEmoticonList.Response getEmoticonList() {
+        return new GetEmoticonList.Response(emoticonService.getEmoticonList());
+    }
 
-    @GetMapping("/reasons")
+
+    @GetMapping("/reason")
     public GetReportReasonList.Response getReportReasonList() {
         return new GetReportReasonList.Response(postService.getReportReasonList());
     }
@@ -49,19 +57,12 @@ public class PostController {
         return postService.reportPost(request);
     }
 
-    @PutMapping("/post/{postId}/like")
-    public boolean likePost(@PathVariable Long postId) {
-        return postService.like(postId);
-    }
-
-    @PutMapping("/post/{postId}/cancel")
-    public boolean cancelLikePost(@PathVariable Long postId) {
-        return postService.cancelLike(postId);
-    }
 
     @PostMapping("/post")
-    public CreatePost.Response createPost(@RequestBody CreatePost.Request request) {
-        return new CreatePost.Response(postService.createPost(request));
+    public CreatePost.Response createPost(
+            @RequestPart("img") List<MultipartFile> multipartFileList,
+            @RequestPart("request") CreatePost.Request request) {
+        return new CreatePost.Response(postService.createPost(multipartFileList, request));
     }
 
     @GetMapping("/post/{postId}")
