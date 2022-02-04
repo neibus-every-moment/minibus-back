@@ -19,6 +19,7 @@ public class GetPostList {
         private Integer size;
         private List<String> transportationName;
         private List<String> regionName;
+        private String sorting;
     }
 
     @Getter
