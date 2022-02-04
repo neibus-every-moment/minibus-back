@@ -19,6 +19,8 @@ public class CommentDto {
 
     private Long id;
 
+    private UserDto user;
+
     private String content;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
@@ -27,6 +29,7 @@ public class CommentDto {
     public static CommentDto from(Comment comment){
         return CommentDto.builder()
                 .id(comment.getId())
+                .user(UserDto.toDto(comment.getUser()))
                 .content(comment.getContent())
                 .createdAt(comment.getCreatedAt())
                 .build();

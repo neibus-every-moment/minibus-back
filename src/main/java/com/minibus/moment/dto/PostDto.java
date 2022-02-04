@@ -19,13 +19,13 @@ public class PostDto {
 
     private Long id;
 
+    private UserDto user;
+
     private String content;
 
     private String transportation;
 
     private String region;
-
-    private String emoticon;
 
     private List<String> imageList;
 
@@ -37,10 +37,10 @@ public class PostDto {
     public static PostDto from(Post post) {
         return PostDto.builder()
                 .id(post.getId())
+                .user(UserDto.toDto(post.getUser()))
                 .content(post.getContent())
                 .region(post.getRegion().getName())
                 .transportation(post.getTransportation().getName())
-                .emoticon(post.getEmoticon().getName())
                 .imageList(post.getImageList().stream()
                         .map(Image::getPath)
                         .collect(Collectors.toList()))

@@ -1,7 +1,6 @@
 package com.minibus.moment.domain.post;
 
 import com.minibus.moment.domain.BaseTimeEntity;
-import com.minibus.moment.domain.emoticon.Emoticon;
 import com.minibus.moment.domain.image.Image;
 import com.minibus.moment.domain.region.Region;
 import com.minibus.moment.domain.report.Report;
@@ -46,10 +45,6 @@ public class Post extends BaseTimeEntity {
     @JoinColumn(name = "TRANSPORT_ID")
     private Transportation transportation;
 
-    @ManyToOne
-    @JoinColumn(name = "EMOTICON_ID")
-    private Emoticon emoticon;
-
     private Long likeCount;
 
     @OneToMany(mappedBy = "post")
@@ -60,6 +55,11 @@ public class Post extends BaseTimeEntity {
 
     @Enumerated(EnumType.STRING)
     private Status status;
+
+    public Long update(String content) {
+        this.content = content;
+        return id;
+    }
 
     public void blind() {
         status = BLIND;

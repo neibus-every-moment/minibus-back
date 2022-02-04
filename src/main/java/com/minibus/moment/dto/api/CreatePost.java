@@ -13,11 +13,10 @@ public class CreatePost {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class Request {
+        private Long userId;
         private String content;
         private String regionName;
         private String transportationName;
-        private String emoticonName;
-        private String base64Image;
     }
 
     @Getter

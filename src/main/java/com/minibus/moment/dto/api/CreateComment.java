@@ -13,6 +13,7 @@ public class CreateComment {
     @AllArgsConstructor
     public static class Request{
         private Long postId;
+        private Long userId;
         private String content;
     }
 
