@@ -4,7 +4,6 @@ import com.minibus.moment.domain.emoticon.Emoticon;
 import com.minibus.moment.domain.emoticon.EmoticonRepository;
 import com.minibus.moment.domain.image.Image;
 import com.minibus.moment.domain.image.ImageRepository;
-import com.minibus.moment.domain.image.ImageUploader;
 import com.minibus.moment.domain.post.Post;
 import com.minibus.moment.domain.post.PostRepository;
 import com.minibus.moment.domain.region.Region;
@@ -23,8 +22,13 @@ import com.minibus.moment.dto.api.CreatePost;
 import com.minibus.moment.dto.api.GetPostList;
 import com.minibus.moment.dto.api.ReportPost;
 import com.minibus.moment.exception.*;
+import com.minibus.moment.service.uploader.S3Uploader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
+
+import org.springframework.web.multipart.MultipartFile;
+import java.io.IOException;
+import java.util.Arrays;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.server.DelegatingServerHttpResponse;
 import org.springframework.stereotype.Service;
@@ -52,6 +56,7 @@ public class PostService {
     private final ReportRepository reportRepository;
     private final ReportReasonRepository reportReasonRepository;
     private final ReportEtcDetailRepository reportEtcDetailRepository;
+    private final S3Uploader s3Uploader;
 
     public List<ReportReasonDto> getReportReasonList() {
         return reportReasonRepository.findAll().stream()
@@ -155,14 +160,13 @@ public class PostService {
                     .report(report)
                     .content(request.getDetail())
                     .build();
-
             reportEtcDetailRepository.save(reportEtcDetail);
         }
         return true;
     }
 
     @Transactional
-    public Long createPost(CreatePost.Request request) {
+    public Long createPost(List<MultipartFile> multipartFileList, CreatePost.Request request) {
         Region region = regionRepository.findByNameEquals(request.getRegionName())
                 .orElseThrow(() -> new RegionNotFoundException("해당 지역이 존재하지 않습니다.")
                 );
@@ -170,9 +174,9 @@ public class PostService {
                 .orElseThrow(() -> new TransportationNotFoundException("해당 교통수단이 존재하지 않습니다.")
                 );
         Emoticon emoticon = emoticonRepository.findByNameEquals(request.getEmoticonName())
+
                 .orElseThrow(() -> new EmoticonNotFoundException("해당 이모티콘이 존재하지 않습니다.")
                 );
-
         Post post = Post.builder()
                 .content(request.getContent())
                 .region(region)
@@ -182,19 +186,30 @@ public class PostService {
                 .postStatus(VISIBLE)
                 .build();
         postRepository.save(post);
-
+//        if(request.getBase64Image() != null) {
+//            String[] list = request.getBase64Image().split(" ");
+//            String base64image = list[list.length - 1];
+//            String fileName = LocalDate.now() + "_" + post.getId();
+//            String imageUrl = ImageUploader.upload(base64image, fileName, "png");
+//            //
+//            Image image = Image.builder()
+//                    .post(post)
+//                    .path(imageUrl)
+//                    .build();
+//            imageRepository.save(image);
         // Todo 저장소에 실제 이미지를 저장하고 URL을 반환 하는 작업 구현 필요
-        if (request.getBase64Image() != null) {
-            String[] list = request.getBase64Image().split(" ");
-            String base64image = list[list.length - 1];
-            String fileName = LocalDate.now() + "_" + post.getId();
-            String imageUrl = ImageUploader.upload(base64image, fileName, "png");
-            //
-            Image image = Image.builder()
-                    .post(post)
-                    .path(imageUrl)
-                    .build();
-            imageRepository.save(image);
+
+        try{
+            for(MultipartFile file: multipartFileList) {
+                Image saveImage = Image.builder()
+                        .path(s3Uploader.upload(file, file.getOriginalFilename()))
+                        .post(post)
+                        .build();
+                imageRepository.save(saveImage);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+
         }
         return post.getId();
     }

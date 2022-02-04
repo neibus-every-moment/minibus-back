@@ -7,6 +7,9 @@ import com.minibus.moment.service.RegionService;
 import com.minibus.moment.service.TransportationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @RequestMapping("/api")
 @RequiredArgsConstructor
@@ -65,8 +68,10 @@ public class PostController {
     }
 
     @PostMapping("/post")
-    public CreatePost.Response createPost(@RequestBody CreatePost.Request request) {
-        return new CreatePost.Response(postService.createPost(request));
+    public CreatePost.Response createPost(
+            @RequestPart("img") List<MultipartFile> multipartFileList,
+            @RequestPart("request") CreatePost.Request request) {
+        return new CreatePost.Response(postService.createPost(multipartFileList, request));
     }
 
     @GetMapping("/post/{postId}")
