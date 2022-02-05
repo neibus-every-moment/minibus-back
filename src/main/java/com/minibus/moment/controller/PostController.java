@@ -53,11 +53,11 @@ public class PostController {
     }
 
     @PutMapping("/post/{postId}")
-    public Long updatePost(
+    public UpdatePost.Response updatePost(
             @PathVariable Long postId,
             @RequestBody UpdatePost.Request request
     ) {
-        return postService.updatePost(postId, request.getContent());
+        return new UpdatePost.Response(postService.updatePost(postId, request.getContent()));
     }
 
     @DeleteMapping("/post/{postId}")

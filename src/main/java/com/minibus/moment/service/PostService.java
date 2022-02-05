@@ -65,8 +65,8 @@ public class PostService {
     public List<PostDto> getPostList(GetPostList.Request request) {
 
         List<Post> postList = new ArrayList<>();
-        List<String> transportationNameList = request.getTransportationName();
-        List<String> regionNameList = request.getRegionName();
+        List<String> transportationNameList = request.getTransportation();
+        List<String> regionNameList = request.getRegion();
         PageRequest pageRequest = PageRequest.of(
                 request.getStart(),
                 request.getSize(),
@@ -126,7 +126,7 @@ public class PostService {
         ReportReason reportReason = reportReasonRepository.findById(request.getReportReasonId())
                 .orElseThrow(() -> new ReportReasonNotFoundException("신고 사유가 존재하지 않습니다.")
                 );
-        Post post = postRepository.findById(request.getId())
+        Post post = postRepository.findById(request.getPostId())
                 .orElseThrow(() -> new PostNotFoundException("해당 포스트를 찾지 못했습니다.")
                 );
 
@@ -149,10 +149,10 @@ public class PostService {
 
     @Transactional
     public Long createPost(List<MultipartFile> multipartFileList, CreatePost.Request request) {
-        Region region = regionRepository.findByNameEquals(request.getRegionName())
+        Region region = regionRepository.findByNameEquals(request.getRegion())
                 .orElseThrow(() -> new RegionNotFoundException("해당 지역이 존재하지 않습니다.")
                 );
-        Transportation transportation = transportRepository.findByNameEquals(request.getTransportationName())
+        Transportation transportation = transportRepository.findByNameEquals(request.getTransportation())
                 .orElseThrow(() -> new TransportationNotFoundException("해당 교통수단이 존재하지 않습니다.")
                 );
 

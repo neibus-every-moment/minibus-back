@@ -1,6 +1,7 @@
 package com.minibus.moment.domain.post;
 
 import com.minibus.moment.domain.BaseTimeEntity;
+import com.minibus.moment.domain.comment.Comment;
 import com.minibus.moment.domain.image.Image;
 import com.minibus.moment.domain.region.Region;
 import com.minibus.moment.domain.report.Report;
@@ -49,6 +50,9 @@ public class Post extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "post")
     private List<Image> imageList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "post")
+    private List<Comment> commentList = new ArrayList<>();
 
     @OneToMany(mappedBy = "post")
     private List<Report> reportList = new ArrayList<>();

@@ -20,7 +20,7 @@ public class RegionDto {
     }
 
     private Integer id;
-    private String region;
+    private String name;
 
     @Getter
     @Setter
@@ -35,7 +35,7 @@ public class RegionDto {
     public static RegionDto from(Region region) {
         return RegionDto.builder()
                 .id(region.getId())
-                .region(region.getName())
+                .name(region.getName())
                 .build();
     }
 }

@@ -11,4 +11,12 @@ public class UpdatePost {
     public static class Request{
         private String content;
     }
+
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class Response{
+        private Long data;
+    }
 }

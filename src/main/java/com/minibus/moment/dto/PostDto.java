@@ -27,25 +27,32 @@ public class PostDto {
 
     private String region;
 
-    private List<String> imageList;
+    private List<ImageDto> images;
 
     private Long likeCount;
+
+    private Integer commentCount;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
     private LocalDateTime createdAt;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
+    private LocalDateTime updatedAt;
+
     public static PostDto from(Post post) {
         return PostDto.builder()
                 .id(post.getId())
-                .user(UserDto.toDto(post.getUser()))
+                .user(UserDto.from(post.getUser()))
                 .content(post.getContent())
                 .region(post.getRegion().getName())
                 .transportation(post.getTransportation().getName())
-                .imageList(post.getImageList().stream()
-                        .map(Image::getPath)
+                .images(post.getImageList().stream()
+                        .map(ImageDto::from)
                         .collect(Collectors.toList()))
                 .likeCount(post.getLikeCount())
+                .commentCount(post.getCommentList().size())
                 .createdAt(post.getCreatedAt())
+                .updatedAt(post.getUpdatedAt())
                 .build();
     }
 }

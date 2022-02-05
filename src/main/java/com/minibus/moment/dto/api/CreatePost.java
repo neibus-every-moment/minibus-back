@@ -15,8 +15,8 @@ public class CreatePost {
     public static class Request {
         private Long userId;
         private String content;
-        private String regionName;
-        private String transportationName;
+        private String region;
+        private String transportation;
     }
 
     @Getter
