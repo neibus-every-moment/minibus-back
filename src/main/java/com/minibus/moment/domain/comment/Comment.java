@@ -36,4 +36,8 @@ public class Comment extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     private Status status;
 
+    public Long update(String content) {
+        this.content = content;
+        return id;
+    }
 }
