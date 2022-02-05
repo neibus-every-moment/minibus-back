@@ -30,13 +30,12 @@ public class TransportationDto {
     }
 
     private Integer id;
-
-    private String transportation; // = 이모티콘 + 이름
+    private String name;
 
     public static TransportationDto from(Transportation transportation) {
         return TransportationDto.builder()
                 .id(transportation.getId())
-                .transportation(transportation.getName())
+                .name(transportation.getName())
                 .build();
     }
 }
