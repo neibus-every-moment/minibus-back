@@ -8,10 +8,7 @@ import com.minibus.moment.domain.report.Report;
 import com.minibus.moment.domain.transportation.Transportation;
 import com.minibus.moment.domain.user.User;
 import com.minibus.moment.type.Status;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -20,7 +17,7 @@ import java.util.List;
 import static com.minibus.moment.type.Status.BLIND;
 import static com.minibus.moment.type.Status.VISIBLE;
 
-
+@Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
