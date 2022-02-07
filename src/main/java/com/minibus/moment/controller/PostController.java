@@ -21,12 +21,12 @@ public class PostController {
 
     @GetMapping("/transportations")
     public GetTransportationList.Response getTransportationList() {
-        return new GetTransportationList.Response(transportationService.getTransportationList());
+        return GetTransportationList.Response.toResponse(transportationService.getTransportationList());
     }
 
     @GetMapping("/regions")
     public GetRegionList.Response getRegionList() {
-        return new GetRegionList.Response(regionService.getRegionList());
+        return GetRegionList.Response.toResponse(regionService.getRegionList());
     }
 
 
