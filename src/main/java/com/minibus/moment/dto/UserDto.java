@@ -11,14 +11,14 @@ import lombok.*;
 public class UserDto {
 
     private Long id;
-    private String email;
+//    private String email;
     private String avatar;
     private String nickname;
 
     public static UserDto from(User user){
         return UserDto.builder()
                 .id(user.getId())
-                .email(user.getEmail())
+//                .email(user.getEmail())
                 .avatar(user.getProfileImage())
                 .nickname(user.getNickname())
                 .build();
