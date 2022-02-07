@@ -22,6 +22,17 @@ public class GetPostList {
     }
 
     @Getter
+    @Setter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class MyRequest {
+        private Integer start;
+        private Integer size;
+        private Long userId;
+    }
+
+
+    @Getter
     @NoArgsConstructor
     @AllArgsConstructor
     public static class Response {
