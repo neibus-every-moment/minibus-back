@@ -11,47 +11,22 @@ import java.util.List;
 
 public interface PostRepository extends JpaRepository<Post, Long> {
 
-    // 최신순 정렬 관련
-    List<Post> findAllByStatusEqualsOrderByCreatedAtDesc(Status status, Pageable pageable);
-    List<Post> findAllByStatusEqualsAndRegionIsInOrderByCreatedAtDesc(
+    List<Post> findAllByStatus(Status status, Pageable pageable);
+    List<Post> findAllByStatusAndRegionIsIn(
             Status status,
             List<Region> regionList,
             Pageable pageable
     );
-    List<Post> findAllByStatusEqualsAndTransportationIsInOrderByCreatedAtDesc(
+    List<Post> findAllByStatusAndTransportationIsIn(
             Status status,
             List<Transportation> transportationList,
             Pageable pageable
     );
-    List<Post> findAllByStatusEqualsAndTransportationIsInAndRegionIsInOrderByCreatedAtDesc(
-            Status status,
-            List<Transportation> transportationList,
-            List<Region> regionList,
-            Pageable pageable
-    );
-
-
-    // 공감순 정렬 관련
-    List<Post> findAllByStatusEqualsOrderByLikeCountDesc(Status status, Pageable pageable);
-    List<Post> findAllByStatusEqualsAndRegionIsInOrderByLikeCountDesc(
-            Status status,
-            List<Region> regionList,
-            Pageable pageable
-    );
-    List<Post> findAllByStatusEqualsAndTransportationIsInOrderByLikeCountDesc(
-            Status status,
-            List<Transportation> transportationList,
-            Pageable pageable
-    );
-    List<Post> findAllByStatusEqualsAndTransportationIsInAndRegionIsInOrderByLikeCountDesc(
+    List<Post> findAllByStatusAndTransportationIsInAndRegionIsIn(
             Status status,
             List<Transportation> transportationList,
             List<Region> regionList,
             Pageable pageable
     );
-
-    List<Post> findAllByStatusEqualsAndUserEqualsOrderByCreatedAtDesc(
-            Status status,
-            User user,
-            Pageable pageable);
+    List<Post> findAllByUser(User user);
 }

@@ -25,7 +25,9 @@ public class User {
 
     private String email;
 
-    private String nickName;
+    private String profileImage;
+
+    private String nickname;
 
     @OneToMany(mappedBy = "user")
     private List<LikePost> likeList = new ArrayList<>();

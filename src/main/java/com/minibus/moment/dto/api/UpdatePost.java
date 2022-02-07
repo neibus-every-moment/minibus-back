@@ -1,26 +1,22 @@
 package com.minibus.moment.dto.api;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-public class CreateComment {
+public class UpdatePost {
 
     @Getter
     @Setter
     @NoArgsConstructor
     @AllArgsConstructor
     public static class Request{
-        private Long postId;
-        private Long userId;
         private String content;
     }
 
     @Getter
+    @Setter
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class Response {
+    public static class Response{
         private Long data;
     }
 }
