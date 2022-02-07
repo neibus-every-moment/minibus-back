@@ -85,12 +85,11 @@ public class LikePostService {
         return list.stream().map(LikePost::getId).collect(Collectors.toList());
     }
 
-    // 유저 정보를 받아 유저가 좋아요 한 글 목록을 반환
-    public List<PostDto> getMyLikePostList(GetPostList.MyRequest myRequest) {
-        PageRequest pageRequest = PageRequest.of(myRequest.getStart(), myRequest.getSize());
-        List<Post> postList = postRepository.findAllByStatusEqualsAndUserEqualsOrderByCreatedAtDesc(Status.VISIBLE ,userRepository.findById(myRequest.getUserId()).orElseThrow(), pageRequest);
-        return postList.stream().map(PostDto::from).collect(Collectors.toList());
-    }
+//    // 유저 정보를 받아 유저가 좋아요 한 글 목록을 반환
+//    public List<PostDto> getMyLikePostList(GetPostList.MyRequest myRequest) {
+//        List<Post> postList = postRepository.findAllByStatusEqualsAndUserEqualsOrderByCreatedAtDesc(Status.VISIBLE ,userRepository.findById(myRequest.getUserId()).orElseThrow(), pageRequest);
+//        return postList.stream().map(PostDto::from).collect(Collectors.toList());
+//    }
 
 
 

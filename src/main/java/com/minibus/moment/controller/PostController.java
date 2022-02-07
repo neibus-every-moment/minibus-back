@@ -86,10 +86,10 @@ public class PostController {
     }
 
     // myRequest에서 userId 값을 검색하여 좋아요 한 글 정보 모두 반환
-    @PostMapping("/list/myLike")
-    public GetPostList.Response getMyLikePostList(@RequestBody GetPostList.MyRequest myRequest){
-        return new GetPostList.Response(likePostService.getMyLikePostList(myRequest));
-
+//    @PostMapping("/list/myLike")
+//    public GetPostList.Response getMyLikePostList(@RequestBody GetPostList.MyRequest myRequest) {
+//        return new GetPostList.Response(likePostService.getMyLikePostList(myRequest));
+//    }
     @GetMapping("/my-posts")
     public GetPostList.Response getPostList(@RequestParam Long userId){
         return new GetPostList.Response(postService.getPostListByUser(userId));

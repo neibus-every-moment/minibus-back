@@ -27,8 +27,6 @@ public class GetPostList {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class MyRequest {
-        private Integer start;
-        private Integer size;
         private Long userId;
     }
 
