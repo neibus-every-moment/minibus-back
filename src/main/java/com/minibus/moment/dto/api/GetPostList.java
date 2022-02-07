@@ -17,8 +17,8 @@ public class GetPostList {
     public static class Request {
         private Integer start;
         private Integer size;
-        private List<String> transportation;
-        private List<String> region;
+        private List<String> transportations;
+        private List<String> regions;
         private String sorting;
     }
 

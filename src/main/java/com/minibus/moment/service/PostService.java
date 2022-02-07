@@ -65,8 +65,8 @@ public class PostService {
     public List<PostDto> getPostList(GetPostList.Request request) {
 
         List<Post> postList = new ArrayList<>();
-        List<String> transportationNameList = request.getTransportation();
-        List<String> regionNameList = request.getRegion();
+        List<String> transportationNameList = request.getTransportations();
+        List<String> regionNameList = request.getRegions();
         PageRequest pageRequest = PageRequest.of(
                 request.getStart(),
                 request.getSize(),
