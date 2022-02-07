@@ -2,12 +2,12 @@ package com.minibus.moment.domain.post;
 
 import com.minibus.moment.domain.region.Region;
 import com.minibus.moment.domain.transportation.Transportation;
+import com.minibus.moment.domain.user.User;
 import com.minibus.moment.type.Status;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface PostRepository extends JpaRepository<Post, Long> {
 
@@ -49,4 +49,9 @@ public interface PostRepository extends JpaRepository<Post, Long> {
             List<Region> regionList,
             Pageable pageable
     );
+
+    List<Post> findAllByStatusEqualsAndUserEqualsOrderByCreatedAtDesc(
+            Status status,
+            User user,
+            Pageable pageable);
 }
