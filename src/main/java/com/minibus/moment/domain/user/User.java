@@ -1,21 +1,23 @@
 package com.minibus.moment.domain.user;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.Map;
 
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
+@Setter
 public class User {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;
+    private Long id;
 
     private String name;
 
@@ -32,4 +34,5 @@ public class User {
     public String getRoleKey() {
         return this.role.getKey();
     }
+
 }
