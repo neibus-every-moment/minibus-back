@@ -18,7 +18,7 @@ public class CommentDto {
 
     private UserDto user;
 
-    private String content;
+    private String text;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
     private LocalDateTime createdAt;
@@ -30,7 +30,7 @@ public class CommentDto {
         return CommentDto.builder()
                 .id(comment.getId())
                 .user(UserDto.from(comment.getUser()))
-                .content(comment.getContent())
+                .text(comment.getContent())
                 .createdAt(comment.getCreatedAt())
                 .updatedAt(comment.getUpdatedAt())
                 .build();
