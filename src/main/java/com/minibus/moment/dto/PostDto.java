@@ -1,11 +1,12 @@
 package com.minibus.moment.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.minibus.moment.domain.like.LikePost;
 import com.minibus.moment.domain.post.Post;
+import com.minibus.moment.domain.user.User;
 import lombok.*;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,7 +30,7 @@ public class PostDto {
 
     private List<ImageDto> images;
 
-    private Long likeCount;
+    private LikeInfo like;
 
     private Comments comments;
 
@@ -42,6 +43,9 @@ public class PostDto {
     public static PostDto from(Post post) {
 
         List<CommentDto> contents = post.getCommentList().stream().map(CommentDto::from).collect(Collectors.toList());
+        List<User> users = post.getLikePostList().stream().map(LikePost::getUser).collect(Collectors.toList());
+        List<Long> usersLong = users.stream().map(User::getId).collect(Collectors.toList());
+
         return PostDto.builder()
                 .id(post.getId())
                 .user(UserDto.from(post.getUser()))
@@ -51,7 +55,7 @@ public class PostDto {
                 .images(post.getImageList().stream()
                         .map(ImageDto::from)
                         .collect(Collectors.toList()))
-                .likeCount(post.getLikeCount())
+                .like(new LikeInfo(Long.valueOf(usersLong.size()), usersLong))
                 .comments(new Comments(contents.size(),contents))
                 .createdAt(post.getCreatedAt())
                 .updatedAt(post.getUpdatedAt())
@@ -64,6 +68,14 @@ public class PostDto {
     private static class Comments {
         private Integer count;
         private List<CommentDto> contents;
+    }
+
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    private static class LikeInfo {
+        private Long count;
+        private List<Long> users;
     }
 }
 

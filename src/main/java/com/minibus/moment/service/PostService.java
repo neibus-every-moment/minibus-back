@@ -164,7 +164,6 @@ public class PostService {
                 .content(request.getContent())
                 .region(region)
                 .transportation(transportation)
-                .likeCount(0L)
                 .status(VISIBLE)
                 .build();
         postRepository.save(post);
