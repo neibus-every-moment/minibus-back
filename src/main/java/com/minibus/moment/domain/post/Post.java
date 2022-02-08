@@ -3,6 +3,7 @@ package com.minibus.moment.domain.post;
 import com.minibus.moment.domain.BaseTimeEntity;
 import com.minibus.moment.domain.comment.Comment;
 import com.minibus.moment.domain.image.Image;
+import com.minibus.moment.domain.like.LikePost;
 import com.minibus.moment.domain.region.Region;
 import com.minibus.moment.domain.report.Report;
 import com.minibus.moment.domain.transportation.Transportation;
@@ -43,7 +44,8 @@ public class Post extends BaseTimeEntity {
     @JoinColumn(name = "TRANSPORT_ID")
     private Transportation transportation;
 
-    private Long likeCount;
+    @OneToMany(mappedBy = "post")
+    private List<LikePost> likePostList = new ArrayList<>();
 
     @OneToMany(mappedBy = "post")
     private List<Image> imageList = new ArrayList<>();

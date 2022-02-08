@@ -6,13 +6,14 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface LikePostRepository extends JpaRepository<LikePost, Long> {
 
     Long countAllByPost(Post post);
 
-    LikePost findAllByPostEqualsAndUserEquals(Post post, User user);
+    Optional<LikePost> findByPostAndUser(Post post, User user);
 
     List<LikePost> findAllByUserEquals(User user);
 }

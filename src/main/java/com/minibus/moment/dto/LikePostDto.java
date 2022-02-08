@@ -15,11 +15,7 @@ public class LikePostDto {
     private String likeStatus;
     private Long postLikeCount;
 
-    @Getter
-    public static class Request {
-        private Long userId;
-        private Long postId;
-    }
+
 
     public static LikePostDto from(LikePost likePost){
         return LikePostDto.builder()
