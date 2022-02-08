@@ -16,7 +16,7 @@ public class OAuth2Attribute {
     private Map<String, Object> attributes;
     private String attributeKey;
     private String email;
-    private String name;
+    private String nickname;
 
     //플랫폼 확인
     static OAuth2Attribute of(String provider, String attributeKey, Map<String, Object> attributes) {
@@ -33,7 +33,7 @@ public class OAuth2Attribute {
         Map<String, Object> profile = (Map<String, Object>) kakao_account.get("profile");
 
         return OAuth2Attribute.builder()
-                .name((String) profile.get("nickname"))
+                .nickname((String) profile.get("nickname"))
                 .email((String) kakao_account.get("email"))
                 .attributeKey(attributeKey)
                 .attributes(attributes)
@@ -42,7 +42,7 @@ public class OAuth2Attribute {
 
     public User toEntity() {
         return User.builder()
-                .name(name)
+                .nickname(nickname)
                 .email(email)
                 .role(Role.USER)
                 .build();

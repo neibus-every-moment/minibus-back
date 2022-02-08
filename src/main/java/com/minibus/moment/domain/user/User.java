@@ -26,16 +26,19 @@ public class User {
 
     private String profileImage;
 
-    private String name;
+    private String nickname;
 
     @OneToMany(mappedBy = "user")
     private List<LikePost> likeList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user")
     private List<Post> postList = new ArrayList<>();
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
     
-        public User update(String name) {
-        this.name = name;
+    public User update(String nickname) {
+        this.nickname = nickname;
         return this;
     }
 
