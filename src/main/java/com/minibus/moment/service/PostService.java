@@ -123,7 +123,7 @@ public class PostService {
 
     @Transactional
     public boolean reportPost(ReportPost.Request request) {
-        ReportReason reportReason = reportReasonRepository.findById(request.getReportReasonId())
+        ReportReason reportReason = reportReasonRepository.findByContent(request.getReportReason())
                 .orElseThrow(() -> new ReportReasonNotFoundException("신고 사유가 존재하지 않습니다.")
                 );
         Post post = postRepository.findById(request.getPostId())

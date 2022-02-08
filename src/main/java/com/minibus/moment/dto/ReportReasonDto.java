@@ -10,12 +10,10 @@ import lombok.*;
 @Builder
 public class ReportReasonDto {
 
-    private Integer id;
     private String reportReason;
 
     public static ReportReasonDto from(ReportReason reportReason) {
         return ReportReasonDto.builder()
-                .id(reportReason.getId())
                 .reportReason(reportReason.getContent())
                 .build();
     }

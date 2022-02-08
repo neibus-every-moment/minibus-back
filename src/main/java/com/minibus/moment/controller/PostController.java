@@ -32,10 +32,9 @@ public class PostController {
         return GetRegionList.Response.toResponse(regionService.getRegionList());
     }
 
-
     @GetMapping("/reasons")
     public GetReportReasonList.Response getReportReasonList() {
-        return new GetReportReasonList.Response(postService.getReportReasonList());
+        return GetReportReasonList.Response.toResponse(postService.getReportReasonList());
     }
 
     @GetMapping("/posts")

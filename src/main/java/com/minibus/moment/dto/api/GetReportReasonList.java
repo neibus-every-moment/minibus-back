@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class GetReportReasonList {
 
@@ -13,6 +14,10 @@ public class GetReportReasonList {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class Response {
-        private List<ReportReasonDto> data;
+        private List<String> data;
+
+        public static Response toResponse(List<ReportReasonDto> reportReasonDtoList){
+            return new Response(reportReasonDtoList.stream().map(ReportReasonDto::getReportReason).collect(Collectors.toList()));
+            }
     }
 }
