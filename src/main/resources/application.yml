@@ -10,7 +10,7 @@ spring:
     password:
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: create-drop
     show-sql: true
     defer-datasource-initialization: true
   app:
@@ -47,6 +47,7 @@ spring:
       platform: h2
   profiles:
     include: oauth
-
+  servlet:
+    multipart:
 server:
   port: 8080

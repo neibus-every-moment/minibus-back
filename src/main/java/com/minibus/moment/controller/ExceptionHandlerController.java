@@ -1,17 +1,15 @@
 package com.minibus.moment.controller;
 
-import com.minibus.moment.dto.api.*;
-import com.minibus.moment.exception.*;
-import com.minibus.moment.service.EmoticonService;
-import com.minibus.moment.service.PostService;
-import com.minibus.moment.service.RegionService;
-import com.minibus.moment.service.TransportationService;
-import lombok.RequiredArgsConstructor;
+import com.minibus.moment.exception.PostNotFoundException;
+import com.minibus.moment.exception.RegionNotFoundException;
+import com.minibus.moment.exception.ReportReasonNotFoundException;
+import com.minibus.moment.exception.TransportationNotFoundException;
 import org.hibernate.TransientPropertyValueException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @ControllerAdvice
@@ -32,13 +30,8 @@ public class ExceptionHandlerController {
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(EmoticonNotFoundException.class)
-    public ResponseEntity<?> EmoticonNotFoundExceptionHandler(EmoticonNotFoundException exception) {
-        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
-    }
-
-    @ExceptionHandler(ReportReasonId.class)
-    public ResponseEntity<?> ReportReasonIdExceptionHandler(ReportReasonId exception) {
+    @ExceptionHandler(ReportReasonNotFoundException.class)
+    public ResponseEntity<?> ReportReasonIdExceptionHandler(ReportReasonNotFoundException exception) {
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
     }
 }

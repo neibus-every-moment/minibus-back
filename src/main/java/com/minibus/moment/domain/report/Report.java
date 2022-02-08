@@ -1,9 +1,11 @@
 package com.minibus.moment.domain.report;
 
 import com.minibus.moment.domain.BaseTimeEntity;
+import com.minibus.moment.domain.comment.Comment;
 import com.minibus.moment.domain.post.Post;
 import com.minibus.moment.domain.reportEtcDetail.ReportEtcDetail;
 import com.minibus.moment.domain.reportReason.ReportReason;
+import com.minibus.moment.domain.user.User;
 import com.minibus.moment.type.ReportStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,8 +31,16 @@ public class Report extends BaseTimeEntity {
     private ReportReason reportReason;
 
     @ManyToOne
+    @JoinColumn(name = "USER_ID")
+    private User user;
+
+    @ManyToOne
     @JoinColumn(name = "POST_ID")
     private Post post;
+
+    @ManyToOne
+    @JoinColumn(name = "COMMENT_ID")
+    private Comment comment;
 
     @OneToOne(mappedBy = "report")
     private ReportEtcDetail reportEtcDetail;

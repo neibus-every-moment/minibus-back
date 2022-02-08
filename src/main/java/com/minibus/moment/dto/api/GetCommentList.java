@@ -1,18 +1,17 @@
 package com.minibus.moment.dto.api;
 
-import com.minibus.moment.dto.EmoticonDto;
+import com.minibus.moment.dto.CommentDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-public class GetEmoticonList {
-
+public class GetCommentList {
     @Getter
     @NoArgsConstructor
     @AllArgsConstructor
     public static class Response {
-        List<EmoticonDto> data;
+        private List<CommentDto> data;
     }
 }

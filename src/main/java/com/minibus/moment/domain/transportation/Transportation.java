@@ -20,6 +20,4 @@ public class Transportation {
     private Integer id;
 
     private String name;
-
-    private String emoji;
 }

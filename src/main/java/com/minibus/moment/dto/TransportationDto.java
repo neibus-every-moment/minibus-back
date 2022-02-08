@@ -16,7 +16,6 @@ public class TransportationDto {
     @AllArgsConstructor
     public static class Request {
         private Integer id;
-        private String emoji;
         private String transportationName;
     }
 
@@ -26,19 +25,17 @@ public class TransportationDto {
     @AllArgsConstructor
     public static class RequestIncludingPost {
         private Integer id;
-        private String emoji;
         private String transportationName;
         private Long postId;
     }
 
     private Integer id;
-
-    private String transportation; // = 이모티콘 + 이름
+    private String name;
 
     public static TransportationDto from(Transportation transportation) {
         return TransportationDto.builder()
                 .id(transportation.getId())
-                .transportation(transportation.getEmoji() + " " + transportation.getName())
+                .name(transportation.getName())
                 .build();
     }
 }

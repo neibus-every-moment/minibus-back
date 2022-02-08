@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 
 
 @RequiredArgsConstructor
-public enum PostStatus {
+public enum Status {
 
     VISIBLE("게시"),
     BLIND("블라인드");

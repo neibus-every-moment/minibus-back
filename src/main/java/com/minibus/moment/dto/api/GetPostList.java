@@ -17,9 +17,19 @@ public class GetPostList {
     public static class Request {
         private Integer start;
         private Integer size;
-        private String transportationName;
-        private String regionName;
+        private List<String> transportations;
+        private List<String> regions;
+        private String sorting;
     }
+
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class MyRequest {
+        private Long userId;
+    }
+
 
     @Getter
     @NoArgsConstructor

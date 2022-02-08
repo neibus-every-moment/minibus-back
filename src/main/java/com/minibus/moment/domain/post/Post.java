@@ -1,25 +1,23 @@
 package com.minibus.moment.domain.post;
 
 import com.minibus.moment.domain.BaseTimeEntity;
-import com.minibus.moment.domain.emoticon.Emoticon;
+import com.minibus.moment.domain.comment.Comment;
 import com.minibus.moment.domain.image.Image;
 import com.minibus.moment.domain.region.Region;
 import com.minibus.moment.domain.report.Report;
 import com.minibus.moment.domain.transportation.Transportation;
-import com.minibus.moment.type.PostStatus;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import com.minibus.moment.domain.user.User;
+import com.minibus.moment.type.Status;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.minibus.moment.type.PostStatus.BLIND;
-import static com.minibus.moment.type.PostStatus.VISIBLE;
+import static com.minibus.moment.type.Status.BLIND;
+import static com.minibus.moment.type.Status.VISIBLE;
 
-
+@Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -34,6 +32,10 @@ public class Post extends BaseTimeEntity {
     private String content;
 
     @ManyToOne
+    @JoinColumn(name = "USER_ID")
+    private User user;
+
+    @ManyToOne
     @JoinColumn(name = "REGION_ID")
     private Region region;
 
@@ -41,34 +43,30 @@ public class Post extends BaseTimeEntity {
     @JoinColumn(name = "TRANSPORT_ID")
     private Transportation transportation;
 
-    @ManyToOne
-    @JoinColumn(name = "EMOTICON_ID")
-    private Emoticon emoticon;
-
     private Long likeCount;
 
     @OneToMany(mappedBy = "post")
     private List<Image> imageList = new ArrayList<>();
 
     @OneToMany(mappedBy = "post")
+    private List<Comment> commentList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "post")
     private List<Report> reportList = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
-    private PostStatus postStatus;
+    private Status status;
 
-    public void upLikeCount() {
-        likeCount = getLikeCount() + 1L;
-    }
-
-    public void downLikeCount() {
-        likeCount = getLikeCount() - 1L;
+    public Long update(String content) {
+        this.content = content;
+        return id;
     }
 
     public void blind() {
-        postStatus = BLIND;
+        status = BLIND;
     }
 
     public void restore(){
-        postStatus = VISIBLE;
+        status = VISIBLE;
     }
 }

@@ -10,7 +10,7 @@ public class ReportPost {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class Request {
-        private Long id; // 포스트 id
+        private Long postId; // 포스트 id
         private Integer reportReasonId; // 신고 사유 id
         private String detail; // Optional 신고 사유가 기타일 때 세부사항
     }
