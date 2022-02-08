@@ -72,9 +72,9 @@ public class PostController {
     }
 
     // 좋아요 기능. request 에 담긴 postId, userId로 좋아요 기능 실행 뒤 GetPost.Response반환
-    @PutMapping("/post/like")
-    public boolean likePost(@RequestBody ToLikePost.Request request) throws Exception{
-        return likePostService.toLikePost(request);
+    @PutMapping("/post/like/{postId}")
+    public boolean likePost(@PathVariable Long postId,@RequestBody ToLikePost.Request request) throws Exception{
+        return likePostService.toLikePost(postId,request);
     }
 
     // LIKE_POST테이블에서 userId 검색하고 결과의 postId를 POST테이블에서 모두 검색하여 반환

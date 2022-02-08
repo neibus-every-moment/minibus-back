@@ -26,11 +26,11 @@ public class LikePostService {
 
     // 로그인 상태에서 LikePost 호출시 Like 여부 확인하여 좋아요/취소 진행
     @Transactional
-    public boolean toLikePost(ToLikePost.Request request) throws Exception {
+    public boolean toLikePost(Long postId,ToLikePost.Request request) throws Exception {
         // 유저정보
         User targetUser = userRepository.findById(request.getUserId()).orElseThrow();
         // Post 정보
-        Post targetPost = postRepository.findById(request.getPostId()).orElseThrow();
+        Post targetPost = postRepository.findById(postId).orElseThrow();
 
         // 파라미터 정보로 LikePost 테이블에서 레코드 조회
         likePostRepository.findByPostAndUser(targetPost, targetUser).ifPresentOrElse(

@@ -13,6 +13,5 @@ public class ToLikePost {
     @AllArgsConstructor
     public static class Request {
         private Long userId;
-        private Long postId;
     }
 }
