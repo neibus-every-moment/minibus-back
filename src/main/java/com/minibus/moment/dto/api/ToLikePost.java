@@ -15,11 +15,4 @@ public class ToLikePost {
         private Long userId;
         private Long postId;
     }
-
-    @Getter
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class Response {
-        private boolean result;
-    }
 }

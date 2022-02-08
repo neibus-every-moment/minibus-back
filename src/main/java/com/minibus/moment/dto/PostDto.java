@@ -43,8 +43,10 @@ public class PostDto {
     public static PostDto from(Post post) {
 
         List<CommentDto> contents = post.getCommentList().stream().map(CommentDto::from).collect(Collectors.toList());
-        List<User> users = post.getLikePostList().stream().map(LikePost::getUser).collect(Collectors.toList());
-        List<Long> usersLong = users.stream().map(User::getId).collect(Collectors.toList());
+        List<Long> userIds = post.getLikePostList().stream()
+                .map(LikePost::getUser)
+                .map(User::getId)
+                .collect(Collectors.toList());
 
         return PostDto.builder()
                 .id(post.getId())
@@ -55,7 +57,7 @@ public class PostDto {
                 .images(post.getImageList().stream()
                         .map(ImageDto::from)
                         .collect(Collectors.toList()))
-                .like(new LikeInfo(Long.valueOf(usersLong.size()), usersLong))
+                .like(new LikeInfo(Long.valueOf(userIds.size()), userIds))
                 .comments(new Comments(contents.size(),contents))
                 .createdAt(post.getCreatedAt())
                 .updatedAt(post.getUpdatedAt())
