@@ -69,6 +69,18 @@ INSERT INTO IMAGE(PATH, POST_ID) VALUES ('https://minibus-bucket.s3.ap-northeast
 INSERT INTO IMAGE(PATH, POST_ID) VALUES ('https://minibus-bucket.s3.ap-northeast-2.amazonaws.com/minibus-image-testfolder/2022-02-09T17%3A37%3A53.401389_test_image.png', 4);
 INSERT INTO IMAGE(PATH, POST_ID) VALUES ('https://minibus-bucket.s3.ap-northeast-2.amazonaws.com/minibus-image-testfolder/2022-02-09T17%3A37%3A53.401389_test_image.png', 5);
 INSERT INTO IMAGE(PATH, POST_ID) VALUES ('https://minibus-bucket.s3.ap-northeast-2.amazonaws.com/minibus-image-testfolder/2022-02-09T17%3A37%3A53.401389_test_image.png', 6);
+INSERT INTO IMAGE(PATH, POST_ID) VALUES ('https://minibus-bucket.s3.ap-northeast-2.amazonaws.com/minibus-image-testfolder/2022-02-09T17%3A37%3A53.401389_test_image.png', 1);
+INSERT INTO IMAGE(PATH, POST_ID) VALUES ('https://minibus-bucket.s3.ap-northeast-2.amazonaws.com/minibus-image-testfolder/2022-02-09T17%3A37%3A53.401389_test_image.png', 17);
+INSERT INTO IMAGE(PATH, POST_ID) VALUES ('https://minibus-bucket.s3.ap-northeast-2.amazonaws.com/minibus-image-testfolder/2022-02-09T17%3A37%3A53.401389_test_image.png', 30);
+INSERT INTO IMAGE(PATH, POST_ID) VALUES ('https://minibus-bucket.s3.ap-northeast-2.amazonaws.com/minibus-image-testfolder/2022-02-09T17%3A37%3A53.401389_test_image.png', 1);
+INSERT INTO IMAGE(PATH, POST_ID) VALUES ('https://minibus-bucket.s3.ap-northeast-2.amazonaws.com/minibus-image-testfolder/2022-02-09T17%3A37%3A53.401389_test_image.png', 2);
+INSERT INTO IMAGE(PATH, POST_ID) VALUES ('https://minibus-bucket.s3.ap-northeast-2.amazonaws.com/minibus-image-testfolder/2022-02-09T17%3A37%3A53.401389_test_image.png', 10);
+INSERT INTO IMAGE(PATH, POST_ID) VALUES ('https://minibus-bucket.s3.ap-northeast-2.amazonaws.com/minibus-image-testfolder/2022-02-09T17%3A37%3A53.401389_test_image.png', 31);
+INSERT INTO IMAGE(PATH, POST_ID) VALUES ('https://minibus-bucket.s3.ap-northeast-2.amazonaws.com/minibus-image-testfolder/2022-02-09T17%3A37%3A53.401389_test_image.png', 13);
+INSERT INTO IMAGE(PATH, POST_ID) VALUES ('https://minibus-bucket.s3.ap-northeast-2.amazonaws.com/minibus-image-testfolder/2022-02-09T17%3A37%3A53.401389_test_image.png', 11);
+INSERT INTO IMAGE(PATH, POST_ID) VALUES ('https://minibus-bucket.s3.ap-northeast-2.amazonaws.com/minibus-image-testfolder/2022-02-09T17%3A37%3A53.401389_test_image.png', 7);
+INSERT INTO IMAGE(PATH, POST_ID) VALUES ('https://minibus-bucket.s3.ap-northeast-2.amazonaws.com/minibus-image-testfolder/2022-02-09T17%3A37%3A53.401389_test_image.png', 21);
+
 
 
 
