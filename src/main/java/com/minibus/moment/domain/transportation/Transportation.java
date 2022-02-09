@@ -1,12 +1,9 @@
 package com.minibus.moment.domain.transportation;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
-
+@Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor

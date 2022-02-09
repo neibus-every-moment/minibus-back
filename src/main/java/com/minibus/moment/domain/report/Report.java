@@ -7,13 +7,10 @@ import com.minibus.moment.domain.reportEtcDetail.ReportEtcDetail;
 import com.minibus.moment.domain.reportReason.ReportReason;
 import com.minibus.moment.domain.user.User;
 import com.minibus.moment.type.ReportStatus;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
-
+@Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
