@@ -14,4 +14,11 @@ public class ToLikePost {
     public static class Request {
         private Long userId;
     }
+
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class Response{
+        private Long likeCount;
+    }
 }
