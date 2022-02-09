@@ -1,7 +1,7 @@
-INSERT INTO USER (EMAIL, NICKNAME, PROFILE_IMAGE) VALUES ('sample@naver.com', 'sample' ,'/test/profile1');
-INSERT INTO USER (EMAIL, NICKNAME, PROFILE_IMAGE) VALUES ('ample@naver.com', 'ample','/test/profile2');
-INSERT INTO USER (EMAIL, NICKNAME, PROFILE_IMAGE) VALUES ('sam@naver.com', 'sam','/test/profile3');
-INSERT INTO USER (EMAIL, NICKNAME, PROFILE_IMAGE) VALUES ('ple@naver.com', 'ple','/test/profile4');
+INSERT INTO USER (EMAIL, NICKNAME, PROFILE_IMAGE) VALUES ('sample@naver.com', 'sample' ,'https://minibus-bucket.s3.ap-northeast-2.amazonaws.com/minibus-image-testfolder/2022-02-09T17%3A37%3A53.401389_test_image.png');
+INSERT INTO USER (EMAIL, NICKNAME, PROFILE_IMAGE) VALUES ('ample@naver.com', 'ample','https://minibus-bucket.s3.ap-northeast-2.amazonaws.com/minibus-image-testfolder/2022-02-09T17%3A37%3A53.401389_test_image.png');
+INSERT INTO USER (EMAIL, NICKNAME, PROFILE_IMAGE) VALUES ('sam@naver.com', 'sam','https://minibus-bucket.s3.ap-northeast-2.amazonaws.com/minibus-image-testfolder/2022-02-09T17%3A37%3A53.943884_test_image2.png');
+INSERT INTO USER (EMAIL, NICKNAME, PROFILE_IMAGE) VALUES ('ple@naver.com', 'ple','https://minibus-bucket.s3.ap-northeast-2.amazonaws.com/minibus-image-testfolder/2022-02-09T17%3A37%3A53.943884_test_image2.png');
 
 INSERT INTO TRANSPORTATION (NAME) VALUES ('버스');
 INSERT INTO TRANSPORTATION (NAME) VALUES ('지하철');
@@ -60,6 +60,15 @@ INSERT INTO POST (USER_ID, CONTENT, STATUS, REGION_ID, TRANSPORT_ID, CREATED_AT,
 INSERT INTO POST (USER_ID, CONTENT, STATUS, REGION_ID, TRANSPORT_ID, CREATED_AT, UPDATED_AT) VALUES (1,'test', 'VISIBLE',3,1, current_timestamp, current_timestamp);
 INSERT INTO POST (USER_ID, CONTENT, STATUS, REGION_ID, TRANSPORT_ID, CREATED_AT, UPDATED_AT) VALUES (3,'test', 'VISIBLE',3,3, current_timestamp, current_timestamp);
 
+INSERT INTO IMAGE(PATH, POST_ID) VALUES ('https://minibus-bucket.s3.ap-northeast-2.amazonaws.com/minibus-image-testfolder/2022-02-09T17%3A37%3A53.401389_test_image.png', 1);
+INSERT INTO IMAGE(PATH, POST_ID) VALUES ('https://minibus-bucket.s3.ap-northeast-2.amazonaws.com/minibus-image-testfolder/2022-02-09T17%3A37%3A53.943884_test_image2.png', 1);
+INSERT INTO IMAGE(PATH, POST_ID) VALUES ('https://minibus-bucket.s3.ap-northeast-2.amazonaws.com/minibus-image-testfolder/2022-02-09T17%3A37%3A53.401389_test_image.png', 2);
+INSERT INTO IMAGE(PATH, POST_ID) VALUES ('https://minibus-bucket.s3.ap-northeast-2.amazonaws.com/minibus-image-testfolder/2022-02-09T17%3A37%3A53.943884_test_image2.png', 2);
+INSERT INTO IMAGE(PATH, POST_ID) VALUES ('https://minibus-bucket.s3.ap-northeast-2.amazonaws.com/minibus-image-testfolder/2022-02-09T17%3A37%3A53.401389_test_image.png', 3);
+INSERT INTO IMAGE(PATH, POST_ID) VALUES ('https://minibus-bucket.s3.ap-northeast-2.amazonaws.com/minibus-image-testfolder/2022-02-09T17%3A37%3A53.943884_test_image2.png', 3);
+INSERT INTO IMAGE(PATH, POST_ID) VALUES ('https://minibus-bucket.s3.ap-northeast-2.amazonaws.com/minibus-image-testfolder/2022-02-09T17%3A37%3A53.401389_test_image.png', 4);
+INSERT INTO IMAGE(PATH, POST_ID) VALUES ('https://minibus-bucket.s3.ap-northeast-2.amazonaws.com/minibus-image-testfolder/2022-02-09T17%3A37%3A53.401389_test_image.png', 5);
+INSERT INTO IMAGE(PATH, POST_ID) VALUES ('https://minibus-bucket.s3.ap-northeast-2.amazonaws.com/minibus-image-testfolder/2022-02-09T17%3A37%3A53.401389_test_image.png', 6);
 
 
 
