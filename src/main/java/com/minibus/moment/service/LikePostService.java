@@ -26,7 +26,7 @@ public class LikePostService {
 
     // 로그인 상태에서 LikePost 호출시 Like 여부 확인하여 좋아요/취소 진행
     @Transactional
-    public boolean toLikePost(Long postId,ToLikePost.Request request) throws Exception {
+    public Long toLikePost(Long postId,ToLikePost.Request request) throws Exception {
         // 유저정보
         User targetUser = userRepository.findById(request.getUserId()).orElseThrow();
         // Post 정보
@@ -43,8 +43,9 @@ public class LikePostService {
                 )
         );
         // 좋아요 후 갯수를 반환하려면(1 증감 확인)
-        //return likePostRepository.countAllByPost(postRepository.findById(request.getPostId()).orElseThrow());
-        return true;
+        return likePostRepository.countAllByPost(postRepository.findById(postId).orElseThrow());
+        // Boolean 반환
+        // return true;
     }
 
     // 유저 정보를 받아 유저가 좋아요 한 글 목록을 리스트로 반환
