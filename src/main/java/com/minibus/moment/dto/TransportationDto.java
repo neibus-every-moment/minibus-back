@@ -16,16 +16,7 @@ public class TransportationDto {
     @AllArgsConstructor
     public static class Request {
         private Integer id;
-        private String transportationName;
-    }
-
-    @Getter
-    @Setter
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class RequestIncludingPost {
-        private Integer id;
-        private String transportationName;
+        private String transportation;
         private Long postId;
     }
 
