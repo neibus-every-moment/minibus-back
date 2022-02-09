@@ -42,10 +42,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().permitAll()
                 .and()
                 .oauth2Login()
+                .authorizationEndpoint()
+                .baseUri("/oauth2/authorization")
+                .and()
+                .redirectionEndpoint()
+                .baseUri("/oauth/callback/*")
+                .and()
                 .successHandler(oAuth2SuccessHandler)
                 .userInfoEndpoint()
                 .userService(customOAuth2UserService)
         ;
+
         http.addFilterBefore(new JwtAuthFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
     }
 }
