@@ -138,7 +138,7 @@ public class PostService {
                 .build();
         reportRepository.save(report);
 
-        if (request.getDetail() != null) {
+        if (!ObjectUtils.isEmpty(request.getDetail())) {
             ReportEtcDetail reportEtcDetail = ReportEtcDetail.builder()
                     .report(report)
                     .content(request.getDetail())
