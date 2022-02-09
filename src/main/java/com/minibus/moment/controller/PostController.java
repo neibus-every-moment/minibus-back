@@ -1,6 +1,5 @@
 package com.minibus.moment.controller;
 
-import com.minibus.moment.dto.LikePostDto;
 import com.minibus.moment.dto.api.*;
 
 import com.minibus.moment.service.*;
@@ -72,23 +71,18 @@ public class PostController {
         return new GetPost.Response(postService.getPost(postId));
     }
 
-    // 좋아요 기능. request 에 담긴 postId, userId로 좋아요 기능 실행 뒤 LikePostDto 반환
-    @PutMapping("/post/like")
-    public LikePostDto likePost(@RequestBody LikePostDto.Request request) throws Exception{
-        return likePostService.likePost(request.getPostId(), request.getUserId());
+    // 좋아요 기능. request 에 담긴 postId, userId로 좋아요 기능 실행 뒤 GetPost.Response반환
+    @PutMapping("/post/like/{postId}")
+    public boolean likePost(@PathVariable Long postId,@RequestBody ToLikePost.Request request) throws Exception{
+        return likePostService.toLikePost(postId,request);
     }
 
-    // request에서 userId 값을 LIKE_POST 에서 검색하여 List<Post> 로 반환
-    @PostMapping("/post/likePostIdList")
-    public List<Long> likePostIdList(@RequestBody LikePostDto.Request request) {
-        return likePostService.likePostList(request.getUserId());
+    // LIKE_POST테이블에서 userId 검색하고 결과의 postId를 POST테이블에서 모두 검색하여 반환
+    @GetMapping("/list/my-like-post")
+    public GetPostList.Response getMyLikePostList(@RequestParam Long userId) {
+        return new GetPostList.Response(likePostService.getMyLikePostList(userId));
     }
 
-    // myRequest에서 userId 값을 검색하여 좋아요 한 글 정보 모두 반환
-//    @PostMapping("/list/myLike")
-//    public GetPostList.Response getMyLikePostList(@RequestBody GetPostList.MyRequest myRequest) {
-//        return new GetPostList.Response(likePostService.getMyLikePostList(myRequest));
-//    }
     @GetMapping("/my-posts")
     public GetPostList.Response getPostList(@RequestParam Long userId){
         return new GetPostList.Response(postService.getPostListByUser(userId));

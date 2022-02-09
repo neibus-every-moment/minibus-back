@@ -3,12 +3,14 @@ package com.minibus.moment.domain.post;
 import com.minibus.moment.domain.BaseTimeEntity;
 import com.minibus.moment.domain.comment.Comment;
 import com.minibus.moment.domain.image.Image;
+import com.minibus.moment.domain.like.LikePost;
 import com.minibus.moment.domain.region.Region;
 import com.minibus.moment.domain.report.Report;
 import com.minibus.moment.domain.transportation.Transportation;
 import com.minibus.moment.domain.user.User;
 import com.minibus.moment.type.Status;
 import lombok.*;
+import org.hibernate.annotations.Formula;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -43,16 +45,21 @@ public class Post extends BaseTimeEntity {
     @JoinColumn(name = "TRANSPORT_ID")
     private Transportation transportation;
 
-    private Long likeCount;
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+    private List<LikePost> likePostList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "post")
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private List<Image> imageList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "post")
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private List<Comment> commentList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "post")
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private List<Report> reportList = new ArrayList<>();
+
+    @Basic(fetch = FetchType.LAZY)
+    @Formula("(select count(1) from like_post c where c.post_id = id)")
+    private Long likeCount;
 
     @Enumerated(EnumType.STRING)
     private Status status;

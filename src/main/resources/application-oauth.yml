@@ -7,6 +7,7 @@ spring:
             clientId: 11f376d2b7f6e04a542590dc75cd1285
             scope: account_email, profile_nickname, profile_image
             redirect-uri: "http://localhost:8080/oauth2/callback/kakao"
+
             authorization-grant-type: authorization_code
             client-name: kakao
             client-authetication-method: POST
