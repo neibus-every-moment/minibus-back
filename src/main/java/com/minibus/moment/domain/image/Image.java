@@ -25,5 +25,6 @@ public class Image extends BaseTimeEntity {
     @JoinColumn(name = "POST_ID")
     private Post post;
 
+    @Column(columnDefinition = "TEXT")
     private String path;
 }
