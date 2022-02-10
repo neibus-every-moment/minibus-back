@@ -1,13 +1,13 @@
-INSERT INTO USER (EMAIL, NICKNAME, PROFILE_IMAGE) VALUES ('sample@naver.com', 'sample' ,'https://minibus-bucket.s3.ap-northeast-2.amazonaws.com/minibus-image-testfolder/2022-02-09T17%3A37%3A53.401389_test_image.png');
-INSERT INTO USER (EMAIL, NICKNAME, PROFILE_IMAGE) VALUES ('ample@naver.com', 'ample','https://minibus-bucket.s3.ap-northeast-2.amazonaws.com/minibus-image-testfolder/2022-02-09T17%3A37%3A53.401389_test_image.png');
+INSERT INTO USER (EMAIL, NICKNAME, PROFILE_IMAGE) VALUES ('sample@google.com', 'sample' ,'https://minibus-bucket.s3.ap-northeast-2.amazonaws.com/minibus-image-testfolder/2022-02-09T17%3A37%3A53.401389_test_image.png');
+INSERT INTO USER (EMAIL, NICKNAME, PROFILE_IMAGE) VALUES ('bample@naver.com', 'bample','https://minibus-bucket.s3.ap-northeast-2.amazonaws.com/minibus-image-testfolder/2022-02-09T17%3A37%3A53.401389_test_image.png');
 INSERT INTO USER (EMAIL, NICKNAME, PROFILE_IMAGE) VALUES ('sam@naver.com', 'sam','https://minibus-bucket.s3.ap-northeast-2.amazonaws.com/minibus-image-testfolder/2022-02-09T17%3A37%3A53.943884_test_image2.png');
 INSERT INTO USER (EMAIL, NICKNAME, PROFILE_IMAGE) VALUES ('ple@naver.com', 'ple','https://minibus-bucket.s3.ap-northeast-2.amazonaws.com/minibus-image-testfolder/2022-02-09T17%3A37%3A53.943884_test_image2.png');
-INSERT INTO USER (EMAIL, NICKNAME, PROFILE_IMAGE) VALUES ('ample@naver.com', 'ample','https://minibus-bucket.s3.ap-northeast-2.amazonaws.com/minibus-image-testfolder/2022-02-09T17%3A37%3A53.401389_test_image.png');
-INSERT INTO USER (EMAIL, NICKNAME, PROFILE_IMAGE) VALUES ('ample@naver.com', 'ample','https://minibus-bucket.s3.ap-northeast-2.amazonaws.com/minibus-image-testfolder/2022-02-09T17%3A37%3A53.401389_test_image.png');
-INSERT INTO USER (EMAIL, NICKNAME, PROFILE_IMAGE) VALUES ('ample@naver.com', 'ample','https://minibus-bucket.s3.ap-northeast-2.amazonaws.com/minibus-image-testfolder/2022-02-09T17%3A37%3A53.401389_test_image.png');
-INSERT INTO USER (EMAIL, NICKNAME, PROFILE_IMAGE) VALUES ('ample@naver.com', 'ample','https://minibus-bucket.s3.ap-northeast-2.amazonaws.com/minibus-image-testfolder/2022-02-09T17%3A37%3A53.401389_test_image.png');
-INSERT INTO USER (EMAIL, NICKNAME, PROFILE_IMAGE) VALUES ('ample@naver.com', 'ample','https://minibus-bucket.s3.ap-northeast-2.amazonaws.com/minibus-image-testfolder/2022-02-09T17%3A37%3A53.401389_test_image.png');
-INSERT INTO USER (EMAIL, NICKNAME, PROFILE_IMAGE) VALUES ('ample@naver.com', 'ample','https://minibus-bucket.s3.ap-northeast-2.amazonaws.com/minibus-image-testfolder/2022-02-09T17%3A37%3A53.401389_test_image.png');
+INSERT INTO USER (EMAIL, NICKNAME, PROFILE_IMAGE) VALUES ('ample@google.com', 'ample','https://minibus-bucket.s3.ap-northeast-2.amazonaws.com/minibus-image-testfolder/2022-02-09T17%3A37%3A53.401389_test_image.png');
+INSERT INTO USER (EMAIL, NICKNAME, PROFILE_IMAGE) VALUES ('song@naver.com', 'song','https://minibus-bucket.s3.ap-northeast-2.amazonaws.com/minibus-image-testfolder/2022-02-09T17%3A37%3A53.401389_test_image.png');
+INSERT INTO USER (EMAIL, NICKNAME, PROFILE_IMAGE) VALUES ('jaein@naver.com', 'jaein','https://minibus-bucket.s3.ap-northeast-2.amazonaws.com/minibus-image-testfolder/2022-02-09T17%3A37%3A53.401389_test_image.png');
+INSERT INTO USER (EMAIL, NICKNAME, PROFILE_IMAGE) VALUES ('apple@naver.com', 'apple','https://minibus-bucket.s3.ap-northeast-2.amazonaws.com/minibus-image-testfolder/2022-02-09T17%3A37%3A53.401389_test_image.png');
+INSERT INTO USER (EMAIL, NICKNAME, PROFILE_IMAGE) VALUES ('banana@naver.com', 'banana','https://minibus-bucket.s3.ap-northeast-2.amazonaws.com/minibus-image-testfolder/2022-02-09T17%3A37%3A53.401389_test_image.png');
+INSERT INTO USER (EMAIL, NICKNAME, PROFILE_IMAGE) VALUES ('minibus@naver.com', 'minibus','https://minibus-bucket.s3.ap-northeast-2.amazonaws.com/minibus-image-testfolder/2022-02-09T17%3A37%3A53.401389_test_image.png');
 
 INSERT INTO TRANSPORTATION (NAME) VALUES ('버스');
 INSERT INTO TRANSPORTATION (NAME) VALUES ('지하철');

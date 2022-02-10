@@ -29,8 +29,6 @@ public class User {
 
     private String nickname;
 
-    private AuthProvider provider;
-
     @OneToMany(mappedBy = "user")
     private List<LikePost> likeList = new ArrayList<>();
 
@@ -43,16 +41,12 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    public User update(String nickname, String profileImage) {
+    public User update(String nickname) {
         this.nickname = nickname;
-        this.profileImage = profileImage;
         return this;
     }
 
     public String getRoleKey() {
         return this.role.getKey();
     }
-
-//    public String getProvider() {
-//    }
 }

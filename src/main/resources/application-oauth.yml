@@ -17,10 +17,4 @@ spring:
             token-uri: https://kauth.kakao.com/oauth/token
             user-info-uri: https://kapi.kakao.com/v2/user/me
             user-name-attribute: id
-  app:
-    auth:
-      tokenSecret: dsadsadd312bhb1b2bhb4h1b423rfgds89f8bfb2u32912e21ncmasmdcsasdsada
-      tokenExpirationMsec: 864000000
-    oauth2:
-      authorized-redirect-uris: http://localhost:3000/oauth2/redirect
 
