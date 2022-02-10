@@ -18,6 +18,7 @@ public class MinibusBackApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(MinibusBackApplication.class, args);
+        
     }
 
 //    @Bean
