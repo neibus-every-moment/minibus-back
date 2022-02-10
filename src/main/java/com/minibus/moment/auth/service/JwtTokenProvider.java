@@ -69,10 +69,15 @@ public class JwtTokenProvider {
 
     //Request의 Header에서 토큰 값 가져온다. "X-AUTH-TOKEN" : "토큰 값"
     public String resolveToken(HttpServletRequest request) {
-        String value = Arrays.stream(request.getCookies()).filter(
-                cookie -> cookie.getName().equals("Auth")
-        ).map(Cookie::getValue).findFirst().orElseThrow();
-        return value;
+        Cookie[] cookies = request.getCookies();
+        if(cookies!=null) {
+            for (Cookie cookie : cookies) {
+                if(cookie.getName().equals("Auth")) {
+                    return cookie.getValue();
+                }
+            }
+        }
+        return null;
     }
 
     // JWT 토큰에서 인증 정보 조회
