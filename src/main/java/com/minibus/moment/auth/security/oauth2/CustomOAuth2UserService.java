@@ -74,7 +74,6 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
     // DB에 존재할 경우 정보 업데이트
     private User updateExistingUser(User existingUser, OAuth2UserInfo oAuth2UserInfo) {
-
         return userRepository.save(existingUser
                 .update(
                         oAuth2UserInfo.getName(),
