@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,36 +25,48 @@ public class TransportationService {
                 .collect(Collectors.toList());
     }
 
-    // Todo 교통 수단 추가, 업데이트, 삭제 메서드 구현
-
     // 교통수단 테이블에 새로운 교통수단 추가
-    public boolean newTransportation(TransportationDto.Request request) {
-        //Todo Validation
-        if(!transportationRepository.findByNameEquals(request.getTransportationName()).isPresent()) {
-            Transportation newTransportation = Transportation.builder()
-                    .name(request.getTransportationName())
-                    .build();
-            transportationRepository.save(newTransportation);
-            return true;
-        } else return false;
+    public void newTransportation(TransportationDto.Request request) {
+        // 등록하려는 Transportation 이 이미 테이블에 있는지 확인하고 없으면 추가 있으면 throw TransportationAlreadyExist
+        Optional<Transportation> transportation = transportationRepository.findByNameEquals(request.getTransportation());
+        if(!transportation.isPresent()) {
+            transportationRepository.save(Transportation.builder()
+                            .name(request.getTransportation())
+                            .build());
+        } else {
+            // TransportationAlreadyExistException
+        }
     }
 
     // 교통수단 테이블의 교통수단 이름 변경
     @Transactional
     public void editTransportationNameInTable(TransportationDto.Request request){
-        transportationRepository.findById(request.getId()).orElseThrow().builder()
-                .name(request.getTransportationName())
-                .build();
+        // 등록하려는 Transportation 검색하여 이름 변경, 이미 테이블에 있는 명칭으로는 변경 불가
+        Optional<Transportation> transportation = transportationRepository.findByNameEquals(request.getTransportation());
+        if(!transportation.isPresent()) {
+            transportationRepository.findById(request.getId()).ifPresent(
+                    entity -> entity.setName(request.getTransportation())
+            );
+        } else {
+            // TransportationAlreadyExistException
+        }
     }
 
     // 포스트의 교통수단 변경
     @Transactional
-    public void editTransportationInPost(TransportationDto.RequestIncludingPost request){
-        postRepository.findById(request.getPostId()).orElseThrow().builder().transportation(transportationRepository.findByNameEquals(request.getTransportationName()).orElseThrow()).build();
+    public void editPostTransportation(TransportationDto.Request request){
+        postRepository.findById(request.getPostId()).ifPresentOrElse(
+                entity -> entity.setTransportation(transportationRepository.findByNameEquals(request.getTransportation()).orElseThrow()),
+                () -> new Exception() //PostNotExistException
+        );
     }
 
     // 교통수단 테이블에서 교통수단 삭제
     public void deleteTransportationInTable(TransportationDto.Request request) {
-        transportationRepository.delete(transportationRepository.findByNameEquals(request.getTransportationName()).orElseThrow());
+        transportationRepository.findByNameEquals(request.getTransportation()).ifPresentOrElse(
+            entity -> transportationRepository.delete(entity),
+            () -> new Exception() //TransportationNotExistException
+        );
+
     }
 }

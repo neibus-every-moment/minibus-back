@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,33 +25,47 @@ public class RegionService {
                 .collect(Collectors.toList());
     }
 
-    // Todo  지역 추가, 업데이트, 삭제 메서드 구현
-
     // 지역 테이블에 새로운 지역 추가
-    public boolean newRegion(RegionDto.Request request) {
-        if(!regionRepository.findByNameEquals(request.getRegion()).isPresent()) {
-            Region newRegion = Region.builder()
+    public void newRegion(RegionDto.Request request) {
+        // 등록하려는 region 이 이미 테이블에 있는지 확인하고 없으면 추가 있으면 throw regionAlreadyExist
+        Optional<Region> region = regionRepository.findByNameEquals(request.getRegion());
+        if(!region.isPresent()) {
+            regionRepository.save(Region.builder()
                     .name(request.getRegion())
-                    .build();
-            regionRepository.save(newRegion);
-            return true;
-        } else return false;
+                    .build());
+        } else {
+            // regionAlreadyExistException
+        }
     }
 
     // 지역 테이블의 지역 이름 변경
     @Transactional
     public void editRegionNameInTable(RegionDto.Request request){
-        regionRepository.findById(request.getId()).orElseThrow().builder().name(request.getRegion()).build();
+        // 등록하려는 region 검색하여 이름 변경, 이미 테이블에 있는 명칭으로는 변경 불가
+        Optional<Region> region = regionRepository.findByNameEquals(request.getRegion());
+        if(!region.isPresent()) {
+            regionRepository.findById(request.getId()).ifPresent(
+                    entity -> entity.setName(request.getRegion())
+            );
+        } else {
+            // regionAlreadyExistException
+        }
     }
 
     // 포스트의 지역 변경
     @Transactional
-    public void editRegionInPost(RegionDto.RequestIncludingPost request){
-        postRepository.findById(request.getPostId()).orElseThrow().builder().region(regionRepository.findByNameEquals(request.getRegion()).orElseThrow()).build();
+    public void editPostRegion(RegionDto.Request request){
+        postRepository.findById(request.getPostId()).ifPresentOrElse(
+                entity -> entity.setRegion(regionRepository.findByNameEquals(request.getRegion()).orElseThrow()),
+                () -> new Exception() //PostNotExistException
+        );
     }
 
     // 지역 테이블에서 지역 삭제
-    public void deleteRegionInTable(String region) {
-        regionRepository.delete(regionRepository.findByNameEquals(region).orElseThrow());
+    public void deleteRegionInTable(RegionDto.Request request) {
+        regionRepository.findByNameEquals(request.getRegion()).ifPresentOrElse(
+                entity -> regionRepository.delete(entity),
+                () -> new Exception() //regionNotExistException
+        );
     }
 }

@@ -27,6 +27,7 @@ import com.minibus.moment.exception.ReportReasonNotFoundException;
 import com.minibus.moment.exception.TransportationNotFoundException;
 import com.minibus.moment.service.uploader.S3Uploader;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.criterion.Order;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -137,7 +138,7 @@ public class PostService {
                 .build();
         reportRepository.save(report);
 
-        if (request.getDetail() != null) {
+        if (!ObjectUtils.isEmpty(request.getDetail())) {
             ReportEtcDetail reportEtcDetail = ReportEtcDetail.builder()
                     .report(report)
                     .content(request.getDetail())
@@ -164,7 +165,6 @@ public class PostService {
                 .content(request.getContent())
                 .region(region)
                 .transportation(transportation)
-                .likeCount(0L)
                 .status(VISIBLE)
                 .build();
         postRepository.save(post);

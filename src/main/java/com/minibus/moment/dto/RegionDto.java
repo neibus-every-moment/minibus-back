@@ -17,20 +17,12 @@ public class RegionDto {
     public static class Request {
         private Integer id;
         private String region;
+        private Long postId;
     }
 
     private Integer id;
     private String name;
 
-    @Getter
-    @Setter
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class RequestIncludingPost {
-        private Integer id;
-        private String region;
-        private Long postId;
-    }
 
     public static RegionDto from(Region region) {
         return RegionDto.builder()

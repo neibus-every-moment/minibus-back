@@ -2,6 +2,7 @@ package com.minibus.moment.controller;
 
 import com.minibus.moment.dto.api.CreateComment;
 import com.minibus.moment.dto.api.GetCommentList;
+import com.minibus.moment.dto.api.ReportComment;
 import com.minibus.moment.dto.api.UpdateComment;
 import com.minibus.moment.service.CommentService;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +23,11 @@ public class CommentController {
     @PostMapping("/comment")
     public CreateComment.Response createComment(@RequestBody CreateComment.Request request){
         return new CreateComment.Response(commentService.createComment(request));
+    }
+
+    @PostMapping("/comment/report")
+    public boolean reportComment(@RequestBody ReportComment.Request request){
+        return commentService.reportComment(request);
     }
 
     @PutMapping("/comment/{commentId}")
