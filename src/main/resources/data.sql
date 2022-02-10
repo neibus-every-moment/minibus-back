@@ -57,8 +57,79 @@ INSERT INTO POST (USER_ID, CONTENT, STATUS, REGION_ID, TRANSPORT_ID, CREATED_AT,
 INSERT INTO POST (USER_ID, CONTENT, STATUS, REGION_ID, TRANSPORT_ID, CREATED_AT, UPDATED_AT) VALUES (2,'test', 'VISIBLE', 3,1, current_timestamp, current_timestamp);
 INSERT INTO POST (USER_ID, CONTENT, STATUS, REGION_ID, TRANSPORT_ID, CREATED_AT, UPDATED_AT) VALUES (4,'test', 'VISIBLE',3,2, current_timestamp, current_timestamp);
 INSERT INTO POST (USER_ID, CONTENT, STATUS, REGION_ID, TRANSPORT_ID, CREATED_AT, UPDATED_AT) VALUES (1,'test', 'VISIBLE',3,4, current_timestamp, current_timestamp);
-INSERT INTO POST (USER_ID, CONTENT, STATUS, REGION_ID, TRANSPORT_ID, CREATED_AT, UPDATED_AT) VALUES (1,'test', 'VISIBLE',3,1, current_timestamp, current_timestamp);
+INSERT INTO POST (USER_ID, CONTENT, STATUS, REGION_ID, TRANSPORT_ID, CREATED_AT, UPDATED_AT) VALUES (1,'test', 'VISIBLE',3,3, current_timestamp, current_timestamp);
 INSERT INTO POST (USER_ID, CONTENT, STATUS, REGION_ID, TRANSPORT_ID, CREATED_AT, UPDATED_AT) VALUES (3,'test', 'VISIBLE',3,3, current_timestamp, current_timestamp);
+INSERT INTO POST (USER_ID, CONTENT, STATUS, REGION_ID, TRANSPORT_ID, CREATED_AT, UPDATED_AT) VALUES (1,'test', 'VISIBLE',1,1, current_timestamp, current_timestamp);
+INSERT INTO POST (USER_ID, CONTENT, STATUS, REGION_ID, TRANSPORT_ID, CREATED_AT, UPDATED_AT) VALUES (2,'test', 'VISIBLE',2,3, current_timestamp, current_timestamp);
+INSERT INTO POST (USER_ID, CONTENT, STATUS, REGION_ID, TRANSPORT_ID, CREATED_AT, UPDATED_AT) VALUES (2,'test', 'VISIBLE',1,2, current_timestamp, current_timestamp);
+INSERT INTO POST (USER_ID, CONTENT, STATUS, REGION_ID, TRANSPORT_ID, CREATED_AT, UPDATED_AT) VALUES (3,'test', 'VISIBLE',3,1, current_timestamp, current_timestamp);
+INSERT INTO POST (USER_ID, CONTENT, STATUS, REGION_ID, TRANSPORT_ID, CREATED_AT, UPDATED_AT) VALUES (2,'test', 'VISIBLE',2,3, current_timestamp, current_timestamp);
+INSERT INTO POST (USER_ID, CONTENT, STATUS, REGION_ID, TRANSPORT_ID, CREATED_AT, UPDATED_AT) VALUES (4,'test', 'VISIBLE',1,4, current_timestamp, current_timestamp);
+INSERT INTO POST (USER_ID, CONTENT, STATUS, REGION_ID, TRANSPORT_ID, CREATED_AT, UPDATED_AT) VALUES (1,'test', 'VISIBLE',1,3, current_timestamp, current_timestamp);
+INSERT INTO POST (USER_ID, CONTENT, STATUS, REGION_ID, TRANSPORT_ID, CREATED_AT, UPDATED_AT) VALUES (2,'test', 'VISIBLE',1,4, current_timestamp, current_timestamp);
+INSERT INTO POST (USER_ID, CONTENT, STATUS, REGION_ID, TRANSPORT_ID, CREATED_AT, UPDATED_AT) VALUES (4,'test', 'VISIBLE',2,1, current_timestamp, current_timestamp);
+INSERT INTO POST (USER_ID, CONTENT, STATUS, REGION_ID, TRANSPORT_ID, CREATED_AT, UPDATED_AT) VALUES (4,'test', 'VISIBLE', 3,2, current_timestamp, current_timestamp);
+INSERT INTO POST (USER_ID, CONTENT, STATUS, REGION_ID, TRANSPORT_ID, CREATED_AT, UPDATED_AT) VALUES (3,'test', 'VISIBLE', 3,2, current_timestamp, current_timestamp);
+INSERT INTO POST (USER_ID, CONTENT, STATUS, REGION_ID, TRANSPORT_ID, CREATED_AT, UPDATED_AT) VALUES (2,'test', 'VISIBLE', 1,2, current_timestamp, current_timestamp);
+INSERT INTO POST (USER_ID, CONTENT, STATUS, REGION_ID, TRANSPORT_ID, CREATED_AT, UPDATED_AT) VALUES (3,'test', 'VISIBLE', 4,1, current_timestamp, current_timestamp);
+INSERT INTO POST (USER_ID, CONTENT, STATUS, REGION_ID, TRANSPORT_ID, CREATED_AT, UPDATED_AT) VALUES (2,'test', 'VISIBLE', 2,4, current_timestamp, current_timestamp);
+INSERT INTO POST (USER_ID, CONTENT, STATUS, REGION_ID, TRANSPORT_ID, CREATED_AT, UPDATED_AT) VALUES (3,'test', 'VISIBLE', 3,1, current_timestamp, current_timestamp);
+INSERT INTO POST (USER_ID, CONTENT, STATUS, REGION_ID, TRANSPORT_ID, CREATED_AT, UPDATED_AT) VALUES (1,'test', 'VISIBLE', 2,4, current_timestamp, current_timestamp);
+INSERT INTO POST (USER_ID, CONTENT, STATUS, REGION_ID, TRANSPORT_ID, CREATED_AT, UPDATED_AT) VALUES (4,'test', 'VISIBLE', 1,4, current_timestamp, current_timestamp);
+INSERT INTO POST (USER_ID, CONTENT, STATUS, REGION_ID, TRANSPORT_ID, CREATED_AT, UPDATED_AT) VALUES (2,'test', 'VISIBLE', 3,3, current_timestamp, current_timestamp);
+INSERT INTO POST (USER_ID, CONTENT, STATUS, REGION_ID, TRANSPORT_ID, CREATED_AT, UPDATED_AT) VALUES (1,'test', 'VISIBLE', 2,1, current_timestamp, current_timestamp);
+INSERT INTO POST (USER_ID, CONTENT, STATUS, REGION_ID, TRANSPORT_ID, CREATED_AT, UPDATED_AT) VALUES (1,'test', 'VISIBLE',3,4, current_timestamp, current_timestamp);
+
+INSERT INTO POST (USER_ID, CONTENT, STATUS, REGION_ID, TRANSPORT_ID, CREATED_AT, UPDATED_AT) VALUES (3,'test', 'VISIBLE', 2,1, current_timestamp, current_timestamp);
+INSERT INTO POST (USER_ID, CONTENT, STATUS, REGION_ID, TRANSPORT_ID, CREATED_AT, UPDATED_AT) VALUES (4,'test', 'VISIBLE', 4,3, current_timestamp, current_timestamp);
+INSERT INTO POST (USER_ID, CONTENT, STATUS, REGION_ID, TRANSPORT_ID, CREATED_AT, UPDATED_AT) VALUES (3,'test', 'VISIBLE',2,3, current_timestamp, current_timestamp);
+INSERT INTO POST (USER_ID, CONTENT, STATUS, REGION_ID, TRANSPORT_ID, CREATED_AT, UPDATED_AT) VALUES (4,'test', 'VISIBLE',3,2, current_timestamp, current_timestamp);
+INSERT INTO POST (USER_ID, CONTENT, STATUS, REGION_ID, TRANSPORT_ID, CREATED_AT, UPDATED_AT) VALUES (1,'test', 'VISIBLE',3,2, current_timestamp, current_timestamp);
+
+INSERT INTO POST (USER_ID, CONTENT, STATUS, REGION_ID, TRANSPORT_ID, CREATED_AT, UPDATED_AT) VALUES (2,'test', 'VISIBLE', 3,1, current_timestamp, current_timestamp);
+INSERT INTO POST (USER_ID, CONTENT, STATUS, REGION_ID, TRANSPORT_ID, CREATED_AT, UPDATED_AT) VALUES (4,'test', 'VISIBLE',3,2, current_timestamp, current_timestamp);
+INSERT INTO POST (USER_ID, CONTENT, STATUS, REGION_ID, TRANSPORT_ID, CREATED_AT, UPDATED_AT) VALUES (4,'test', 'VISIBLE',3,4, current_timestamp, current_timestamp);
+INSERT INTO POST (USER_ID, CONTENT, STATUS, REGION_ID, TRANSPORT_ID, CREATED_AT, UPDATED_AT) VALUES (1,'test', 'VISIBLE',3,2, current_timestamp, current_timestamp);
+INSERT INTO POST (USER_ID, CONTENT, STATUS, REGION_ID, TRANSPORT_ID, CREATED_AT, UPDATED_AT) VALUES (3,'test', 'VISIBLE',2,3, current_timestamp, current_timestamp);
+
+INSERT INTO POST (USER_ID, CONTENT, STATUS, REGION_ID, TRANSPORT_ID, CREATED_AT, UPDATED_AT) VALUES (2,'test', 'VISIBLE', 3,1, current_timestamp, current_timestamp);
+INSERT INTO POST (USER_ID, CONTENT, STATUS, REGION_ID, TRANSPORT_ID, CREATED_AT, UPDATED_AT) VALUES (1,'test', 'VISIBLE', 4,2, current_timestamp, current_timestamp);
+INSERT INTO POST (USER_ID, CONTENT, STATUS, REGION_ID, TRANSPORT_ID, CREATED_AT, UPDATED_AT) VALUES (3,'test', 'VISIBLE',2,2, current_timestamp, current_timestamp);
+INSERT INTO POST (USER_ID, CONTENT, STATUS, REGION_ID, TRANSPORT_ID, CREATED_AT, UPDATED_AT) VALUES (2,'test', 'VISIBLE',1,2, current_timestamp, current_timestamp);
+INSERT INTO POST (USER_ID, CONTENT, STATUS, REGION_ID, TRANSPORT_ID, CREATED_AT, UPDATED_AT) VALUES (3,'test', 'VISIBLE',2,1, current_timestamp, current_timestamp);
+
+INSERT INTO POST (USER_ID, CONTENT, STATUS, REGION_ID, TRANSPORT_ID, CREATED_AT, UPDATED_AT) VALUES (2,'test', 'VISIBLE', 3,1, current_timestamp, current_timestamp);
+INSERT INTO POST (USER_ID, CONTENT, STATUS, REGION_ID, TRANSPORT_ID, CREATED_AT, UPDATED_AT) VALUES (3,'test', 'VISIBLE',3,2, current_timestamp, current_timestamp);
+INSERT INTO POST (USER_ID, CONTENT, STATUS, REGION_ID, TRANSPORT_ID, CREATED_AT, UPDATED_AT) VALUES (1,'test', 'VISIBLE',2,4, current_timestamp, current_timestamp);
+INSERT INTO POST (USER_ID, CONTENT, STATUS, REGION_ID, TRANSPORT_ID, CREATED_AT, UPDATED_AT) VALUES (3,'test', 'VISIBLE',3,3, current_timestamp, current_timestamp);
+INSERT INTO POST (USER_ID, CONTENT, STATUS, REGION_ID, TRANSPORT_ID, CREATED_AT, UPDATED_AT) VALUES (3,'test', 'VISIBLE',3,3, current_timestamp, current_timestamp);
+
+
+
+
+INSERT INTO POST (USER_ID, CONTENT, STATUS, REGION_ID, TRANSPORT_ID, CREATED_AT, UPDATED_AT) VALUES (1,'test', 'VISIBLE', 1,4, current_timestamp, current_timestamp);
+INSERT INTO POST (USER_ID, CONTENT, STATUS, REGION_ID, TRANSPORT_ID, CREATED_AT, UPDATED_AT) VALUES (1,'test', 'VISIBLE', 1,2, current_timestamp, current_timestamp);
+INSERT INTO POST (USER_ID, CONTENT, STATUS, REGION_ID, TRANSPORT_ID, CREATED_AT, UPDATED_AT) VALUES (2,'test', 'VISIBLE',1,3, current_timestamp, current_timestamp);
+INSERT INTO POST (USER_ID, CONTENT, STATUS, REGION_ID, TRANSPORT_ID, CREATED_AT, UPDATED_AT) VALUES (2,'test', 'VISIBLE',2,4, current_timestamp, current_timestamp);
+INSERT INTO POST (USER_ID, CONTENT, STATUS, REGION_ID, TRANSPORT_ID, CREATED_AT, UPDATED_AT) VALUES (3,'test', 'VISIBLE',2,1, current_timestamp, current_timestamp);
+
+INSERT INTO POST (USER_ID, CONTENT, STATUS, REGION_ID, TRANSPORT_ID, CREATED_AT, UPDATED_AT) VALUES (3,'test', 'VISIBLE', 2,4, current_timestamp, current_timestamp);
+INSERT INTO POST (USER_ID, CONTENT, STATUS, REGION_ID, TRANSPORT_ID, CREATED_AT, UPDATED_AT) VALUES (4,'test', 'VISIBLE',3,1, current_timestamp, current_timestamp);
+INSERT INTO POST (USER_ID, CONTENT, STATUS, REGION_ID, TRANSPORT_ID, CREATED_AT, UPDATED_AT) VALUES (4,'test', 'VISIBLE',3,1, current_timestamp, current_timestamp);
+INSERT INTO POST (USER_ID, CONTENT, STATUS, REGION_ID, TRANSPORT_ID, CREATED_AT, UPDATED_AT) VALUES (2,'test', 'VISIBLE',3,4, current_timestamp, current_timestamp);
+INSERT INTO POST (USER_ID, CONTENT, STATUS, REGION_ID, TRANSPORT_ID, CREATED_AT, UPDATED_AT) VALUES (2,'test', 'VISIBLE',4,3, current_timestamp, current_timestamp);
+
+INSERT INTO POST (USER_ID, CONTENT, STATUS, REGION_ID, TRANSPORT_ID, CREATED_AT, UPDATED_AT) VALUES (1,'test', 'VISIBLE', 4,1, current_timestamp, current_timestamp);
+INSERT INTO POST (USER_ID, CONTENT, STATUS, REGION_ID, TRANSPORT_ID, CREATED_AT, UPDATED_AT) VALUES (1,'test', 'VISIBLE', 4,3, current_timestamp, current_timestamp);
+INSERT INTO POST (USER_ID, CONTENT, STATUS, REGION_ID, TRANSPORT_ID, CREATED_AT, UPDATED_AT) VALUES (3,'test', 'VISIBLE',1,2, current_timestamp, current_timestamp);
+INSERT INTO POST (USER_ID, CONTENT, STATUS, REGION_ID, TRANSPORT_ID, CREATED_AT, UPDATED_AT) VALUES (3,'test', 'VISIBLE',1,3, current_timestamp, current_timestamp);
+INSERT INTO POST (USER_ID, CONTENT, STATUS, REGION_ID, TRANSPORT_ID, CREATED_AT, UPDATED_AT) VALUES (4,'test', 'VISIBLE',1,1, current_timestamp, current_timestamp);
+
+INSERT INTO POST (USER_ID, CONTENT, STATUS, REGION_ID, TRANSPORT_ID, CREATED_AT, UPDATED_AT) VALUES (4,'test', 'VISIBLE', 2,3, current_timestamp, current_timestamp);
+INSERT INTO POST (USER_ID, CONTENT, STATUS, REGION_ID, TRANSPORT_ID, CREATED_AT, UPDATED_AT) VALUES (2,'test', 'VISIBLE',1,1, current_timestamp, current_timestamp);
+INSERT INTO POST (USER_ID, CONTENT, STATUS, REGION_ID, TRANSPORT_ID, CREATED_AT, UPDATED_AT) VALUES (3,'test', 'VISIBLE',4,4, current_timestamp, current_timestamp);
+INSERT INTO POST (USER_ID, CONTENT, STATUS, REGION_ID, TRANSPORT_ID, CREATED_AT, UPDATED_AT) VALUES (2,'test', 'VISIBLE',2,2, current_timestamp, current_timestamp);
+INSERT INTO POST (USER_ID, CONTENT, STATUS, REGION_ID, TRANSPORT_ID, CREATED_AT, UPDATED_AT) VALUES (2,'test', 'VISIBLE',4,2, current_timestamp, current_timestamp);
 
 INSERT INTO IMAGE(PATH, POST_ID) VALUES ('https://minibus-bucket.s3.ap-northeast-2.amazonaws.com/minibus-image-testfolder/2022-02-09T17%3A37%3A53.401389_test_image.png', 1);
 INSERT INTO IMAGE(PATH, POST_ID) VALUES ('https://minibus-bucket.s3.ap-northeast-2.amazonaws.com/minibus-image-testfolder/2022-02-09T17%3A37%3A53.943884_test_image2.png', 1);
@@ -80,6 +151,30 @@ INSERT INTO IMAGE(PATH, POST_ID) VALUES ('https://minibus-bucket.s3.ap-northeast
 INSERT INTO IMAGE(PATH, POST_ID) VALUES ('https://minibus-bucket.s3.ap-northeast-2.amazonaws.com/minibus-image-testfolder/2022-02-09T17%3A37%3A53.401389_test_image.png', 11);
 INSERT INTO IMAGE(PATH, POST_ID) VALUES ('https://minibus-bucket.s3.ap-northeast-2.amazonaws.com/minibus-image-testfolder/2022-02-09T17%3A37%3A53.401389_test_image.png', 7);
 INSERT INTO IMAGE(PATH, POST_ID) VALUES ('https://minibus-bucket.s3.ap-northeast-2.amazonaws.com/minibus-image-testfolder/2022-02-09T17%3A37%3A53.401389_test_image.png', 21);
+
+INSERT INTO IMAGE(PATH, POST_ID) VALUES ('https://minibus-bucket.s3.ap-northeast-2.amazonaws.com/minibus-image-testfolder/2022-02-09T17%3A37%3A53.401389_test_image.png', 23);
+INSERT INTO IMAGE(PATH, POST_ID) VALUES ('https://minibus-bucket.s3.ap-northeast-2.amazonaws.com/minibus-image-testfolder/2022-02-09T17%3A37%3A53.401389_test_image.png', 55);
+INSERT INTO IMAGE(PATH, POST_ID) VALUES ('https://minibus-bucket.s3.ap-northeast-2.amazonaws.com/minibus-image-testfolder/2022-02-09T17%3A37%3A53.401389_test_image.png', 62);
+INSERT INTO IMAGE(PATH, POST_ID) VALUES ('https://minibus-bucket.s3.ap-northeast-2.amazonaws.com/minibus-image-testfolder/2022-02-09T17%3A37%3A53.401389_test_image.png', 55);
+INSERT INTO IMAGE(PATH, POST_ID) VALUES ('https://minibus-bucket.s3.ap-northeast-2.amazonaws.com/minibus-image-testfolder/2022-02-09T17%3A37%3A53.401389_test_image.png', 55);
+INSERT INTO IMAGE(PATH, POST_ID) VALUES ('https://minibus-bucket.s3.ap-northeast-2.amazonaws.com/minibus-image-testfolder/2022-02-09T17%3A37%3A53.401389_test_image.png', 19);
+INSERT INTO IMAGE(PATH, POST_ID) VALUES ('https://minibus-bucket.s3.ap-northeast-2.amazonaws.com/minibus-image-testfolder/2022-02-09T17%3A37%3A53.401389_test_image.png', 33);
+INSERT INTO IMAGE(PATH, POST_ID) VALUES ('https://minibus-bucket.s3.ap-northeast-2.amazonaws.com/minibus-image-testfolder/2022-02-09T17%3A37%3A53.401389_test_image.png', 44);
+INSERT INTO IMAGE(PATH, POST_ID) VALUES ('https://minibus-bucket.s3.ap-northeast-2.amazonaws.com/minibus-image-testfolder/2022-02-09T17%3A37%3A53.401389_test_image.png', 33);
+INSERT INTO IMAGE(PATH, POST_ID) VALUES ('https://minibus-bucket.s3.ap-northeast-2.amazonaws.com/minibus-image-testfolder/2022-02-09T17%3A37%3A53.401389_test_image.png', 44);
+INSERT INTO IMAGE(PATH, POST_ID) VALUES ('https://minibus-bucket.s3.ap-northeast-2.amazonaws.com/minibus-image-testfolder/2022-02-09T17%3A37%3A53.401389_test_image.png', 24);
+INSERT INTO IMAGE(PATH, POST_ID) VALUES ('https://minibus-bucket.s3.ap-northeast-2.amazonaws.com/minibus-image-testfolder/2022-02-09T17%3A37%3A53.401389_test_image.png', 26);
+INSERT INTO IMAGE(PATH, POST_ID) VALUES ('https://minibus-bucket.s3.ap-northeast-2.amazonaws.com/minibus-image-testfolder/2022-02-09T17%3A37%3A53.401389_test_image.png', 27);
+INSERT INTO IMAGE(PATH, POST_ID) VALUES ('https://minibus-bucket.s3.ap-northeast-2.amazonaws.com/minibus-image-testfolder/2022-02-09T17%3A37%3A53.401389_test_image.png', 26);
+INSERT INTO IMAGE(PATH, POST_ID) VALUES ('https://minibus-bucket.s3.ap-northeast-2.amazonaws.com/minibus-image-testfolder/2022-02-09T17%3A37%3A53.401389_test_image.png', 45);
+INSERT INTO IMAGE(PATH, POST_ID) VALUES ('https://minibus-bucket.s3.ap-northeast-2.amazonaws.com/minibus-image-testfolder/2022-02-09T17%3A37%3A53.401389_test_image.png', 59);
+INSERT INTO IMAGE(PATH, POST_ID) VALUES ('https://minibus-bucket.s3.ap-northeast-2.amazonaws.com/minibus-image-testfolder/2022-02-09T17%3A37%3A53.401389_test_image.png', 49);
+INSERT INTO IMAGE(PATH, POST_ID) VALUES ('https://minibus-bucket.s3.ap-northeast-2.amazonaws.com/minibus-image-testfolder/2022-02-09T17%3A37%3A53.401389_test_image.png', 14);
+INSERT INTO IMAGE(PATH, POST_ID) VALUES ('https://minibus-bucket.s3.ap-northeast-2.amazonaws.com/minibus-image-testfolder/2022-02-09T17%3A37%3A53.401389_test_image.png', 23);
+INSERT INTO IMAGE(PATH, POST_ID) VALUES ('https://minibus-bucket.s3.ap-northeast-2.amazonaws.com/minibus-image-testfolder/2022-02-09T17%3A37%3A53.401389_test_image.png', 64);
+INSERT INTO IMAGE(PATH, POST_ID) VALUES ('https://minibus-bucket.s3.ap-northeast-2.amazonaws.com/minibus-image-testfolder/2022-02-09T17%3A37%3A53.401389_test_image.png', 36);
+INSERT INTO IMAGE(PATH, POST_ID) VALUES ('https://minibus-bucket.s3.ap-northeast-2.amazonaws.com/minibus-image-testfolder/2022-02-09T17%3A37%3A53.401389_test_image.png', 51);
+
 
 
 
@@ -117,3 +212,25 @@ INSERT INTO LIKE_POST(ID, CREATED_AT, POST_ID, USER_ID) VALUES(null, current_tim
 INSERT INTO LIKE_POST(ID, CREATED_AT, POST_ID, USER_ID) VALUES(null, current_time(), 4, 3);
 INSERT INTO LIKE_POST(ID, CREATED_AT, POST_ID, USER_ID) VALUES(null, current_time(), 5, 3);
 INSERT INTO LIKE_POST(ID, CREATED_AT, POST_ID, USER_ID) VALUES(null, current_time(), 6, 3);
+
+INSERT INTO LIKE_POST(ID, CREATED_AT, POST_ID, USER_ID) VALUES(null, current_time(), 11, 1);
+INSERT INTO LIKE_POST(ID, CREATED_AT, POST_ID, USER_ID) VALUES(null, current_time(), 21, 1);
+INSERT INTO LIKE_POST(ID, CREATED_AT, POST_ID, USER_ID) VALUES(null, current_time(), 23, 1);
+INSERT INTO LIKE_POST(ID, CREATED_AT, POST_ID, USER_ID) VALUES(null, current_time(), 24, 2);
+INSERT INTO LIKE_POST(ID, CREATED_AT, POST_ID, USER_ID) VALUES(null, current_time(), 25, 2);
+INSERT INTO LIKE_POST(ID, CREATED_AT, POST_ID, USER_ID) VALUES(null, current_time(), 26, 2);
+INSERT INTO LIKE_POST(ID, CREATED_AT, POST_ID, USER_ID) VALUES(null, current_time(), 26, 3);
+INSERT INTO LIKE_POST(ID, CREATED_AT, POST_ID, USER_ID) VALUES(null, current_time(), 27, 3);
+INSERT INTO LIKE_POST(ID, CREATED_AT, POST_ID, USER_ID) VALUES(null, current_time(), 28, 3);
+INSERT INTO LIKE_POST(ID, CREATED_AT, POST_ID, USER_ID) VALUES(null, current_time(), 29, 3);
+
+INSERT INTO LIKE_POST(ID, CREATED_AT, POST_ID, USER_ID) VALUES(null, current_time(), 61, 1);
+INSERT INTO LIKE_POST(ID, CREATED_AT, POST_ID, USER_ID) VALUES(null, current_time(), 62, 1);
+INSERT INTO LIKE_POST(ID, CREATED_AT, POST_ID, USER_ID) VALUES(null, current_time(), 63, 1);
+INSERT INTO LIKE_POST(ID, CREATED_AT, POST_ID, USER_ID) VALUES(null, current_time(), 62, 2);
+INSERT INTO LIKE_POST(ID, CREATED_AT, POST_ID, USER_ID) VALUES(null, current_time(), 63, 2);
+INSERT INTO LIKE_POST(ID, CREATED_AT, POST_ID, USER_ID) VALUES(null, current_time(), 64, 2);
+INSERT INTO LIKE_POST(ID, CREATED_AT, POST_ID, USER_ID) VALUES(null, current_time(), 63, 3);
+INSERT INTO LIKE_POST(ID, CREATED_AT, POST_ID, USER_ID) VALUES(null, current_time(), 74, 3);
+INSERT INTO LIKE_POST(ID, CREATED_AT, POST_ID, USER_ID) VALUES(null, current_time(), 75, 3);
+INSERT INTO LIKE_POST(ID, CREATED_AT, POST_ID, USER_ID) VALUES(null, current_time(), 76, 3);
