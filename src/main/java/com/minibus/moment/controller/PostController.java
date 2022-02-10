@@ -1,10 +1,13 @@
 package com.minibus.moment.controller;
 
+import com.minibus.moment.auth.service.JwtTokenProvider;
+import com.minibus.moment.dto.UserDto;
 import com.minibus.moment.dto.api.*;
 
 import com.minibus.moment.service.*;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -18,6 +21,9 @@ public class PostController {
     private final PostService postService;
     private final TransportationService transportationService;
     private final RegionService regionService;
+
+    private final JwtTokenProvider jwtTokenProvider;
+    private final UserService userService;
 
     private final LikePostService likePostService;
 
@@ -84,7 +90,9 @@ public class PostController {
     }
 
     @GetMapping("/my-posts")
-    public GetPostList.Response getPostList(@RequestParam Long userId){
-        return new GetPostList.Response(postService.getPostListByUser(userId));
+    public GetPostList.Response getPostList(){
+        String email = jwtTokenProvider.getUid(SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString());
+        UserDto user = userService.getUser(email);
+        return new GetPostList.Response(postService.getPostListByUser(user.getId()));
     }
 }

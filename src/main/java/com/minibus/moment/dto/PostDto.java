@@ -79,5 +79,23 @@ public class PostDto {
         private Long count;
         private List<Long> users;
     }
+
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
+    public static class UserDto {
+        private Long id;
+        private String avatar;
+        private String nickname;
+
+        public static UserDto from(User user){
+            return UserDto.builder()
+                    .id(user.getId())
+                    .avatar(user.getProfileImage())
+                    .nickname(user.getNickname())
+                    .build();
+        }
+    }
 }
 

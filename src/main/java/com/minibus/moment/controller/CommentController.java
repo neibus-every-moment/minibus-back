@@ -1,11 +1,16 @@
 package com.minibus.moment.controller;
 
+import com.minibus.moment.auth.service.JwtTokenProvider;
+import com.minibus.moment.domain.user.UserRepository;
+import com.minibus.moment.dto.UserDto;
 import com.minibus.moment.dto.api.CreateComment;
 import com.minibus.moment.dto.api.GetCommentList;
 import com.minibus.moment.dto.api.ReportComment;
 import com.minibus.moment.dto.api.UpdateComment;
 import com.minibus.moment.service.CommentService;
+import com.minibus.moment.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -14,6 +19,9 @@ import org.springframework.web.bind.annotation.*;
 public class CommentController {
 
     private final CommentService commentService;
+
+    private final JwtTokenProvider jwtTokenProvider;
+    private final UserService userService;
 
     @GetMapping("/comments/{postId}")
     public GetCommentList.Response getCommentList(@PathVariable Long postId){
@@ -44,8 +52,10 @@ public class CommentController {
     }
 
     @GetMapping("/my-comments")
-    public GetCommentList.Response getCommentListByUser(@RequestParam Long userId){
-        return new GetCommentList.Response(commentService.getCommentListByUser(userId));
+    public GetCommentList.Response getCommentListByUser(){
+        String email = jwtTokenProvider.getUid(SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString());
+        UserDto user = userService.getUser(email);
+        return new GetCommentList.Response(commentService.getCommentListByUser(user.getId()));
     }
 
 }
