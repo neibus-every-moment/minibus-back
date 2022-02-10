@@ -6,7 +6,7 @@ spring:
           kakao:
             clientId: 11f376d2b7f6e04a542590dc75cd1285
             scope: account_email, profile_nickname, profile_image
-            redirect-uri: "http://localhost:8080/login/oauth2/code/kakao"
+            redirect-uri: http://3.37.182.59:8080/oauth2/callback/kakao
 
             authorization-grant-type: authorization_code
             client-name: kakao
@@ -17,3 +17,10 @@ spring:
             token-uri: https://kauth.kakao.com/oauth/token
             user-info-uri: https://kapi.kakao.com/v2/user/me
             user-name-attribute: id
+  app:
+    auth:
+      tokenSecret: dsadsadd312bhb1b2bhb4h1b423rfgds89f8bfb2u32912e21ncmasmdcsasdsada
+      tokenExpirationMsec: 864000000
+    oauth2:
+      authorized-redirect-uris: http://localhost:3000/oauth2/redirect
+

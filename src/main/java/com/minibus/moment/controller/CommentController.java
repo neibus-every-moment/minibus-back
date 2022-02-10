@@ -1,6 +1,5 @@
 package com.minibus.moment.controller;
 
-import com.minibus.moment.dto.CommentDto;
 import com.minibus.moment.dto.api.CreateComment;
 import com.minibus.moment.dto.api.GetCommentList;
 import com.minibus.moment.dto.api.ReportComment;
@@ -8,8 +7,6 @@ import com.minibus.moment.dto.api.UpdateComment;
 import com.minibus.moment.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
