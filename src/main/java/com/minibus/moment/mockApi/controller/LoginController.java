@@ -66,13 +66,8 @@ public class LoginController {
     @PostMapping("/loginUser")
     public UserInfoDto loginUser(HttpServletRequest request) {
         String token = jwtTokenProvider.resolveToken(request);
-        if (token != null && jwtTokenProvider.verifyToken(token)) { //유효 토큰인지 확인
-            String email = jwtTokenProvider.getUid(token);
-            return userService.userInfo(email);
-        }
-        else{
-                throw new TokenIsNotValidException("해당 토큰은 유효하지 않습니다.");
-            }
+        String email = jwtTokenProvider.getUid(token);
+        return userService.userInfo(email);
         }
 
     // 로그아웃
