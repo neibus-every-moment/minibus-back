@@ -6,11 +6,14 @@ import com.minibus.moment.domain.user.User;
 import com.minibus.moment.domain.user.UserRepository;
 import com.minibus.moment.dto.UserDto;
 import com.minibus.moment.dto.UserInfoDto;
+
+import com.minibus.moment.exception.TokenIsNotValidException;
 import com.minibus.moment.dto.api.Login;
 import com.minibus.moment.mockApi.dto.UserRequest;
 //import com.minibus.moment.mockApi.service.Token;
 import com.minibus.moment.service.UserService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,13 +24,14 @@ import javax.servlet.http.HttpServletResponse;
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
+@Slf4j
 public class LoginController {
 
     private final JwtTokenProvider jwtTokenProvider;
     private final UserRepository userRepository;
     private final UserService userService;
 
-    //email로 요청 받으면 토큰을 발급
+    // email로 요청 받으면 토큰을 발급
     @PostMapping("/login")
     public Token login(@RequestBody UserRequest userRequest, HttpServletResponse response) {
         Token token = jwtTokenProvider.generateToken(userRequest.getEmail(), "USER");
@@ -58,29 +62,27 @@ public class LoginController {
         return userRepository.save(user);
     }
 
-
-    //로그인시
+    // 로그인시
     @PostMapping("/loginUser")
     public UserInfoDto loginUser(HttpServletRequest request) {
-
         String token = jwtTokenProvider.resolveToken(request);
-        if (token != null && jwtTokenProvider.verifyToken(token)) { //유효 토큰인지 확인 // 필터로
+        if (token != null && jwtTokenProvider.verifyToken(token)) { //유효 토큰인지 확인
             String email = jwtTokenProvider.getUid(token);
             return userService.userInfo(email);
         }
         else{
-                throw new RuntimeException(); //Todo: 예외처리(해당 토큰은 유효하지 않습니다.)
+                throw new TokenIsNotValidException("해당 토큰은 유효하지 않습니다.");
             }
         }
 
-    //로그아웃
+    // 로그아웃
     @PostMapping("/logoutUser")
     public Boolean logoutUser(HttpServletRequest request, HttpServletResponse response) {
         cookieReset(request, response);
         return true;
     }
 
-    //회원 탈퇴
+    // 회원 탈퇴
     @DeleteMapping("/resign/{userId}")
     public Boolean resignUser(@PathVariable Long userId, HttpServletRequest request, HttpServletResponse response) {
         userService.resign(userId);

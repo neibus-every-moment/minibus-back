@@ -1,9 +1,6 @@
 package com.minibus.moment.controller;
 
-import com.minibus.moment.exception.PostNotFoundException;
-import com.minibus.moment.exception.RegionNotFoundException;
-import com.minibus.moment.exception.ReportReasonNotFoundException;
-import com.minibus.moment.exception.TransportationNotFoundException;
+import com.minibus.moment.exception.*;
 import org.hibernate.TransientPropertyValueException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +29,41 @@ public class ExceptionHandlerController {
 
     @ExceptionHandler(ReportReasonNotFoundException.class)
     public ResponseEntity<?> ReportReasonIdExceptionHandler(ReportReasonNotFoundException exception) {
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(TokenIsNotValidException.class)
+    public ResponseEntity<?> TokenIsNotValidExceptionHandler(TokenIsNotValidException exception) {
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<?> UserNotFoundExceptionHandler(UserNotFoundException exception) {
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(BlindNotFoundException.class)
+    public ResponseEntity<?> BlindNotFoundExceptionHandler(BlindNotFoundException exception) {
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(FindNotPlatformException.class)
+    public ResponseEntity<?> FindNotPlatformExceptionHandler(FindNotPlatformException exception) {
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(TransportationAlreadyExistException.class)
+    public ResponseEntity<?> TransportationAlreadyExistExceptionHandler(TransportationAlreadyExistException exception) {
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(ReportReasonAlreadyExistException.class)
+    public ResponseEntity<?> ReportReasonAlreadyExistExceptionHandler(ReportReasonAlreadyExistException exception) {
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(RegionAlreadyExistException.class)
+    public ResponseEntity<?> RegionAlreadyExistExceptionHandler(RegionAlreadyExistException exception) {
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
     }
 }
