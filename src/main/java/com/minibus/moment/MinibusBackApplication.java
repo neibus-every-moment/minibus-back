@@ -33,7 +33,9 @@ public class MinibusBackApplication {
                                 HttpMethod.POST.name(),
                                 HttpMethod.DELETE.name()
                         )
-                        .allowCredentials(true);
+                        .allowCredentials(true)
+                        .allowedHeaders("*")
+                ;
             }
         };
     }
