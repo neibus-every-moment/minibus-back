@@ -20,6 +20,7 @@ public class OAuth2Attribute {
     private String attributeKey;
     private String email;
     private String nickname;
+    private String profileImage;
 
     //플랫폼 확인
     static OAuth2Attribute of(String provider, String attributeKey, Map<String, Object> attributes) {
