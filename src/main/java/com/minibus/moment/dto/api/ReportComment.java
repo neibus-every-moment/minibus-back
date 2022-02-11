@@ -4,14 +4,20 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class ReportComment {
 
     @Getter
     @NoArgsConstructor
     @AllArgsConstructor
     public static class Request {
+        @Size(min = 0)
+        @NotNull(message = "포스트 ID를 입력해주세요.")
         private Long commentId; // 포스트 id
-        private String reportReason; // 신고 사유 id
+        @NotNull(message = "신고 사유를 입력해주세요.")
+        private String reportReason; // 신고 사유 String
         private String detail; // Optional 신고 사유가 기타일 때 세부사항
     }
 }

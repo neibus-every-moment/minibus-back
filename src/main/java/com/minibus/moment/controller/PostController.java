@@ -18,7 +18,6 @@ public class PostController {
     private final PostService postService;
     private final TransportationService transportationService;
     private final RegionService regionService;
-
     private final LikePostService likePostService;
 
     @GetMapping("/transportations")
@@ -78,7 +77,7 @@ public class PostController {
     }
 
     // LIKE_POST테이블에서 userId 검색하고 결과의 postId를 POST테이블에서 모두 검색하여 반환
-    @GetMapping("/list/my-like-post")
+    @GetMapping("/my-like-posts")
     public GetPostList.Response getMyLikePostList(@RequestParam Long userId) {
         return new GetPostList.Response(likePostService.getMyLikePostList(userId));
     }

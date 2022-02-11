@@ -3,6 +3,8 @@ package com.minibus.moment.dto;
 import com.minibus.moment.domain.region.Region;
 import lombok.*;
 
+import javax.validation.constraints.NotNull;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -16,6 +18,7 @@ public class RegionDto {
     @AllArgsConstructor
     public static class Request {
         private Integer id;
+        @NotNull(message = "지역을 입력해주세요.")
         private String region;
         private Long postId;
     }
