@@ -29,20 +29,21 @@ public class User {
 
     private String nickname;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<LikePost> likeList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Post> postList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Comment> commentList = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    public User update(String nickname) {
+    public User update(String nickname, String profileImage) {
         this.nickname = nickname;
+        this.profileImage = profileImage;
         return this;
     }
 

@@ -89,7 +89,7 @@ public class PostController {
         return new GetPostList.Response(likePostService.getMyLikePostList(userId));
     }
 
-    @GetMapping("/my-posts")
+    @GetMapping("/auth/my-posts")
     public GetPostList.Response getPostList(){
         String email = jwtTokenProvider.getUid(SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString());
         UserDto user = userService.getUser(email);
