@@ -4,7 +4,9 @@ import com.minibus.moment.auth.config.Token;
 import com.minibus.moment.auth.service.JwtTokenProvider;
 import com.minibus.moment.domain.user.User;
 import com.minibus.moment.domain.user.UserRepository;
+import com.minibus.moment.dto.UserDto;
 import com.minibus.moment.dto.UserInfoDto;
+import com.minibus.moment.dto.api.Login;
 import com.minibus.moment.mockApi.dto.UserRequest;
 //import com.minibus.moment.mockApi.service.Token;
 import com.minibus.moment.service.UserService;
@@ -29,11 +31,23 @@ public class LoginController {
     @PostMapping("/login")
     public Token login(@RequestBody UserRequest userRequest, HttpServletResponse response) {
         Token token = jwtTokenProvider.generateToken(userRequest.getEmail(), "USER");
-        User user = saveOrUpdate(userRequest);
+        saveOrUpdate(userRequest);
         Cookie cookie = new Cookie("Auth", token.getToken());
         cookie.setHttpOnly(true);
         response.addCookie(cookie);
         return token;
+    }
+
+    @GetMapping("/login/{userId}")
+    public Login.Response login(@PathVariable Long userId, HttpServletResponse response){
+        UserDto user = userService.login(userId);
+
+        Token token = jwtTokenProvider.generateToken(user.getEmail(), "USER");
+        Cookie cookie = new Cookie("Auth", token.getToken());
+        cookie.setMaxAge(3600);
+        response.addCookie(cookie);
+
+        return new Login.Response(user);
     }
 
     @Transactional
@@ -46,7 +60,6 @@ public class LoginController {
 
 
     //로그인시
-
     @PostMapping("/loginUser")
     public UserInfoDto loginUser(HttpServletRequest request) {
 
