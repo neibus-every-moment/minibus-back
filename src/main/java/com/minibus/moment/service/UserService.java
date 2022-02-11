@@ -40,7 +40,7 @@ public class UserService {
 
     public UserDto getUser(String email) {
         User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new UserNotFoundException("해당 유러즐 찾을 수 없습니다."));
+                .orElseThrow(() -> new UserNotFoundException("해당 유저를 찾을 수 없습니다."));
         return UserDto.from(user);
 
     }
