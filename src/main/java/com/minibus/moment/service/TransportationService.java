@@ -4,6 +4,9 @@ import com.minibus.moment.domain.post.PostRepository;
 import com.minibus.moment.domain.transportation.Transportation;
 import com.minibus.moment.domain.transportation.TransportationRepository;
 import com.minibus.moment.dto.TransportationDto;
+import com.minibus.moment.exception.PostNotExistException;
+import com.minibus.moment.exception.TransportationAlreadyExistException;
+import com.minibus.moment.exception.TransportationNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -34,7 +37,7 @@ public class TransportationService {
                             .name(request.getTransportation())
                             .build());
         } else {
-            // TransportationAlreadyExistException
+            throw new TransportationAlreadyExistException("이미 존재하는 항목입니다.");
         }
     }
 
@@ -48,7 +51,7 @@ public class TransportationService {
                     entity -> entity.setName(request.getTransportation())
             );
         } else {
-            // TransportationAlreadyExistException
+            throw new TransportationAlreadyExistException("이미 존재하는 항목입니다.");
         }
     }
 
@@ -56,8 +59,8 @@ public class TransportationService {
     @Transactional
     public void editPostTransportation(TransportationDto.Request request){
         postRepository.findById(request.getPostId()).ifPresentOrElse(
-                entity -> entity.setTransportation(transportationRepository.findByNameEquals(request.getTransportation()).orElseThrow()),
-                () -> new Exception() //PostNotExistException
+                entity -> entity.setTransportation(transportationRepository.findByNameEquals(request.getTransportation()).orElseThrow( () -> new TransportationNotFoundException("교통수단을 선택해주세요."))),
+                () -> new PostNotExistException("해당 포스트가 존재하지 않습니다.") //PostNotExistException
         );
     }
 
@@ -65,8 +68,7 @@ public class TransportationService {
     public void deleteTransportationInTable(TransportationDto.Request request) {
         transportationRepository.findByNameEquals(request.getTransportation()).ifPresentOrElse(
             entity -> transportationRepository.delete(entity),
-            () -> new Exception() //TransportationNotExistException
+            () -> new TransportationNotFoundException("해당 교통수단을 찾지 못하였습니다.") //TransportationNotExistException
         );
-
     }
 }

@@ -2,6 +2,7 @@ package com.minibus.moment.auth.service;
 
 import com.minibus.moment.domain.user.Role;
 import com.minibus.moment.domain.user.User;
+import com.minibus.moment.exception.FindNotPlatformException;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -27,7 +28,7 @@ public class OAuth2Attribute {
         if (provider.equals("kakao")) {
             return ofKakao(attributeKey, attributes);
         } else {
-            throw new RuntimeException(); //Todo: 예외처리
+            throw new FindNotPlatformException("해당 로그인 플랫폼을 찾지 못했습니다."); //Todo: 예외처리
         }
     }
 

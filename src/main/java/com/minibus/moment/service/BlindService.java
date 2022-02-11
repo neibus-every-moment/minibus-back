@@ -11,6 +11,10 @@ import com.minibus.moment.domain.reportReason.ReportReasonRepository;
 import com.minibus.moment.dto.ReportReasonDto;
 import com.minibus.moment.dto.api.admin.BlindPost;
 import com.minibus.moment.dto.api.admin.RestorePost;
+import com.minibus.moment.exception.BlindNotFoundException;
+import com.minibus.moment.exception.PostNotFoundException;
+import com.minibus.moment.exception.ReportReasonAlreadyExistException;
+import com.minibus.moment.exception.ReportReasonNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +34,7 @@ public class BlindService {
     public boolean blindPost(BlindPost.Request request){
 
         Post post = postRepository.findById(request.getId()).orElseThrow(
-                // Todo 예외 처리
+                () -> new PostNotFoundException("해당 포스트를 찾지 못했습니다.")// Todo 예외 처리
         );
 
         Blind blind = Blind.builder()
@@ -52,12 +56,12 @@ public class BlindService {
     @Transactional
     public boolean restorePost(RestorePost.Request request){
         Post post = postRepository.findById(request.getId()).orElseThrow(
-                // Todo 예외 처리
+                () -> new PostNotFoundException("해당 글을 찾지 못했습니다.")// Todo 예외 처리
         );
         post.restore();
 
         Blind blind = blindRepository.findByPost(post).orElseThrow(
-                // Todo 예외 처리
+                () -> new BlindNotFoundException("신고 사유를 선택해주세요")// Todo 예외 처리
         );
         blindRepository.delete(blind);
 
@@ -75,7 +79,7 @@ public class BlindService {
                     .content(request.getReportReason())
                     .build());
         } else {
-            // reportReasonAlreadyExistException
+            throw new ReportReasonAlreadyExistException("해당 신고사유가 이미 존재합니다.");// reportReasonAlreadyExistException
         }
     }
 
@@ -89,7 +93,7 @@ public class BlindService {
                     entity -> entity.setContent(request.getReportReason())
             );
         } else {
-            // reportReasonAlreadyExistException
+            throw new ReportReasonAlreadyExistException("해당 신고사유가 이미 존재합니다.");// reportReasonAlreadyExistException
         }
     }
 
@@ -98,7 +102,7 @@ public class BlindService {
     public void editReportReasonInReport(ReportReasonDto.Request request){
         reportRepository.findById(request.getReportId()).ifPresentOrElse(
                 entity -> entity.setReportReason(reportReasonRepository.findByContent(request.getReportReason()).orElseThrow()),
-                () -> new Exception() //ReportNotExistException
+                () -> new ReportReasonNotFoundException("존재하지않는 신고 사유입니다.") //ReportNotExistException
         );
     }
 
@@ -106,7 +110,7 @@ public class BlindService {
     public void deleteReportReasonInTable(ReportReasonDto.Request request) {
         reportReasonRepository.findByContent(request.getReportReason()).ifPresentOrElse(
                 entity -> reportReasonRepository.delete(entity),
-                () -> new Exception() //reportReasonNotExistException
+                () -> new ReportReasonNotFoundException("해당 신고사유를 찾지 못했습니다.") //reportReasonNotExistException
         );
     }
 }

@@ -21,10 +21,7 @@ import com.minibus.moment.dto.ReportReasonDto;
 import com.minibus.moment.dto.api.CreatePost;
 import com.minibus.moment.dto.api.GetPostList;
 import com.minibus.moment.dto.api.ReportPost;
-import com.minibus.moment.exception.PostNotFoundException;
-import com.minibus.moment.exception.RegionNotFoundException;
-import com.minibus.moment.exception.ReportReasonNotFoundException;
-import com.minibus.moment.exception.TransportationNotFoundException;
+import com.minibus.moment.exception.*;
 import com.minibus.moment.service.uploader.S3Uploader;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.criterion.Order;
@@ -98,7 +95,7 @@ public class PostService {
 
     public List<PostDto> getPostListByUser(Long userId){
         User user = userRepository.findById(userId).orElseThrow(
-                // 예외 처리
+                () -> new UserNotFoundException("해당 유저릴 찾지 못했습니다.")// 예외 처리
         );
         return postRepository.findAllByUser(user).stream()
                 .map(PostDto::from)
@@ -158,7 +155,7 @@ public class PostService {
                 );
 
         User user = userRepository.findById(request.getUserId()).orElseThrow(
-                // 예외처리
+                () -> new UserNotFoundException("해당 유저를 찾지 못했습니다.")// 예외처리
         );
         Post post = Post.builder()
                 .user(user)

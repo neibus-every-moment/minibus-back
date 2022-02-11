@@ -4,6 +4,9 @@ import com.minibus.moment.domain.post.PostRepository;
 import com.minibus.moment.domain.region.Region;
 import com.minibus.moment.domain.region.RegionRepository;
 import com.minibus.moment.dto.RegionDto;
+import com.minibus.moment.exception.PostNotExistException;
+import com.minibus.moment.exception.RegionAlreadyExistException;
+import com.minibus.moment.exception.RegionNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -34,7 +37,7 @@ public class RegionService {
                     .name(request.getRegion())
                     .build());
         } else {
-            // regionAlreadyExistException
+            throw new RegionAlreadyExistException("해당 지역이 이미 존재합니다.");// regionAlreadyExistException
         }
     }
 
@@ -48,7 +51,7 @@ public class RegionService {
                     entity -> entity.setName(request.getRegion())
             );
         } else {
-            // regionAlreadyExistException
+            throw new RegionAlreadyExistException("해당 지역이 이미 존재합니다.");// regionAlreadyExistException
         }
     }
 
@@ -56,8 +59,8 @@ public class RegionService {
     @Transactional
     public void editPostRegion(RegionDto.Request request){
         postRepository.findById(request.getPostId()).ifPresentOrElse(
-                entity -> entity.setRegion(regionRepository.findByNameEquals(request.getRegion()).orElseThrow()),
-                () -> new Exception() //PostNotExistException
+                entity -> entity.setRegion(regionRepository.findByNameEquals(request.getRegion()).orElseThrow(() -> new RegionNotFoundException("해당 지역이 존재하지 않습니다."))),
+                () -> new PostNotExistException("해당 글이 존재하지 않습니다.") //PostNotExistException
         );
     }
 
@@ -65,7 +68,7 @@ public class RegionService {
     public void deleteRegionInTable(RegionDto.Request request) {
         regionRepository.findByNameEquals(request.getRegion()).ifPresentOrElse(
                 entity -> regionRepository.delete(entity),
-                () -> new Exception() //regionNotExistException
+                () -> new RegionNotFoundException("해당 지역을 찾지 못했습니다.") //regionNotExistException
         );
     }
 }
