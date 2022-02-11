@@ -17,11 +17,8 @@ public class UserService {
     private final UserRepository userRepository;
     private final JwtTokenProvider jwtTokenProvider;
 
-    public UserDto login(Long userId){
-        User user = userRepository.findById(userId).orElseThrow(
-                () -> new IllegalArgumentException()
-        );
-        return UserDto.from(user);
+    public User login(Long userId){
+        return userRepository.findById(userId).orElseThrow();
     }
 
     public UserInfoDto userInfo(String email) {

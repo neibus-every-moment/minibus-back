@@ -40,14 +40,14 @@ public class LoginController {
 
     @GetMapping("/login/{userId}")
     public Login.Response login(@PathVariable Long userId, HttpServletResponse response){
-        UserDto user = userService.login(userId);
+        User user = userService.login(userId);
 
         Token token = jwtTokenProvider.generateToken(user.getEmail(), "USER");
         Cookie cookie = new Cookie("Auth", token.getToken());
         cookie.setMaxAge(3600);
         response.addCookie(cookie);
 
-        return new Login.Response(user);
+        return Login.Response.of(user);
     }
 
     @Transactional
