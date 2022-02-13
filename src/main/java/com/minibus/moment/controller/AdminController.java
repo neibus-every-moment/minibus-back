@@ -2,15 +2,17 @@ package com.minibus.moment.controller;
 
 
 import com.minibus.moment.dto.region.CreateRegion;
-import com.minibus.moment.dto.region.RegionDto;
 import com.minibus.moment.dto.region.UpdateRegion;
+import com.minibus.moment.dto.report.CreateReportReason;
 import com.minibus.moment.dto.report.ReportReasonDto;
+import com.minibus.moment.dto.report.UpdateReportReason;
 import com.minibus.moment.dto.transportation.CreateTransportation;
 import com.minibus.moment.dto.admin.BlindPost;
 import com.minibus.moment.dto.admin.RestorePost;
 import com.minibus.moment.dto.transportation.UpdateTransportation;
 import com.minibus.moment.service.BlindService;
 import com.minibus.moment.service.RegionService;
+import com.minibus.moment.service.ReportService;
 import com.minibus.moment.service.TransportationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +25,7 @@ public class AdminController {
 
     private final TransportationService transportationService;
     private final RegionService regionService;
+    private final ReportService reportService;
     private final BlindService blindService;
 
     // Transportation CRUD
@@ -63,26 +66,23 @@ public class AdminController {
 
     // ReportReason CRUD
     @PostMapping("/reportReason")
-    public void newReportReason(@RequestBody ReportReasonDto.Request request) {
-        blindService.newReportReason(request);
+    public CreateReportReason.Response createReportReason(@RequestBody CreateReportReason.Request request) {
+        return new CreateReportReason.Response(reportService.createReportReason(request));
     }
 
-    @PutMapping("/reportReasonName")
-    public void editReportReasonName(@RequestBody ReportReasonDto.Request request) {
-        blindService.editReportReasonContentInTable(request);
+    @PutMapping("/reportReason/{reportReasonId}")
+    public UpdateReportReason.Response updateReportReason(
+            @PathVariable Integer reportReasonId,
+            @RequestBody UpdateReportReason.Request request
+    ) {
+        return new UpdateReportReason.Response(reportService.updateReportReason(reportReasonId,request));
     }
 
-    @PutMapping("/postReportReason")
-    public void editPostReportReason(@RequestBody ReportReasonDto.Request request) {
-        blindService.editReportReasonInReport(request);
+    @DeleteMapping("/reportReason/{reportReasonId}")
+    public boolean deleteReportReason(@PathVariable Integer reportReasonId) {
+        return reportService.deleteReportReason(reportReasonId);
     }
 
-    @DeleteMapping("/reportReason")
-    public void deleteReportReason(@RequestBody ReportReasonDto.Request request) {
-        blindService.deleteReportReasonInTable(request);
-    }
-    
-    
     // Blind CRUD
     @PostMapping("/blind")
     public boolean blindPost(@RequestBody BlindPost.Request request){
