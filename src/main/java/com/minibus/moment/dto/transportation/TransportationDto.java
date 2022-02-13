@@ -10,16 +10,6 @@ import lombok.*;
 @Builder
 public class TransportationDto {
 
-    @Getter
-    @Setter
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class Request {
-        private Integer id;
-        private String transportation;
-        private Long postId;
-    }
-
     private Integer id;
     private String name;
 

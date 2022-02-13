@@ -149,7 +149,7 @@ public class PostService {
         Region region = regionRepository.findByNameEquals(request.getRegion())
                 .orElseThrow(() -> new RegionNotFoundException("해당 지역이 존재하지 않습니다.")
                 );
-        Transportation transportation = transportRepository.findByNameEquals(request.getTransportation())
+        Transportation transportation = transportRepository.findByName(request.getTransportation())
                 .orElseThrow(() -> new TransportationNotFoundException("해당 교통수단이 존재하지 않습니다.")
                 );
 
@@ -187,7 +187,7 @@ public class PostService {
 
     public List<Transportation> mapToTransportation(List<String> list) {
         return list.stream().map(
-                t -> transportRepository.findByNameEquals(t).orElseThrow(
+                t -> transportRepository.findByName(t).orElseThrow(
                         () -> new TransportationNotFoundException("해당 교통수단이 존재하지 않습니다.")
                 )
         ).collect(Collectors.toList());
