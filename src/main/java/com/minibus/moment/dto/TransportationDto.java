@@ -10,6 +10,9 @@ import lombok.*;
 @Builder
 public class TransportationDto {
 
+    private Integer id;
+    private String name;
+
     @Getter
     @Setter
     @NoArgsConstructor
@@ -19,9 +22,6 @@ public class TransportationDto {
         private String transportation;
         private Long postId;
     }
-
-    private Integer id;
-    private String name;
 
     public static TransportationDto from(Transportation transportation) {
         return TransportationDto.builder()

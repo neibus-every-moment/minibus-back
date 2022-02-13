@@ -34,7 +34,6 @@ public class Login {
             if(user.getCommentList() != null){
                 comments = user.getCommentList().stream().map(Comment::getId).collect(Collectors.toList());
             }
-
             return Response.builder()
                     .user(UserDto.from(user))
                     .posts(posts)

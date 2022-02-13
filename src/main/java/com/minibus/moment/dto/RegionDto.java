@@ -10,6 +10,9 @@ import lombok.*;
 @Builder
 public class RegionDto {
 
+    private Integer id;
+    private String name;
+
     @Getter
     @Setter
     @NoArgsConstructor
@@ -19,10 +22,6 @@ public class RegionDto {
         private String region;
         private Long postId;
     }
-
-    private Integer id;
-    private String name;
-
 
     public static RegionDto from(Region region) {
         return RegionDto.builder()

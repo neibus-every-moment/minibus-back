@@ -1,13 +1,9 @@
 package com.minibus.moment.controller;
 
-import com.minibus.moment.auth.service.JwtTokenProvider;
-import com.minibus.moment.dto.UserDto;
 import com.minibus.moment.dto.api.*;
-
-import com.minibus.moment.service.*;
-
+import com.minibus.moment.service.LikePostService;
+import com.minibus.moment.service.PostService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,36 +15,15 @@ import java.util.List;
 public class PostController {
 
     private final PostService postService;
-    private final TransportationService transportationService;
-    private final RegionService regionService;
-
     private final LikePostService likePostService;
 
-    @GetMapping("/transportations")
-    public GetTransportationList.Response getTransportationList() {
-        return GetTransportationList.Response.toResponse(transportationService.getTransportationList());
-    }
-
-    @GetMapping("/regions")
-    public GetRegionList.Response getRegionList() {
-        return GetRegionList.Response.toResponse(regionService.getRegionList());
-    }
-
-    @GetMapping("/reasons")
-    public GetReportReasonList.Response getReportReasonList() {
-        return GetReportReasonList.Response.toResponse(postService.getReportReasonList());
-    }
-
+    //글 조회
     @GetMapping("/posts")
     public GetPostList.Response getPostList(GetPostList.Request request) {
         return new GetPostList.Response(postService.getPostList(request));
     }
 
-    @PostMapping("/report")
-    public boolean reportPost(@RequestBody ReportPost.Request request) {
-        return postService.reportPost(request);
-    }
-
+    //글 등록
     @PostMapping("/post")
     public CreatePost.Response createPost(
             @RequestPart("img") List<MultipartFile> multipartFileList,
@@ -56,6 +31,7 @@ public class PostController {
         return new CreatePost.Response(postService.createPost(multipartFileList, request));
     }
 
+    //글 수정
     @PutMapping("/post/{postId}")
     public UpdatePost.Response updatePost(
             @PathVariable Long postId,
@@ -64,11 +40,13 @@ public class PostController {
         return new UpdatePost.Response(postService.updatePost(postId, request.getContent()));
     }
 
+    //글 삭제
     @DeleteMapping("/post/{postId}")
     public boolean deletePost(@PathVariable Long postId) {
         return postService.deletePost(postId);
     }
 
+    //글 상세 조회
     @GetMapping("/post/{postId}")
     public GetPost.Response getPost(@PathVariable Long postId) {
         return new GetPost.Response(postService.getPost(postId));
@@ -85,6 +63,4 @@ public class PostController {
     public GetPostList.Response getMyLikePostList(@RequestParam Long userId) {
         return new GetPostList.Response(likePostService.getMyLikePostList(userId));
     }
-
-
 }

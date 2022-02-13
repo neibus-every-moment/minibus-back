@@ -34,14 +34,13 @@ public class BlindService {
     public boolean blindPost(BlindPost.Request request){
 
         Post post = postRepository.findById(request.getId()).orElseThrow(
-                () -> new PostNotFoundException("해당 포스트를 찾지 못했습니다.")// Todo 예외 처리
-        );
-
+                () -> new PostNotFoundException("해당 포스트를 찾지 못했습니다."));
         Blind blind = Blind.builder()
                 .post(post)
                 .content(request.getContent())
                 .build();
         blindRepository.save(blind);
+
         post.blind();
         checkReport(post);
 
@@ -56,13 +55,11 @@ public class BlindService {
     @Transactional
     public boolean restorePost(RestorePost.Request request){
         Post post = postRepository.findById(request.getId()).orElseThrow(
-                () -> new PostNotFoundException("해당 글을 찾지 못했습니다.")// Todo 예외 처리
-        );
+                () -> new PostNotFoundException("해당 글을 찾지 못했습니다."));
         post.restore();
 
         Blind blind = blindRepository.findByPost(post).orElseThrow(
-                () -> new BlindNotFoundException("신고 사유를 선택해주세요")// Todo 예외 처리
-        );
+                () -> new BlindNotFoundException("신고 사유를 선택해주세요"));
         blindRepository.delete(blind);
 
         return true;
@@ -71,7 +68,7 @@ public class BlindService {
     
     // ReportReason CRUD
     // 신고사유 테이블에 새로운 신고사유 추가
-    public void newReportReason(ReportReasonDto.Request request) {
+    public void createReportReason(ReportReasonDto.Request request) {
         // 등록하려는 reportReason 이 이미 테이블에 있는지 확인하고 없으면 추가 있으면 throw reportReasonAlreadyExist
         Optional<ReportReason> reportReason = reportReasonRepository.findByContent(request.getReportReason());
         if(!reportReason.isPresent()) {

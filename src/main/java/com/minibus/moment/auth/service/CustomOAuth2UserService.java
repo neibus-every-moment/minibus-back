@@ -1,5 +1,6 @@
 package com.minibus.moment.auth.service;
 
+import com.minibus.moment.auth.dto.OAuth2Attribute;
 import com.minibus.moment.domain.user.User;
 import com.minibus.moment.domain.user.UserRepository;
 import lombok.RequiredArgsConstructor;

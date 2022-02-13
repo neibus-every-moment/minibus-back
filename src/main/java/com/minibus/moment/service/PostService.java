@@ -6,25 +6,19 @@ import com.minibus.moment.domain.post.Post;
 import com.minibus.moment.domain.post.PostRepository;
 import com.minibus.moment.domain.region.Region;
 import com.minibus.moment.domain.region.RegionRepository;
-import com.minibus.moment.domain.report.Report;
-import com.minibus.moment.domain.report.ReportRepository;
-import com.minibus.moment.domain.reportEtcDetail.ReportEtcDetail;
-import com.minibus.moment.domain.reportEtcDetail.ReportEtcDetailRepository;
-import com.minibus.moment.domain.reportReason.ReportReason;
-import com.minibus.moment.domain.reportReason.ReportReasonRepository;
 import com.minibus.moment.domain.transportation.Transportation;
 import com.minibus.moment.domain.transportation.TransportationRepository;
 import com.minibus.moment.domain.user.User;
 import com.minibus.moment.domain.user.UserRepository;
 import com.minibus.moment.dto.PostDto;
-import com.minibus.moment.dto.ReportReasonDto;
 import com.minibus.moment.dto.api.CreatePost;
 import com.minibus.moment.dto.api.GetPostList;
-import com.minibus.moment.dto.api.ReportPost;
-import com.minibus.moment.exception.*;
+import com.minibus.moment.exception.PostNotFoundException;
+import com.minibus.moment.exception.RegionNotFoundException;
+import com.minibus.moment.exception.TransportationNotFoundException;
+import com.minibus.moment.exception.UserNotFoundException;
 import com.minibus.moment.service.uploader.S3Uploader;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.criterion.Order;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -37,7 +31,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.minibus.moment.type.ReportStatus.BEFORE;
 import static com.minibus.moment.type.Status.VISIBLE;
 
 @Service
@@ -49,16 +42,8 @@ public class PostService {
     private final ImageRepository imageRepository;
     private final UserRepository userRepository;
 
-    private final ReportRepository reportRepository;
-    private final ReportReasonRepository reportReasonRepository;
-    private final ReportEtcDetailRepository reportEtcDetailRepository;
     private final S3Uploader s3Uploader;
 
-    public List<ReportReasonDto> getReportReasonList() {
-        return reportReasonRepository.findAll().stream()
-                .map(ReportReasonDto::from)
-                .collect(Collectors.toList());
-    }
 
     public List<PostDto> getPostList(GetPostList.Request request) {
 
@@ -93,10 +78,10 @@ public class PostService {
         return postList.stream().map(PostDto::from).collect(Collectors.toList());
     }
 
-    public List<PostDto> getPostListByUser(Long userId){
+    public List<PostDto> getPostListByUser(Long userId) {
         User user = userRepository.findById(userId).orElseThrow(
-                () -> new UserNotFoundException("해당 유저릴 찾지 못했습니다.")// 예외 처리
-        );
+                () -> new UserNotFoundException("해당 유저릴 찾지 못했습니다."));
+
         return postRepository.findAllByUser(user).stream()
                 .map(PostDto::from)
                 .collect(Collectors.toList());
@@ -105,58 +90,31 @@ public class PostService {
     @Transactional
     public Long updatePost(Long postId, String content) {
         Post post = postRepository.findById(postId).orElseThrow(
-                () -> new PostNotFoundException("해당 포스트를 찾을 수 없습니다.")
-        );
+                () -> new PostNotFoundException("해당 포스트를 찾을 수 없습니다."));
+
         return post.update(content);
     }
 
     @Transactional
     public boolean deletePost(Long postId) {
         Post post = postRepository.findById(postId).orElseThrow(
-                () -> new PostNotFoundException("해당 포스트를 찾을 수 없습니다.")
-        );
+                () -> new PostNotFoundException("해당 포스트를 찾을 수 없습니다."));
         postRepository.delete(post);
-        return true;
-    }
 
-    @Transactional
-    public boolean reportPost(ReportPost.Request request) {
-        ReportReason reportReason = reportReasonRepository.findByContent(request.getReportReason())
-                .orElseThrow(() -> new ReportReasonNotFoundException("신고 사유가 존재하지 않습니다.")
-                );
-        Post post = postRepository.findById(request.getPostId())
-                .orElseThrow(() -> new PostNotFoundException("해당 포스트를 찾지 못했습니다.")
-                );
-
-        Report report = Report.builder()
-                .reportReason(reportReason)
-                .post(post)
-                .reportStatus(BEFORE)
-                .build();
-        reportRepository.save(report);
-
-        if (!ObjectUtils.isEmpty(request.getDetail())) {
-            ReportEtcDetail reportEtcDetail = ReportEtcDetail.builder()
-                    .report(report)
-                    .content(request.getDetail())
-                    .build();
-            reportEtcDetailRepository.save(reportEtcDetail);
-        }
         return true;
     }
 
     @Transactional
     public Long createPost(List<MultipartFile> multipartFileList, CreatePost.Request request) {
         Region region = regionRepository.findByNameEquals(request.getRegion())
-                .orElseThrow(() -> new RegionNotFoundException("해당 지역이 존재하지 않습니다.")
-                );
-        Transportation transportation = transportRepository.findByNameEquals(request.getTransportation())
-                .orElseThrow(() -> new TransportationNotFoundException("해당 교통수단이 존재하지 않습니다.")
-                );
+                .orElseThrow(() -> new RegionNotFoundException("해당 지역이 존재하지 않습니다."));
 
-        User user = userRepository.findById(request.getUserId()).orElseThrow(
-                () -> new UserNotFoundException("해당 유저를 찾지 못했습니다.")// 예외처리
-        );
+        Transportation transportation = transportRepository.findByNameEquals(request.getTransportation())
+                .orElseThrow(() -> new TransportationNotFoundException("해당 교통수단이 존재하지 않습니다."));
+
+        User user = userRepository.findById(request.getUserId())
+                .orElseThrow(() -> new UserNotFoundException("해당 유저를 찾지 못했습니다."));
+
         Post post = Post.builder()
                 .user(user)
                 .content(request.getContent())
@@ -188,17 +146,15 @@ public class PostService {
 
     public List<Transportation> mapToTransportation(List<String> list) {
         return list.stream().map(
-                t -> transportRepository.findByNameEquals(t).orElseThrow(
-                        () -> new TransportationNotFoundException("해당 교통수단이 존재하지 않습니다.")
-                )
-        ).collect(Collectors.toList());
+                        transportationName -> transportRepository.findByNameEquals(transportationName)
+                                .orElseThrow(() -> new TransportationNotFoundException("해당 교통수단이 존재하지 않습니다.")))
+                .collect(Collectors.toList());
     }
 
     public List<Region> mapToRegion(List<String> list) {
         return list.stream().map(
-                r -> regionRepository.findByNameEquals(r).orElseThrow(
-                        () -> new RegionNotFoundException("해당 지역이 존재하지 않습니다.")
-                )
-        ).collect(Collectors.toList());
+                        regionName -> regionRepository.findByNameEquals(regionName)
+                                .orElseThrow(() -> new RegionNotFoundException("해당 지역이 존재하지 않습니다.")))
+                .collect(Collectors.toList());
     }
 }

@@ -17,4 +17,5 @@ public class UserDto implements Serializable {
         this.email = email;
         this.name = name;
     }
+
 }

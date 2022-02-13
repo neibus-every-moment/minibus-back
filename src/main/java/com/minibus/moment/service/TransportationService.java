@@ -22,6 +22,7 @@ public class TransportationService {
     private final TransportationRepository transportationRepository;
     private final PostRepository postRepository;
 
+    // 교통수단 목록 조회
     public List<TransportationDto> getTransportationList() {
         return transportationRepository.findAll().stream()
                 .map(TransportationDto::from)
@@ -29,7 +30,7 @@ public class TransportationService {
     }
 
     // 교통수단 테이블에 새로운 교통수단 추가
-    public void newTransportation(TransportationDto.Request request) {
+    public void createTransportation(TransportationDto.Request request) {
         // 등록하려는 Transportation 이 이미 테이블에 있는지 확인하고 없으면 추가 있으면 throw TransportationAlreadyExist
         Optional<Transportation> transportation = transportationRepository.findByNameEquals(request.getTransportation());
         if(!transportation.isPresent()) {
@@ -60,7 +61,7 @@ public class TransportationService {
     public void editPostTransportation(TransportationDto.Request request){
         postRepository.findById(request.getPostId()).ifPresentOrElse(
                 entity -> entity.setTransportation(transportationRepository.findByNameEquals(request.getTransportation()).orElseThrow( () -> new TransportationNotFoundException("교통수단을 선택해주세요."))),
-                () -> new PostNotExistException("해당 포스트가 존재하지 않습니다.") //PostNotExistException
+                () -> new PostNotExistException("해당 포스트가 존재하지 않습니다.")
         );
     }
 
@@ -68,7 +69,7 @@ public class TransportationService {
     public void deleteTransportationInTable(TransportationDto.Request request) {
         transportationRepository.findByNameEquals(request.getTransportation()).ifPresentOrElse(
             entity -> transportationRepository.delete(entity),
-            () -> new TransportationNotFoundException("해당 교통수단을 찾지 못하였습니다.") //TransportationNotExistException
+            () -> new TransportationNotFoundException("해당 교통수단을 찾지 못하였습니다.")
         );
     }
 }

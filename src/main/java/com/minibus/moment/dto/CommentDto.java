@@ -16,7 +16,8 @@ public class CommentDto {
 
     private Long id;
 
-    private PostDto.UserDto user;
+    private UserDto user;
+//    private PostDto.UserDto user;
 
     private String text;
 
@@ -29,7 +30,8 @@ public class CommentDto {
     public static CommentDto from(Comment comment){
         return CommentDto.builder()
                 .id(comment.getId())
-                .user(PostDto.UserDto.from(comment.getUser()))
+                .user(UserDto.from(comment.getUser()))
+//                .user(PostDto.UserDto.from(comment.getUser()))
                 .text(comment.getContent())
                 .createdAt(comment.getCreatedAt())
                 .updatedAt(comment.getUpdatedAt())

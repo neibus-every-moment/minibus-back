@@ -22,6 +22,7 @@ public class RegionService {
     private final RegionRepository regionRepository;
     private final PostRepository postRepository;
 
+    // 지역 조회
     public List<RegionDto> getRegionList() {
         return regionRepository.findAll().stream()
                 .map(RegionDto::from)
@@ -29,7 +30,7 @@ public class RegionService {
     }
 
     // 지역 테이블에 새로운 지역 추가
-    public void newRegion(RegionDto.Request request) {
+    public void createRegion(RegionDto.Request request) {
         // 등록하려는 region 이 이미 테이블에 있는지 확인하고 없으면 추가 있으면 throw regionAlreadyExist
         Optional<Region> region = regionRepository.findByNameEquals(request.getRegion());
         if(!region.isPresent()) {
@@ -37,7 +38,7 @@ public class RegionService {
                     .name(request.getRegion())
                     .build());
         } else {
-            throw new RegionAlreadyExistException("해당 지역이 이미 존재합니다.");// regionAlreadyExistException
+            throw new RegionAlreadyExistException("해당 지역이 이미 존재합니다.");
         }
     }
 
@@ -51,7 +52,7 @@ public class RegionService {
                     entity -> entity.setName(request.getRegion())
             );
         } else {
-            throw new RegionAlreadyExistException("해당 지역이 이미 존재합니다.");// regionAlreadyExistException
+            throw new RegionAlreadyExistException("해당 지역이 이미 존재합니다.");
         }
     }
 
@@ -60,7 +61,7 @@ public class RegionService {
     public void editPostRegion(RegionDto.Request request){
         postRepository.findById(request.getPostId()).ifPresentOrElse(
                 entity -> entity.setRegion(regionRepository.findByNameEquals(request.getRegion()).orElseThrow(() -> new RegionNotFoundException("해당 지역이 존재하지 않습니다."))),
-                () -> new PostNotExistException("해당 글이 존재하지 않습니다.") //PostNotExistException
+                () -> new PostNotExistException("해당 글이 존재하지 않습니다.")
         );
     }
 
@@ -68,7 +69,7 @@ public class RegionService {
     public void deleteRegionInTable(RegionDto.Request request) {
         regionRepository.findByNameEquals(request.getRegion()).ifPresentOrElse(
                 entity -> regionRepository.delete(entity),
-                () -> new RegionNotFoundException("해당 지역을 찾지 못했습니다.") //regionNotExistException
+                () -> new RegionNotFoundException("해당 지역을 찾지 못했습니다.")
         );
     }
 }

@@ -17,6 +17,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "LIKE_POST")
 public class LikePost extends BaseTimeEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

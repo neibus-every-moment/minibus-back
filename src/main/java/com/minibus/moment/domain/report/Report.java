@@ -49,8 +49,7 @@ public class Report extends BaseTimeEntity {
         reportStatus = ReportStatus.COMPLETE;
     }
 
-    public void keep() {
-        reportStatus = ReportStatus.KEEP;
-    }
-
+//    public void keep() {
+//        reportStatus = ReportStatus.KEEP;
+//    }
 }

@@ -10,6 +10,8 @@ import lombok.*;
 @Builder
 public class ReportReasonDto {
 
+    private String reportReason;
+
     @Getter
     @Setter
     @NoArgsConstructor
@@ -20,12 +22,9 @@ public class ReportReasonDto {
         private Long reportId;
     }
 
-    private String reportReason;
-
     public static ReportReasonDto from(ReportReason reportReason) {
         return ReportReasonDto.builder()
                 .reportReason(reportReason.getContent())
                 .build();
     }
-
 }

@@ -1,4 +1,4 @@
-package com.minibus.moment.auth.service;
+package com.minibus.moment.auth.dto;
 
 import com.minibus.moment.domain.user.Role;
 import com.minibus.moment.domain.user.User;
@@ -24,11 +24,11 @@ public class OAuth2Attribute {
     private String profileImage;
 
     //플랫폼 확인
-    static OAuth2Attribute of(String provider, String attributeKey, Map<String, Object> attributes) {
+    public static OAuth2Attribute of(String provider, String attributeKey, Map<String, Object> attributes) {
         if (provider.equals("kakao")) {
             return ofKakao(attributeKey, attributes);
         } else {
-            throw new FindNotPlatformException("해당 로그인 플랫폼을 찾지 못했습니다."); //Todo: 예외처리
+            throw new FindNotPlatformException("해당 플랫폼을 찾지 못했습니다.");
         }
     }
 
@@ -52,5 +52,4 @@ public class OAuth2Attribute {
                 .role(Role.USER)
                 .build();
     }
-
 }

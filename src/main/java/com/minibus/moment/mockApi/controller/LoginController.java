@@ -31,21 +31,10 @@ public class LoginController {
     private final UserRepository userRepository;
     private final UserService userService;
 
-    // email로 요청 받으면 토큰을 발급
-    @PostMapping("/login")
-    public Token login(@RequestBody UserRequest userRequest, HttpServletResponse response) {
-        Token token = jwtTokenProvider.generateToken(userRequest.getEmail(), "USER");
-        saveOrUpdate(userRequest);
-        Cookie cookie = new Cookie("Auth", token.getToken());
-        cookie.setHttpOnly(true);
-        response.addCookie(cookie);
-        return token;
-    }
-
+    //조회와 동시에 jwt 토큰 발급
     @GetMapping("/login/{userId}")
     public Login.Response login(@PathVariable Long userId, HttpServletResponse response){
         User user = userService.login(userId);
-
         Token token = jwtTokenProvider.generateToken(user.getEmail(), "USER");
         Cookie cookie = new Cookie("Auth", token.getToken());
         cookie.setMaxAge(3600);
@@ -53,22 +42,6 @@ public class LoginController {
 
         return Login.Response.of(user);
     }
-
-    @Transactional
-    protected User saveOrUpdate(UserRequest userRequest) {
-        User user = userRepository.findByEmail(userRequest.getEmail())
-                .map(entity -> entity.update(userRequest.getNickname(), userRequest.getProfileImage()))
-                .orElse(userRequest.toEntity());
-        return userRepository.save(user);
-    }
-
-    // 로그인시
-    @PostMapping("/loginUser")
-    public UserInfoDto loginUser(HttpServletRequest request) {
-        String token = jwtTokenProvider.resolveToken(request);
-        String email = jwtTokenProvider.getUid(token);
-        return userService.userInfo(email);
-        }
 
     // 로그아웃
     @PostMapping("/logoutUser")
@@ -94,4 +67,27 @@ public class LoginController {
         response.addCookie(cookie);
         return cookie;
     }
+
+    /**
+     * 추후에 oauth2를 이용해 로그인 성공시 사용(login(), loginUser())
+     */
+    // email로 요청 받으면 jwt 토큰을 발급
+    @PostMapping("/login")
+    public Token login(@RequestBody UserRequest userRequest, HttpServletResponse response) {
+        Token token = jwtTokenProvider.generateToken(userRequest.getEmail(), "USER");
+        userService.saveOrUpdate(userRequest);
+        Cookie cookie = new Cookie("Auth", token.getToken());
+        cookie.setHttpOnly(true);
+        response.addCookie(cookie);
+        return token;
+    }
+
+    // 로그인시
+    @PostMapping("/loginUser")
+    public UserInfoDto loginUser(HttpServletRequest request) {
+        String token = jwtTokenProvider.resolveToken(request);
+        String email = jwtTokenProvider.getUid(token);
+        return userService.userInfo(email);
+    }
+
 }

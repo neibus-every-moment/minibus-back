@@ -24,8 +24,8 @@ public class AdminController {
 
     // Transportation CRUD
     @PostMapping("/transportation")
-    public void newTransportation(@RequestBody TransportationDto.Request request) {
-        transportationService.newTransportation(request);
+    public void createTransportation(@RequestBody TransportationDto.Request request) {
+        transportationService.createTransportation(request);
     }
 
     @PutMapping("/transportationName")
@@ -43,11 +43,10 @@ public class AdminController {
         transportationService.deleteTransportationInTable(request);
     }
 
-
     // Region CRUD
     @PostMapping("/region")
-    public void newRegion(@RequestBody RegionDto.Request request) {
-        regionService.newRegion(request);
+    public void createRegion(@RequestBody RegionDto.Request request) {
+        regionService.createRegion(request);
     }
 
     @PutMapping("/regionName")
@@ -68,8 +67,8 @@ public class AdminController {
     
     // ReportReason CRUD
     @PostMapping("/reportReason")
-    public void newReportReason(@RequestBody ReportReasonDto.Request request) {
-        blindService.newReportReason(request);
+    public void createReportReason(@RequestBody ReportReasonDto.Request request) {
+        blindService.createReportReason(request);
     }
 
     @PutMapping("/reportReasonName")
@@ -98,7 +97,4 @@ public class AdminController {
     public boolean restorePost(@RequestBody RestorePost.Request request){
         return blindService.restorePost(request);
     }
-
-
-
 }

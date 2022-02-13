@@ -15,10 +15,10 @@ public enum Role {
     private final String key;
     private final String role;
 
-    public static Role of(String key) {
-        return Arrays.stream(Role.values())
-                .filter(r -> r.getKey().equals(key))
-                .findAny()
-                .orElse(USER);
-    }
+//    public static Role of(String key) {
+//        return Arrays.stream(Role.values())
+//                .filter(r -> r.getKey().equals(key))
+//                .findAny()
+//                .orElse(USER);
+//    }
 }

@@ -51,6 +51,7 @@ public class PostDto {
         return PostDto.builder()
                 .id(post.getId())
                 .user(UserDto.from(post.getUser()))
+//                .user(UserDto.from(post.getUser()))
                 .text(post.getContent())
                 .region(post.getRegion().getName())
                 .transportation(post.getTransportation().getName())
@@ -58,7 +59,7 @@ public class PostDto {
                         .map(ImageDto::from)
                         .collect(Collectors.toList()))
                 .like(new LikeInfo(Long.valueOf(userIds.size()), userIds))
-                .comments(new Comments(contents.size(),contents))
+                .comments(new Comments(contents.size(), contents))
                 .createdAt(post.getCreatedAt())
                 .updatedAt(post.getUpdatedAt())
                 .build();
@@ -80,22 +81,22 @@ public class PostDto {
         private List<Long> users;
     }
 
-    @Getter
-    @NoArgsConstructor
-    @AllArgsConstructor
-    @Builder
-    public static class UserDto {
-        private Long id;
-        private String avatar;
-        private String nickname;
-
-        public static UserDto from(User user){
-            return UserDto.builder()
-                    .id(user.getId())
-                    .avatar(user.getProfileImage())
-                    .nickname(user.getNickname())
-                    .build();
-        }
-    }
+//    @Getter
+//    @NoArgsConstructor
+//    @AllArgsConstructor
+//    @Builder
+//    public static class UserDto {
+//        private Long id;
+//        private String avatar;
+//        private String nickname;
+//
+//        public static UserDto from(User user){
+//            return UserDto.builder()
+//                    .id(user.getId())
+//                    .avatar(user.getProfileImage())
+//                    .nickname(user.getNickname())
+//                    .build();
+//        }
+//    }
 }
 
