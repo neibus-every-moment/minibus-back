@@ -1,7 +1,9 @@
 package com.minibus.moment.controller;
 
 
+import com.minibus.moment.dto.region.CreateRegion;
 import com.minibus.moment.dto.region.RegionDto;
+import com.minibus.moment.dto.region.UpdateRegion;
 import com.minibus.moment.dto.report.ReportReasonDto;
 import com.minibus.moment.dto.transportation.CreateTransportation;
 import com.minibus.moment.dto.admin.BlindPost;
@@ -37,28 +39,28 @@ public class AdminController {
     }
 
     @DeleteMapping("/transportation/{transportationId}")
-    public void deleteTransportation(@PathVariable Integer transportationId) {
-        transportationService.deleteTransportation(transportationId);
+    public boolean deleteTransportation(@PathVariable Integer transportationId) {
+        return transportationService.deleteTransportation(transportationId);
     }
-
 
     // Region CRUD
     @PostMapping("/region")
-    public void newRegion(@RequestBody RegionDto.Request request) {
-        regionService.newRegion(request);
+    public CreateRegion.Response createRegion(@RequestBody CreateRegion.Request request) {
+        return new CreateRegion.Response(regionService.createRegion(request));
     }
 
     @PutMapping("/region/{regionId}")
-    public void editRegionName(@RequestBody RegionDto.Request request) {
-        regionService.editRegionNameInTable(request);
+    public UpdateRegion.Response updateRegion(
+            @PathVariable Integer regionId,
+            @RequestBody UpdateRegion.Request request) {
+        return new UpdateRegion.Response(regionService.updateRegion(regionId,request));
     }
 
-    @DeleteMapping("/region")
-    public void deleteRegion(@RequestBody RegionDto.Request request) {
-        regionService.deleteRegionInTable(request);
+    @DeleteMapping("/region/{regionId}")
+    public boolean deleteRegion(@PathVariable Integer regionId) {
+        return regionService.deleteRegion(regionId);
     }
 
-    
     // ReportReason CRUD
     @PostMapping("/reportReason")
     public void newReportReason(@RequestBody ReportReasonDto.Request request) {
