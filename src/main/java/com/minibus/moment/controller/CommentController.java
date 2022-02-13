@@ -51,11 +51,4 @@ public class CommentController {
         return commentService.deleteComment(commentId);
     }
 
-    @GetMapping("/auth/my-comments")
-    public GetCommentList.Response getCommentListByUser(){
-        String email = jwtTokenProvider.getUid(SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString());
-        UserDto user = userService.getUser(email);
-        return new GetCommentList.Response(commentService.getCommentListByUser(user.getId()));
-    }
-
 }

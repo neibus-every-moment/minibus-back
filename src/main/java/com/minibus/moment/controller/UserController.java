@@ -1,42 +1,47 @@
 package com.minibus.moment.controller;
 
-
-import com.minibus.moment.auth.config.Token;
-import com.minibus.moment.auth.service.JwtTokenProvider;
-import com.minibus.moment.dto.UserDto;
-import com.minibus.moment.dto.api.Login;
-import com.minibus.moment.dto.api.MyPage;
+import com.minibus.moment.dto.api.GetCommentList;
+import com.minibus.moment.dto.api.GetPostList;
+import com.minibus.moment.dto.api.UpdateProfile;
 import com.minibus.moment.service.CommentService;
 import com.minibus.moment.service.PostService;
 import com.minibus.moment.service.UserService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
-
-@RequiredArgsConstructor
 @RestController
-@RequestMapping("/api")
-@Slf4j
+@RequiredArgsConstructor
+@RequestMapping("/api/auth")
 public class UserController {
 
     private final UserService userService;
     private final PostService postService;
     private final CommentService commentService;
-    private final JwtTokenProvider jwtTokenProvider;
 
+    @PutMapping("/user/{userId}")
+    public UpdateProfile.Response updateProfile(
+            @PathVariable Long userId,
+            @RequestPart("avatar") MultipartFile profileImage
+    ) {
+        return new UpdateProfile.Response(userService.updateProfile(userId, profileImage));
+    }
 
+//    @PutMapping("/user/nickname/{userId}")
+    public UpdateProfile.Response updateNickname(
+            @PathVariable Long userId,
+            @RequestBody UpdateProfile.Request request
+    ) {
+        return new UpdateProfile.Response(userService.updateNickname(userId, request));
+    }
 
-    @GetMapping("/my-page")
-    public MyPage getMyPage(){
-        String email = jwtTokenProvider.getUid(SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString());
+    @GetMapping("/my-posts/{userId}")
+    public GetPostList.Response getPostList(@PathVariable Long userId){
+        return new GetPostList.Response(postService.getPostListByUser(userId));
+    }
 
-        UserDto user = userService.getUser(email);
-        Integer postCount = postService.getPostListByUser(user.getId()).size();
-        Integer commentCount = commentService.getCommentListByUser(user.getId()).size();
-        return new MyPage(user,postCount,commentCount);
+    @GetMapping("/my-comments/{userId}")
+    public GetCommentList.Response getCommentListByUser(@PathVariable Long userId){
+        return new GetCommentList.Response(commentService.getCommentListByUser(userId));
     }
 }

@@ -22,9 +22,6 @@ public class PostController {
     private final TransportationService transportationService;
     private final RegionService regionService;
 
-    private final JwtTokenProvider jwtTokenProvider;
-    private final UserService userService;
-
     private final LikePostService likePostService;
 
     @GetMapping("/transportations")
@@ -89,10 +86,5 @@ public class PostController {
         return new GetPostList.Response(likePostService.getMyLikePostList(userId));
     }
 
-    @GetMapping("/auth/my-posts")
-    public GetPostList.Response getPostList(){
-        String email = jwtTokenProvider.getUid(SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString());
-        UserDto user = userService.getUser(email);
-        return new GetPostList.Response(postService.getPostListByUser(user.getId()));
-    }
+
 }

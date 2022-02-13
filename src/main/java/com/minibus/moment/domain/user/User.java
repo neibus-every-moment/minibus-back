@@ -5,6 +5,7 @@ import com.minibus.moment.domain.comment.Comment;
 import lombok.*;
 import com.minibus.moment.domain.like.LikePost;
 import com.minibus.moment.domain.post.Post;
+import org.springframework.util.ObjectUtils;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -25,6 +26,7 @@ public class User {
 
     private String email;
 
+    @Column(columnDefinition = "TEXT")
     private String profileImage;
 
     private String nickname;
@@ -45,6 +47,16 @@ public class User {
         this.nickname = nickname;
         this.profileImage = profileImage;
         return this;
+    }
+
+    public Long updateImage(String profileImage) {
+        this.profileImage = profileImage;
+        return this.id;
+    }
+
+    public Long updateNickname(String nickname) {
+        this.nickname = nickname;
+        return this.id;
     }
 
     public String getRoleKey() {

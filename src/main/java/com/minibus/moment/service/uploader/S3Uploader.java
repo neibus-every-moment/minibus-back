@@ -36,6 +36,19 @@ public class S3Uploader {
         return uploadImageUrl;
     }
 
+    public String uploadProfile(MultipartFile multipartFile, String fileName) throws IOException {
+        File uploadFile = convert(multipartFile);
+        return uploadProfile(uploadFile, fileName);
+    }
+
+    private String uploadProfile(File uploadFile, String fileName) {
+        String saveDirectory = "minibus-profile-testfolder/" + LocalDateTime.now() + "_" + fileName;
+        String uploadImageUrl = putS3(uploadFile, saveDirectory);
+        removeNewFile(uploadFile);
+        return uploadImageUrl;
+    }
+
+
     private String putS3(File uploadFile, String fileName) {
         amazonS3Client.putObject(new PutObjectRequest(bucket, fileName, uploadFile).withCannedAcl(CannedAccessControlList.PublicRead));
         return amazonS3Client.getUrl(bucket, fileName).toString();
