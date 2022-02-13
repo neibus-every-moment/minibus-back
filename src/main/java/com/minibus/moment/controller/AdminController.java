@@ -1,14 +1,13 @@
 package com.minibus.moment.controller;
 
 
+import com.minibus.moment.dto.admin.BlindPost;
+import com.minibus.moment.dto.admin.RestorePost;
 import com.minibus.moment.dto.region.CreateRegion;
 import com.minibus.moment.dto.region.UpdateRegion;
 import com.minibus.moment.dto.report.CreateReportReason;
-import com.minibus.moment.dto.report.ReportReasonDto;
 import com.minibus.moment.dto.report.UpdateReportReason;
 import com.minibus.moment.dto.transportation.CreateTransportation;
-import com.minibus.moment.dto.admin.BlindPost;
-import com.minibus.moment.dto.admin.RestorePost;
 import com.minibus.moment.dto.transportation.UpdateTransportation;
 import com.minibus.moment.service.BlindService;
 import com.minibus.moment.service.RegionService;
@@ -38,7 +37,7 @@ public class AdminController {
     public UpdateTransportation.Response updateTransportation(
             @PathVariable Integer transportationId,
             @RequestBody UpdateTransportation.Request request) {
-        return new UpdateTransportation.Response(transportationService.updateTransportation(transportationId,request));
+        return new UpdateTransportation.Response(transportationService.updateTransportation(transportationId, request));
     }
 
     @DeleteMapping("/transportation/{transportationId}")
@@ -56,7 +55,7 @@ public class AdminController {
     public UpdateRegion.Response updateRegion(
             @PathVariable Integer regionId,
             @RequestBody UpdateRegion.Request request) {
-        return new UpdateRegion.Response(regionService.updateRegion(regionId,request));
+        return new UpdateRegion.Response(regionService.updateRegion(regionId, request));
     }
 
     @DeleteMapping("/region/{regionId}")
@@ -75,7 +74,7 @@ public class AdminController {
             @PathVariable Integer reportReasonId,
             @RequestBody UpdateReportReason.Request request
     ) {
-        return new UpdateReportReason.Response(reportService.updateReportReason(reportReasonId,request));
+        return new UpdateReportReason.Response(reportService.updateReportReason(reportReasonId, request));
     }
 
     @DeleteMapping("/reportReason/{reportReasonId}")
@@ -85,15 +84,12 @@ public class AdminController {
 
     // Blind CRUD
     @PostMapping("/blind")
-    public boolean blindPost(@RequestBody BlindPost.Request request){
-        return blindService.blindPost(request);
+    public BlindPost.Response blindPost(@RequestBody BlindPost.Request request) {
+        return new BlindPost.Response(blindService.blindPost(request));
     }
 
     @PostMapping("/restore")
-    public boolean restorePost(@RequestBody RestorePost.Request request){
-        return blindService.restorePost(request);
+    public RestorePost.Response restorePost(@RequestBody RestorePost.Request request) {
+        return new RestorePost.Response(blindService.restorePost(request));
     }
-
-
-
 }

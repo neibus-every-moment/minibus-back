@@ -8,12 +8,19 @@ import lombok.Setter;
 public class BlindPost {
 
     @Getter
-    @Setter
     @NoArgsConstructor
     @AllArgsConstructor
     public static class Request {
         private Long id;
         private String content;
+    }
+
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class Response {
+        private Long data;
     }
 
 }

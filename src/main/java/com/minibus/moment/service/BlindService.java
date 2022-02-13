@@ -30,7 +30,7 @@ public class BlindService {
     private final PostRepository postRepository;
 
     @Transactional
-    public boolean blindPost(BlindPost.Request request){
+    public Long blindPost(BlindPost.Request request){
 
         Post post = postRepository.findById(request.getId()).orElseThrow(
                 () -> new PostNotFoundException("해당 포스트를 찾지 못했습니다.")// Todo 예외 처리
@@ -44,7 +44,7 @@ public class BlindService {
         post.blind();
         checkReport(post);
 
-        return true;
+        return post.getId();
     }
 
     @Transactional
@@ -53,7 +53,7 @@ public class BlindService {
     }
 
     @Transactional
-    public boolean restorePost(RestorePost.Request request){
+    public Long restorePost(RestorePost.Request request){
         Post post = postRepository.findById(request.getId()).orElseThrow(
                 () -> new PostNotFoundException("해당 글을 찾지 못했습니다.")// Todo 예외 처리
         );
@@ -64,7 +64,7 @@ public class BlindService {
         );
         blindRepository.delete(blind);
 
-        return true;
+        return post.getId();
     }
 
 

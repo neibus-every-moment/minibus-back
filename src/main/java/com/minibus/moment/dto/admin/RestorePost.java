@@ -8,10 +8,17 @@ import lombok.Setter;
 public class RestorePost {
 
     @Getter
-    @Setter
     @NoArgsConstructor
     @AllArgsConstructor
     public static class Request{
         private Long id;
+    }
+
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class Response{
+        private Long date;
     }
 }
