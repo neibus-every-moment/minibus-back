@@ -1,17 +1,16 @@
-package com.minibus.moment.dto.admin;
+package com.minibus.moment.dto.report;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-public class BlindPost {
+public class UpdateReportReason {
 
     @Getter
     @NoArgsConstructor
     @AllArgsConstructor
     public static class Request {
-        private Long id;
         private String content;
     }
 
@@ -20,7 +19,6 @@ public class BlindPost {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class Response {
-        private Long data;
+        private Integer data;
     }
-
 }

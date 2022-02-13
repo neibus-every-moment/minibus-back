@@ -17,4 +17,9 @@ public class ReportReason {
     private Integer id;
 
     private String content;
+
+    public Integer update(String content){
+        this.content = content;
+        return this.id;
+    }
 }

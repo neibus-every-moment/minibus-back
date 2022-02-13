@@ -1,18 +1,17 @@
-package com.minibus.moment.dto.admin;
+package com.minibus.moment.dto.region;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-public class BlindPost {
+public class CreateRegion {
 
     @Getter
     @NoArgsConstructor
     @AllArgsConstructor
     public static class Request {
-        private Long id;
-        private String content;
+        private String regionName;
     }
 
     @Getter
@@ -20,7 +19,6 @@ public class BlindPost {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class Response {
-        private Long data;
+        private Integer data;
     }
-
 }

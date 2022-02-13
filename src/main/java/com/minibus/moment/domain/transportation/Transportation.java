@@ -17,4 +17,9 @@ public class Transportation {
     private Integer id;
 
     private String name;
+
+    public Integer update(String name){
+        this.name = name;
+        return this.id;
+    }
 }
