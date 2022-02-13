@@ -10,7 +10,7 @@ public class UpdateRegion {
     @Getter
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class Request{
+    public static class Request {
         private String regionName;
     }
 
@@ -18,7 +18,7 @@ public class UpdateRegion {
     @Setter
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class Response{
+    public static class Response {
         private Integer data;
     }
 }

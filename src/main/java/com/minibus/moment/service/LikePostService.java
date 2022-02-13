@@ -1,8 +1,8 @@
 package com.minibus.moment.service;
 
 
-import com.minibus.moment.domain.like.LikePost;
-import com.minibus.moment.domain.like.LikePostRepository;
+import com.minibus.moment.domain.post.LikePost;
+import com.minibus.moment.domain.post.LikePostRepository;
 import com.minibus.moment.domain.post.Post;
 import com.minibus.moment.domain.post.PostRepository;
 import com.minibus.moment.domain.user.User;
@@ -26,7 +26,7 @@ public class LikePostService {
 
     // 로그인 상태에서 LikePost 호출시 Like 여부 확인하여 좋아요/취소 진행
     @Transactional
-    public Long toLikePost(Long postId,ToLikePost.Request request) throws Exception {
+    public Long toLikePost(Long postId, ToLikePost.Request request) throws Exception {
         // 유저정보
         User targetUser = userRepository.findById(request.getUserId()).orElseThrow();
         // Post 정보

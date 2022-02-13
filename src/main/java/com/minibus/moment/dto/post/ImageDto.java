@@ -13,7 +13,7 @@ public class ImageDto {
     private Long id;
     private String url;
 
-    public static ImageDto from(Image image){
+    public static ImageDto from(Image image) {
         return ImageDto.builder()
                 .id(image.getId())
                 .url(image.getPath())

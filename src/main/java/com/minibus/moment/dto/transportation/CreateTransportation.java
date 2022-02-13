@@ -18,7 +18,7 @@ public class CreateTransportation {
     @Setter
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class Response{
+    public static class Response {
         private Integer data;
     }
 }

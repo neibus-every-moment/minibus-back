@@ -1,7 +1,7 @@
 package com.minibus.moment.dto.post;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.minibus.moment.domain.like.LikePost;
+import com.minibus.moment.domain.post.LikePost;
 import com.minibus.moment.domain.post.Post;
 import com.minibus.moment.domain.user.User;
 import com.minibus.moment.dto.comment.CommentDto;
@@ -59,7 +59,7 @@ public class PostDto {
                         .map(ImageDto::from)
                         .collect(Collectors.toList()))
                 .like(new LikeInfo(Long.valueOf(userIds.size()), userIds))
-                .comments(new Comments(contents.size(),contents))
+                .comments(new Comments(contents.size(), contents))
                 .createdAt(post.getCreatedAt())
                 .updatedAt(post.getUpdatedAt())
                 .build();
@@ -90,7 +90,7 @@ public class PostDto {
         private String avatar;
         private String nickname;
 
-        public static UserDto from(User user){
+        public static UserDto from(User user) {
             return UserDto.builder()
                     .id(user.getId())
                     .avatar(user.getProfileImage())

@@ -6,16 +6,16 @@ import com.minibus.moment.domain.transportation.TransportationRepository;
 import com.minibus.moment.dto.transportation.CreateTransportation;
 import com.minibus.moment.dto.transportation.TransportationDto;
 import com.minibus.moment.dto.transportation.UpdateTransportation;
-import com.minibus.moment.exception.PostNotExistException;
-import com.minibus.moment.exception.TransportationAlreadyExistException;
-import com.minibus.moment.exception.TransportationNotFoundException;
+import com.minibus.moment.exception.MinibusException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
+
+import static com.minibus.moment.exception.MinibusErrorCode.DUPLICATED_TRANSPORTATION;
+import static com.minibus.moment.exception.MinibusErrorCode.TRANSPORTATION_NOT_FOUND;
 
 @Service
 @RequiredArgsConstructor
@@ -34,7 +34,7 @@ public class TransportationService {
     @Transactional
     public Integer createTransportation(CreateTransportation.Request request) {
         transportationRepository.findByName(request.getTransportationName())
-                .ifPresent(t -> new TransportationAlreadyExistException("이미 존재하는 교통수단 입니다."));
+                .ifPresent(t -> new MinibusException(DUPLICATED_TRANSPORTATION));
         Transportation transportation = Transportation.builder()
                 .name(request.getTransportationName())
                 .build();
@@ -43,19 +43,20 @@ public class TransportationService {
 
     // 교통수단 테이블의 교통수단 이름 변경
     @Transactional
-    public Integer updateTransportation(Integer transportationId, UpdateTransportation.Request request){
+    public Integer updateTransportation(Integer transportationId, UpdateTransportation.Request request) {
         transportationRepository.findByName(request.getTransportationName())
-                .ifPresent(t -> new TransportationAlreadyExistException("이미 존재하는 교통수단 입니다."));
+                .ifPresent(t -> new MinibusException(DUPLICATED_TRANSPORTATION));
         Transportation transportation = transportationRepository.findById(transportationId).orElseThrow(
-                () -> new TransportationNotFoundException("교통수단이 존재 하지 않습니다.")
+                () -> new MinibusException(TRANSPORTATION_NOT_FOUND)
         );
         return transportation.update(request.getTransportationName());
     }
 
     // 교통수단 테이블에서 교통수단 삭제
+    @Transactional
     public boolean deleteTransportation(Integer transportationId) {
         Transportation transportation = transportationRepository.findById(transportationId).orElseThrow(
-                () -> new TransportationNotFoundException("교통수단이 존재 하지 않습니다.")
+                () -> new MinibusException(TRANSPORTATION_NOT_FOUND)
         );
         transportationRepository.delete(transportation);
         return true;

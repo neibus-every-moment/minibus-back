@@ -15,7 +15,7 @@ public class UserDto {
     private String avatar;
     private String nickname;
 
-    public static UserDto from(User user){
+    public static UserDto from(User user) {
         return UserDto.builder()
                 .id(user.getId())
                 .email(user.getEmail())

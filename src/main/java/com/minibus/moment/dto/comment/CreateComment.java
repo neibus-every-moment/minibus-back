@@ -11,7 +11,7 @@ public class CreateComment {
     @Setter
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class Request{
+    public static class Request {
         private Long postId;
         private Long userId;
         private String content;

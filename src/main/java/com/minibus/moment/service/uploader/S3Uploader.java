@@ -68,6 +68,7 @@ public class S3Uploader {
             fos.write(file.getBytes());
         } catch (IOException e) {
             log.error("Error converting multipartFile to file", e);
-        } return convertFile;
+        }
+        return convertFile;
     }
 }

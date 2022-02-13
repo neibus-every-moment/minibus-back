@@ -6,20 +6,16 @@ import com.minibus.moment.domain.post.Post;
 import com.minibus.moment.domain.post.PostRepository;
 import com.minibus.moment.domain.report.Report;
 import com.minibus.moment.domain.report.ReportRepository;
-import com.minibus.moment.domain.reportReason.ReportReason;
-import com.minibus.moment.domain.reportReason.ReportReasonRepository;
-import com.minibus.moment.dto.report.ReportReasonDto;
 import com.minibus.moment.dto.admin.BlindPost;
 import com.minibus.moment.dto.admin.RestorePost;
-import com.minibus.moment.exception.BlindNotFoundException;
-import com.minibus.moment.exception.PostNotFoundException;
-import com.minibus.moment.exception.ReportReasonAlreadyExistException;
-import com.minibus.moment.exception.ReportReasonNotFoundException;
+import com.minibus.moment.exception.MinibusException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.Optional;
+
+import static com.minibus.moment.exception.MinibusErrorCode.BLIND_NOT_FOUND;
+import static com.minibus.moment.exception.MinibusErrorCode.POST_NOT_FOUND;
 
 @Service
 @RequiredArgsConstructor
@@ -30,12 +26,11 @@ public class BlindService {
     private final PostRepository postRepository;
 
     @Transactional
-    public Long blindPost(BlindPost.Request request){
+    public Long blindPost(BlindPost.Request request) {
 
         Post post = postRepository.findById(request.getId()).orElseThrow(
-                () -> new PostNotFoundException("해당 포스트를 찾지 못했습니다.")// Todo 예외 처리
+                () -> new MinibusException(POST_NOT_FOUND)
         );
-
         Blind blind = Blind.builder()
                 .post(post)
                 .content(request.getContent())
@@ -48,19 +43,19 @@ public class BlindService {
     }
 
     @Transactional
-    public void checkReport(Post post){
+    public void checkReport(Post post) {
         reportRepository.findByPost(post).ifPresent(Report::complete);
     }
 
     @Transactional
-    public Long restorePost(RestorePost.Request request){
+    public Long restorePost(RestorePost.Request request) {
         Post post = postRepository.findById(request.getId()).orElseThrow(
-                () -> new PostNotFoundException("해당 글을 찾지 못했습니다.")// Todo 예외 처리
+                () -> new MinibusException(POST_NOT_FOUND)
         );
         post.restore();
 
         Blind blind = blindRepository.findByPost(post).orElseThrow(
-                () -> new BlindNotFoundException("신고 사유를 선택해주세요")// Todo 예외 처리
+                () -> new MinibusException(BLIND_NOT_FOUND)
         );
         blindRepository.delete(blind);
 

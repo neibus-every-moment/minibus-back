@@ -27,7 +27,7 @@ public class UserController {
         return new UpdateProfile.Response(userService.updateProfile(userId, profileImage));
     }
 
-//    @PutMapping("/user/nickname/{userId}")
+    //    @PutMapping("/user/nickname/{userId}")
     public UpdateProfile.Response updateNickname(
             @PathVariable Long userId,
             @RequestBody UpdateProfile.Request request
@@ -36,12 +36,12 @@ public class UserController {
     }
 
     @GetMapping("/my-posts/{userId}")
-    public GetPostList.Response getPostList(@PathVariable Long userId){
+    public GetPostList.Response getPostList(@PathVariable Long userId) {
         return new GetPostList.Response(postService.getPostListByUser(userId));
     }
 
     @GetMapping("/my-comments/{userId}")
-    public GetCommentList.Response getCommentListByUser(@PathVariable Long userId){
+    public GetCommentList.Response getCommentListByUser(@PathVariable Long userId) {
         return new GetCommentList.Response(commentService.getCommentListByUser(userId));
     }
 }

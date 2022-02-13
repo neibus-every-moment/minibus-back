@@ -1,5 +1,6 @@
 package com.minibus.moment.auth.service;
 
+import com.minibus.moment.auth.dto.OAuth2Attribute;
 import com.minibus.moment.domain.user.User;
 import com.minibus.moment.domain.user.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -37,7 +38,6 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
                 oAuth2Attribute.getAttributes(),
                 oAuth2Attribute.getAttributeKey()
         );
-
     }
 
     //db에 존재하는 유저일경우 update 그렇지 않으면 저장

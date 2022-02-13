@@ -10,7 +10,7 @@ public class UpdateTransportation {
     @Getter
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class Request{
+    public static class Request {
         private String transportationName;
     }
 
@@ -18,7 +18,7 @@ public class UpdateTransportation {
     @Setter
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class Response{
+    public static class Response {
         private Integer data;
     }
 }

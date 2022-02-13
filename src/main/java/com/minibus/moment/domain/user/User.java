@@ -2,10 +2,12 @@ package com.minibus.moment.domain.user;
 
 
 import com.minibus.moment.domain.comment.Comment;
-import lombok.*;
-import com.minibus.moment.domain.like.LikePost;
+import com.minibus.moment.domain.post.LikePost;
 import com.minibus.moment.domain.post.Post;
-import org.springframework.util.ObjectUtils;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;

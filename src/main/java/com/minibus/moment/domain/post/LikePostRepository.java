@@ -1,6 +1,5 @@
-package com.minibus.moment.domain.like;
+package com.minibus.moment.domain.post;
 
-import com.minibus.moment.domain.post.Post;
 import com.minibus.moment.domain.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

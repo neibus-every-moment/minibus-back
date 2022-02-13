@@ -4,19 +4,13 @@ import com.minibus.moment.domain.comment.Comment;
 import com.minibus.moment.domain.comment.CommentRepository;
 import com.minibus.moment.domain.post.Post;
 import com.minibus.moment.domain.post.PostRepository;
-import com.minibus.moment.domain.report.Report;
-import com.minibus.moment.domain.report.ReportRepository;
-import com.minibus.moment.domain.reportEtcDetail.ReportEtcDetail;
-import com.minibus.moment.domain.reportEtcDetail.ReportEtcDetailRepository;
-import com.minibus.moment.domain.reportReason.ReportReason;
-import com.minibus.moment.domain.reportReason.ReportReasonRepository;
+import com.minibus.moment.domain.report.*;
 import com.minibus.moment.domain.user.User;
 import com.minibus.moment.domain.user.UserRepository;
 import com.minibus.moment.dto.comment.CommentDto;
 import com.minibus.moment.dto.comment.CreateComment;
 import com.minibus.moment.dto.comment.ReportComment;
-import com.minibus.moment.exception.PostNotFoundException;
-import com.minibus.moment.exception.ReportReasonNotFoundException;
+import com.minibus.moment.exception.MinibusException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,6 +19,8 @@ import org.springframework.util.ObjectUtils;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.minibus.moment.exception.MinibusErrorCode.COMMENT_NOT_FOUND;
+import static com.minibus.moment.exception.MinibusErrorCode.REPORT_REASON_NOT_FOUND;
 import static com.minibus.moment.type.ReportStatus.BEFORE;
 
 @RequiredArgsConstructor
@@ -39,7 +35,7 @@ public class CommentService {
     private final ReportRepository reportRepository;
     private final ReportEtcDetailRepository reportEtcDetailRepository;
 
-    public List<CommentDto> getCommentList(Long postId){
+    public List<CommentDto> getCommentList(Long postId) {
 
         Post post = postRepository.findById(postId).orElseThrow();
 
@@ -49,7 +45,7 @@ public class CommentService {
     }
 
     @Transactional
-    public Long createComment(CreateComment.Request request){
+    public Long createComment(CreateComment.Request request) {
         Post post = postRepository.findById(request.getPostId()).orElseThrow();
         User user = userRepository.findById(request.getUserId()).orElseThrow();
 
@@ -62,7 +58,7 @@ public class CommentService {
         return commentRepository.save(comment).getId();
     }
 
-    public List<CommentDto> getCommentListByUser(Long userId){
+    public List<CommentDto> getCommentListByUser(Long userId) {
         User user = userRepository.findById(userId).orElseThrow();
 
         return commentRepository.findAllByUser(user)
@@ -73,10 +69,10 @@ public class CommentService {
     @Transactional
     public boolean reportComment(ReportComment.Request request) {
         ReportReason reportReason = reportReasonRepository.findByContent(request.getReportReason())
-                .orElseThrow(() -> new ReportReasonNotFoundException("신고 사유가 존재하지 않습니다.")
+                .orElseThrow(() -> new MinibusException(REPORT_REASON_NOT_FOUND)
                 );
         Comment comment = commentRepository.findById(request.getCommentId())
-                .orElseThrow(() -> new PostNotFoundException("해당 포스트를 찾지 못했습니다.")
+                .orElseThrow(() -> new MinibusException(COMMENT_NOT_FOUND)
                 );
 
         Report report = Report.builder()
@@ -97,14 +93,14 @@ public class CommentService {
     }
 
     @Transactional
-    public Long updateComment(Long commentId, String content){
+    public Long updateComment(Long commentId, String content) {
         Comment comment = commentRepository.findById(commentId).orElseThrow();
 
         return comment.update(content);
     }
 
     @Transactional
-    public boolean deleteComment(Long commentId){
+    public boolean deleteComment(Long commentId) {
         Comment comment = commentRepository.findById(commentId).orElseThrow();
 
         commentRepository.delete(comment);

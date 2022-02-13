@@ -1,69 +1,37 @@
 package com.minibus.moment.controller;
 
-import com.minibus.moment.exception.*;
-import org.hibernate.TransientPropertyValueException;
+import com.minibus.moment.dto.exception.ErrorResponse;
+import com.minibus.moment.exception.MinibusException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-@RestController
-@ControllerAdvice
+import javax.servlet.http.HttpServletRequest;
+
+@Slf4j
+@RestControllerAdvice
 public class ExceptionHandlerController {
 
-    @ExceptionHandler(PostNotFoundException.class)
-    public ResponseEntity<?> PostNotFoundExceptionHandler(PostNotFoundException exception) {
-        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
+    @ExceptionHandler(MinibusException.class)
+    public ErrorResponse MinibusExceptionHandler(MinibusException e, HttpServletRequest request) {
+        log.error("errorCode : {} , message : {}, requestURL : {}", e.getErrorCode(), e.getMessage(), request.getRequestURL());
+        return ErrorResponse.builder()
+                .errorCode(e.getErrorCode())
+                .message(e.getMessage())
+                .build();
     }
 
-    @ExceptionHandler(RegionNotFoundException.class)
-    public ResponseEntity<?> RegionNotFoundExceptionHandler(RegionNotFoundException exception) {
-        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<?> RegionNotFoundExceptionHandler(IllegalArgumentException e, HttpServletRequest request) {
+        log.error("message : {}, requestURL : {}", e.getMessage(), request.getRequestURL());
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(TransientPropertyValueException.class)
-    public ResponseEntity<?> TransportationNotFoundExceptionHandler(TransportationNotFoundException exception) {
-        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
-    }
-
-    @ExceptionHandler(ReportReasonNotFoundException.class)
-    public ResponseEntity<?> ReportReasonIdExceptionHandler(ReportReasonNotFoundException exception) {
-        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
-    }
-
-    @ExceptionHandler(TokenIsNotValidException.class)
-    public ResponseEntity<?> TokenIsNotValidExceptionHandler(TokenIsNotValidException exception) {
-        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
-    }
-
-    @ExceptionHandler(UserNotFoundException.class)
-    public ResponseEntity<?> UserNotFoundExceptionHandler(UserNotFoundException exception) {
-        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
-    }
-
-    @ExceptionHandler(BlindNotFoundException.class)
-    public ResponseEntity<?> BlindNotFoundExceptionHandler(BlindNotFoundException exception) {
-        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
-    }
-
-    @ExceptionHandler(FindNotPlatformException.class)
-    public ResponseEntity<?> FindNotPlatformExceptionHandler(FindNotPlatformException exception) {
-        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
-    }
-
-    @ExceptionHandler(TransportationAlreadyExistException.class)
-    public ResponseEntity<?> TransportationAlreadyExistExceptionHandler(TransportationAlreadyExistException exception) {
-        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
-    }
-
-    @ExceptionHandler(ReportReasonAlreadyExistException.class)
-    public ResponseEntity<?> ReportReasonAlreadyExistExceptionHandler(ReportReasonAlreadyExistException exception) {
-        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
-    }
-
-    @ExceptionHandler(RegionAlreadyExistException.class)
-    public ResponseEntity<?> RegionAlreadyExistExceptionHandler(RegionAlreadyExistException exception) {
-        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<?> RegionNotFoundExceptionHandler(Exception e, HttpServletRequest request) {
+        log.error("message : {}, requestURL : {}", e.getMessage(), request.getRequestURL());
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

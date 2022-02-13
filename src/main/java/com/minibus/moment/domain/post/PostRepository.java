@@ -12,21 +12,25 @@ import java.util.List;
 public interface PostRepository extends JpaRepository<Post, Long> {
 
     List<Post> findAllByStatus(Status status, Pageable pageable);
+
     List<Post> findAllByStatusAndRegionIsIn(
             Status status,
             List<Region> regionList,
             Pageable pageable
     );
+
     List<Post> findAllByStatusAndTransportationIsIn(
             Status status,
             List<Transportation> transportationList,
             Pageable pageable
     );
+
     List<Post> findAllByStatusAndTransportationIsInAndRegionIsIn(
             Status status,
             List<Transportation> transportationList,
             List<Region> regionList,
             Pageable pageable
     );
+
     List<Post> findAllByUser(User user);
 }

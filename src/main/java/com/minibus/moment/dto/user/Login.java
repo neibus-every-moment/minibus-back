@@ -27,10 +27,10 @@ public class Login {
 
             List<Long> posts = new ArrayList<>();
             List<Long> comments = new ArrayList<>();
-            if(user.getPostList() != null){
+            if (user.getPostList() != null) {
                 posts = user.getPostList().stream().map(Post::getId).collect(Collectors.toList());
             }
-            if(user.getCommentList() != null){
+            if (user.getCommentList() != null) {
                 comments = user.getCommentList().stream().map(Comment::getId).collect(Collectors.toList());
             }
 

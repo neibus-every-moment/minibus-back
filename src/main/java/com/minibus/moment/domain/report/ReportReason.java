@@ -1,8 +1,9 @@
-package com.minibus.moment.domain.reportReason;
+package com.minibus.moment.domain.report;
 
 import lombok.*;
 
 import javax.persistence.*;
+
 @Setter
 @Getter
 @NoArgsConstructor
@@ -18,7 +19,7 @@ public class ReportReason {
 
     private String content;
 
-    public Integer update(String content){
+    public Integer update(String content) {
         this.content = content;
         return this.id;
     }

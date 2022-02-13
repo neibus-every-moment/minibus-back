@@ -1,8 +1,8 @@
-package com.minibus.moment.auth.service;
+package com.minibus.moment.auth.dto;
 
 import com.minibus.moment.domain.user.Role;
 import com.minibus.moment.domain.user.User;
-import com.minibus.moment.exception.FindNotPlatformException;
+import com.minibus.moment.exception.OauthException;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Map;
+
+import static com.minibus.moment.exception.OauthErrorCode.INVALID_PLATFORM;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -24,11 +26,11 @@ public class OAuth2Attribute {
     private String profileImage;
 
     //플랫폼 확인
-    static OAuth2Attribute of(String provider, String attributeKey, Map<String, Object> attributes) {
+    public static OAuth2Attribute of(String provider, String attributeKey, Map<String, Object> attributes) {
         if (provider.equals("kakao")) {
             return ofKakao(attributeKey, attributes);
         } else {
-            throw new FindNotPlatformException("해당 로그인 플랫폼을 찾지 못했습니다."); //Todo: 예외처리
+            throw new OauthException(INVALID_PLATFORM);
         }
     }
 
