@@ -3,7 +3,7 @@ package com.minibus.moment.service;
 import com.minibus.moment.domain.post.PostRepository;
 import com.minibus.moment.domain.transportation.Transportation;
 import com.minibus.moment.domain.transportation.TransportationRepository;
-import com.minibus.moment.dto.TransportationDto;
+import com.minibus.moment.dto.transportation.TransportationDto;
 import com.minibus.moment.exception.PostNotExistException;
 import com.minibus.moment.exception.TransportationAlreadyExistException;
 import com.minibus.moment.exception.TransportationNotFoundException;
@@ -29,11 +29,22 @@ public class TransportationService {
     }
 
     // 교통수단 테이블에 새로운 교통수단 추가
-    public void newTransportation(TransportationDto.Request request) {
-        // 등록하려는 Transportation 이 이미 테이블에 있는지 확인하고 없으면 추가 있으면 throw TransportationAlreadyExist
+    public void createTransportation(TransportationDto.Request request) {
+        transportationRepository.findByNameEquals(request.getTransportation())
+                .ifPresentOrElse(
+                        t -> new TransportationAlreadyExistException("이미 존재하는 교통수단입니다."),
+                        () -> transportationRepository.save(
+                                Transportation.builder()
+                                        .name(request.getTransportation())
+                                        .build()
+                        )
+                );
+
+
         Optional<Transportation> transportation = transportationRepository.findByNameEquals(request.getTransportation());
         if(!transportation.isPresent()) {
-            transportationRepository.save(Transportation.builder()
+            transportationRepository.save(
+                    Transportation.builder()
                             .name(request.getTransportation())
                             .build());
         } else {

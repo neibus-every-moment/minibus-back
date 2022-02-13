@@ -8,11 +8,11 @@ import java.util.Map;
 @Component
 public class UserRequestMapper {
 
-    public UserDto toDto(OAuth2User oAuth2User) {
+    public CustomOauthUser toDto(OAuth2User oAuth2User) {
         Map<String, Object> attributes = oAuth2User.getAttributes();
         Map<String, Object> account = (Map<String, Object>) attributes.get("kakao_account");
         Map<String, Object> profile = (Map<String, Object>) account.get("profile");
-        return UserDto.builder()
+        return CustomOauthUser.builder()
                 .name((String) profile.get("nickname"))
                 .email((String) account.get("email"))
                 .build();

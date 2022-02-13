@@ -1,7 +1,7 @@
 package com.minibus.moment.auth.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.minibus.moment.auth.dto.UserDto;
+import com.minibus.moment.auth.dto.CustomOauthUser;
 import com.minibus.moment.auth.dto.UserRequestMapper;
 import com.minibus.moment.auth.service.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +29,7 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
-        UserDto userDto = userRequestMapper.toDto(oAuth2User);
+        CustomOauthUser userDto = userRequestMapper.toDto(oAuth2User);
         log.info("userDto.getEmail() = " + userDto.getEmail());
 
         Token token = jwtTokenProvider.generateToken(userDto.getEmail(), "USER");

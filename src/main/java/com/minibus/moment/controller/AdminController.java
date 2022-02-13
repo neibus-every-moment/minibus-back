@@ -1,11 +1,11 @@
 package com.minibus.moment.controller;
 
 
-import com.minibus.moment.dto.RegionDto;
-import com.minibus.moment.dto.ReportReasonDto;
-import com.minibus.moment.dto.TransportationDto;
-import com.minibus.moment.dto.api.admin.BlindPost;
-import com.minibus.moment.dto.api.admin.RestorePost;
+import com.minibus.moment.dto.region.RegionDto;
+import com.minibus.moment.dto.report.ReportReasonDto;
+import com.minibus.moment.dto.transportation.TransportationDto;
+import com.minibus.moment.dto.admin.BlindPost;
+import com.minibus.moment.dto.admin.RestorePost;
 import com.minibus.moment.service.BlindService;
 import com.minibus.moment.service.RegionService;
 import com.minibus.moment.service.TransportationService;
@@ -24,16 +24,16 @@ public class AdminController {
 
     // Transportation CRUD
     @PostMapping("/transportation")
-    public void newTransportation(@RequestBody TransportationDto.Request request) {
-        transportationService.newTransportation(request);
+    public void createTransportation(@RequestBody TransportationDto.Request request) {
+        transportationService.createTransportation(request);
     }
 
-    @PutMapping("/transportationName")
+    @PutMapping("/transportation/{transportationId}")
     public void editTransportationName(@RequestBody TransportationDto.Request request) {
         transportationService.editTransportationNameInTable(request);
     }
 
-    @PutMapping("/postTransportation")
+    // 포스트에 있는 교통수단 카테고리 수정
     public void editPostTransportation(@RequestBody TransportationDto.Request request) {
         transportationService.editPostTransportation(request);
     }
@@ -55,7 +55,7 @@ public class AdminController {
         regionService.editRegionNameInTable(request);
     }
 
-    @PutMapping("/postRegion")
+    // 포스트에 있는 지역 카테고리 수정
     public void editPostRegion(@RequestBody RegionDto.Request request) {
         regionService.editPostRegion(request);
     }

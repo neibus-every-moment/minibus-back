@@ -7,8 +7,8 @@ import com.minibus.moment.domain.post.Post;
 import com.minibus.moment.domain.post.PostRepository;
 import com.minibus.moment.domain.user.User;
 import com.minibus.moment.domain.user.UserRepository;
-import com.minibus.moment.dto.PostDto;
-import com.minibus.moment.dto.api.ToLikePost;
+import com.minibus.moment.dto.post.PostDto;
+import com.minibus.moment.dto.post.ToLikePost;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

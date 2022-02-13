@@ -1,8 +1,8 @@
 package com.minibus.moment.controller;
 
-import com.minibus.moment.dto.api.GetCommentList;
-import com.minibus.moment.dto.api.GetPostList;
-import com.minibus.moment.dto.api.UpdateProfile;
+import com.minibus.moment.dto.comment.GetCommentList;
+import com.minibus.moment.dto.post.GetPostList;
+import com.minibus.moment.dto.user.UpdateProfile;
 import com.minibus.moment.service.CommentService;
 import com.minibus.moment.service.PostService;
 import com.minibus.moment.service.UserService;

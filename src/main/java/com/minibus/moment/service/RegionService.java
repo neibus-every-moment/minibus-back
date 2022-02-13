@@ -3,7 +3,7 @@ package com.minibus.moment.service;
 import com.minibus.moment.domain.post.PostRepository;
 import com.minibus.moment.domain.region.Region;
 import com.minibus.moment.domain.region.RegionRepository;
-import com.minibus.moment.dto.RegionDto;
+import com.minibus.moment.dto.region.RegionDto;
 import com.minibus.moment.exception.PostNotExistException;
 import com.minibus.moment.exception.RegionAlreadyExistException;
 import com.minibus.moment.exception.RegionNotFoundException;

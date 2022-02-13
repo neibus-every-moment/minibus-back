@@ -1,11 +1,10 @@
 package com.minibus.moment.service;
 
-import com.minibus.moment.auth.service.JwtTokenProvider;
 import com.minibus.moment.domain.user.User;
 import com.minibus.moment.domain.user.UserRepository;
-import com.minibus.moment.dto.UserDto;
-import com.minibus.moment.dto.UserInfoDto;
-import com.minibus.moment.dto.api.UpdateProfile;
+import com.minibus.moment.dto.user.UserDto;
+import com.minibus.moment.dto.user.UserInfoDto;
+import com.minibus.moment.dto.user.UpdateProfile;
 import com.minibus.moment.exception.UserNotFoundException;
 import com.minibus.moment.service.uploader.S3Uploader;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.Collections;
 
 @Service
 @RequiredArgsConstructor
