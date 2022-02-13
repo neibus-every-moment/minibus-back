@@ -10,7 +10,7 @@ public class RestorePost {
     @Getter
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class Request{
+    public static class Request {
         private Long id;
     }
 
@@ -18,7 +18,7 @@ public class RestorePost {
     @Setter
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class Response{
+    public static class Response {
         private Long date;
     }
 }

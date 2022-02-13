@@ -15,7 +15,7 @@ public class GetTransportationList {
     public static class Response {
         private List<String> data;
 
-        public static Response toResponse(List<TransportationDto> transportationDtoList){
+        public static Response toResponse(List<TransportationDto> transportationDtoList) {
             Response response = new Response();
             response.data = transportationDtoList.stream()
                     .map(TransportationDto::getName)

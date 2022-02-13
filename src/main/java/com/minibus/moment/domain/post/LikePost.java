@@ -1,7 +1,6 @@
-package com.minibus.moment.domain.like;
+package com.minibus.moment.domain.post;
 
 import com.minibus.moment.domain.BaseTimeEntity;
-import com.minibus.moment.domain.post.Post;
 import com.minibus.moment.domain.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

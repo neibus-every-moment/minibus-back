@@ -1,16 +1,18 @@
 package com.minibus.moment.service;
 
+import com.minibus.moment.domain.report.ReportReason;
+import com.minibus.moment.domain.report.ReportReasonRepository;
 import com.minibus.moment.domain.report.ReportRepository;
-import com.minibus.moment.domain.reportReason.ReportReason;
-import com.minibus.moment.domain.reportReason.ReportReasonRepository;
 import com.minibus.moment.dto.report.CreateReportReason;
 import com.minibus.moment.dto.report.UpdateReportReason;
-import com.minibus.moment.exception.ReportReasonAlreadyExistException;
-import com.minibus.moment.exception.ReportReasonNotFoundException;
+import com.minibus.moment.exception.MinibusException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+
+import static com.minibus.moment.exception.MinibusErrorCode.DUPLICATED_REPORT_REASON;
+import static com.minibus.moment.exception.MinibusErrorCode.REPORT_REASON_NOT_FOUND;
 
 @Service
 @RequiredArgsConstructor
@@ -23,7 +25,7 @@ public class ReportService {
     @Transactional
     public Integer createReportReason(CreateReportReason.Request request) {
         reportReasonRepository.findByContent(request.getContent()).ifPresent(
-                reportReason -> new ReportReasonAlreadyExistException("해당 신고사유가 이미 존재합니다.")
+                reportReason -> new MinibusException(DUPLICATED_REPORT_REASON)
         );
         ReportReason reportReason = ReportReason.builder()
                 .content(request.getContent())
@@ -34,10 +36,10 @@ public class ReportService {
     @Transactional
     public Integer updateReportReason(Integer reportReasonId, UpdateReportReason.Request request) {
         reportReasonRepository.findByContent(request.getContent()).ifPresent(
-                reportReason -> new ReportReasonAlreadyExistException("해당 신고사유가 이미 존재합니다.")
+                reportReason -> new MinibusException(DUPLICATED_REPORT_REASON)
         );
         ReportReason reportReason = reportReasonRepository.findById(reportReasonId).orElseThrow(
-                () -> new ReportReasonNotFoundException("해당 신고사유가 존재하지 않습니다.")
+                () -> new MinibusException(REPORT_REASON_NOT_FOUND)
         );
         return reportReason.update(request.getContent());
     }
@@ -45,7 +47,7 @@ public class ReportService {
     @Transactional
     public boolean deleteReportReason(Integer reportReasonId) {
         ReportReason reportReason = reportReasonRepository.findById(reportReasonId).orElseThrow(
-                () -> new ReportReasonNotFoundException("해당 신고사유가 존재하지 않습니다.")
+                () -> new MinibusException(REPORT_REASON_NOT_FOUND)
         );
         reportReasonRepository.delete(reportReason);
         return true;

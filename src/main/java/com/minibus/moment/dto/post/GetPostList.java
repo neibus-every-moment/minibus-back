@@ -10,7 +10,7 @@ import java.util.List;
 public class GetPostList {
 
     @Getter
-    @Setter 
+    @Setter
     @NoArgsConstructor
     @AllArgsConstructor
     public static class Request {

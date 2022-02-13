@@ -9,7 +9,7 @@ public class GetPost {
     @Getter
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class Response{
+    public static class Response {
         private PostDto data;
     }
 }

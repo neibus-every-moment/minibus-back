@@ -21,17 +21,17 @@ public class CommentController {
     private final UserService userService;
 
     @GetMapping("/comments/{postId}")
-    public GetCommentList.Response getCommentList(@PathVariable Long postId){
+    public GetCommentList.Response getCommentList(@PathVariable Long postId) {
         return new GetCommentList.Response(commentService.getCommentList(postId));
     }
 
     @PostMapping("/comment")
-    public CreateComment.Response createComment(@RequestBody CreateComment.Request request){
+    public CreateComment.Response createComment(@RequestBody CreateComment.Request request) {
         return new CreateComment.Response(commentService.createComment(request));
     }
 
     @PostMapping("/comment/report")
-    public boolean reportComment(@RequestBody ReportComment.Request request){
+    public boolean reportComment(@RequestBody ReportComment.Request request) {
         return commentService.reportComment(request);
     }
 
@@ -39,12 +39,12 @@ public class CommentController {
     public UpdateComment.Response updateComment(
             @PathVariable Long commentId,
             @RequestBody UpdateComment.Request request
-    ){
+    ) {
         return new UpdateComment.Response(commentService.updateComment(commentId, request.getContent()));
     }
 
     @DeleteMapping("/comment/{commentId}")
-    public boolean deleteComment(@PathVariable Long commentId){
+    public boolean deleteComment(@PathVariable Long commentId) {
         return commentService.deleteComment(commentId);
     }
 

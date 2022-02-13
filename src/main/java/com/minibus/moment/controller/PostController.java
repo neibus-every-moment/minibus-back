@@ -4,8 +4,10 @@ import com.minibus.moment.dto.post.*;
 import com.minibus.moment.dto.region.GetRegionList;
 import com.minibus.moment.dto.report.GetReportReasonList;
 import com.minibus.moment.dto.transportation.GetTransportationList;
-import com.minibus.moment.service.*;
-
+import com.minibus.moment.service.LikePostService;
+import com.minibus.moment.service.PostService;
+import com.minibus.moment.service.RegionService;
+import com.minibus.moment.service.TransportationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -75,7 +77,7 @@ public class PostController {
 
     // 좋아요 기능. request 에 담긴 postId, userId로 좋아요 기능 실행 뒤 GetPost.Response반환
     @PutMapping("/post/like/{postId}")
-    public ToLikePost.Response likePost(@PathVariable Long postId,@RequestBody ToLikePost.Request request) throws Exception{
+    public ToLikePost.Response likePost(@PathVariable Long postId, @RequestBody ToLikePost.Request request) throws Exception {
         return new ToLikePost.Response(likePostService.toLikePost(postId, request));
     }
 

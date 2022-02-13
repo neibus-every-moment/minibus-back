@@ -11,7 +11,7 @@ public class UpdateComment {
     @Setter
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class Request{
+    public static class Request {
         private String content;
     }
 
@@ -19,7 +19,7 @@ public class UpdateComment {
     @Setter
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class Response{
+    public static class Response {
         private Long data;
     }
 }

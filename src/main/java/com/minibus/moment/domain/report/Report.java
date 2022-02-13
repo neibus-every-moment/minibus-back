@@ -3,13 +3,12 @@ package com.minibus.moment.domain.report;
 import com.minibus.moment.domain.BaseTimeEntity;
 import com.minibus.moment.domain.comment.Comment;
 import com.minibus.moment.domain.post.Post;
-import com.minibus.moment.domain.reportEtcDetail.ReportEtcDetail;
-import com.minibus.moment.domain.reportReason.ReportReason;
 import com.minibus.moment.domain.user.User;
 import com.minibus.moment.type.ReportStatus;
 import lombok.*;
 
 import javax.persistence.*;
+
 @Setter
 @Getter
 @NoArgsConstructor

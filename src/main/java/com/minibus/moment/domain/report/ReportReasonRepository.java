@@ -1,4 +1,4 @@
-package com.minibus.moment.domain.reportReason;
+package com.minibus.moment.domain.report;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

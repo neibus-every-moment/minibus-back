@@ -10,7 +10,7 @@ public class UpdateProfile {
     @Getter
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class Request{
+    public static class Request {
         private String nickname;
     }
 
@@ -18,7 +18,7 @@ public class UpdateProfile {
     @Setter
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class Response{
+    public static class Response {
         private Long data;
     }
 }

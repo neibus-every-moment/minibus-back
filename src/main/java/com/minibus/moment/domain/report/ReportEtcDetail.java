@@ -1,6 +1,5 @@
-package com.minibus.moment.domain.reportEtcDetail;
+package com.minibus.moment.domain.report;
 
-import com.minibus.moment.domain.report.Report;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

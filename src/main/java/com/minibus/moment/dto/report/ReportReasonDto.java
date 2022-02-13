@@ -1,6 +1,6 @@
 package com.minibus.moment.dto.report;
 
-import com.minibus.moment.domain.reportReason.ReportReason;
+import com.minibus.moment.domain.report.ReportReason;
 import lombok.*;
 
 @Getter

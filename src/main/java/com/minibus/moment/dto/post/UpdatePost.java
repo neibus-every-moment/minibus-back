@@ -1,6 +1,9 @@
 package com.minibus.moment.dto.post;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 public class UpdatePost {
 
@@ -8,7 +11,7 @@ public class UpdatePost {
     @Setter
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class Request{
+    public static class Request {
         private String content;
     }
 
@@ -16,7 +19,7 @@ public class UpdatePost {
     @Setter
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class Response{
+    public static class Response {
         private Long data;
     }
 }
