@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static com.minibus.moment.exception.MinibusErrorCode.DUPLICATED_TRANSPORTATION;
@@ -22,7 +23,6 @@ import static com.minibus.moment.exception.MinibusErrorCode.TRANSPORTATION_NOT_F
 public class TransportationService {
 
     private final TransportationRepository transportationRepository;
-    private final PostRepository postRepository;
 
     public List<TransportationDto> getTransportationList() {
         return transportationRepository.findAll().stream()
@@ -33,8 +33,10 @@ public class TransportationService {
     // 교통수단 테이블에 새로운 교통수단 추가
     @Transactional
     public Integer createTransportation(CreateTransportation.Request request) {
-        transportationRepository.findByName(request.getTransportationName())
-                .ifPresent(t -> new MinibusException(DUPLICATED_TRANSPORTATION));
+        Optional<Transportation> check = transportationRepository.findByName(request.getTransportationName());
+        if(check.isPresent()){
+            throw new MinibusException(DUPLICATED_TRANSPORTATION);
+        }
         Transportation transportation = Transportation.builder()
                 .name(request.getTransportationName())
                 .build();
@@ -44,8 +46,10 @@ public class TransportationService {
     // 교통수단 테이블의 교통수단 이름 변경
     @Transactional
     public Integer updateTransportation(Integer transportationId, UpdateTransportation.Request request) {
-        transportationRepository.findByName(request.getTransportationName())
-                .ifPresent(t -> new MinibusException(DUPLICATED_TRANSPORTATION));
+        Optional<Transportation> check = transportationRepository.findByName(request.getTransportationName());
+        if(check.isPresent()){
+            throw new MinibusException(DUPLICATED_TRANSPORTATION);
+        }
         Transportation transportation = transportationRepository.findById(transportationId).orElseThrow(
                 () -> new MinibusException(TRANSPORTATION_NOT_FOUND)
         );

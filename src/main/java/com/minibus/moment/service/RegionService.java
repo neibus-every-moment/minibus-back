@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static com.minibus.moment.exception.MinibusErrorCode.DUPLICATED_REGION;
@@ -22,7 +23,6 @@ import static com.minibus.moment.exception.MinibusErrorCode.REGION_NOT_FOUND;
 public class RegionService {
 
     private final RegionRepository regionRepository;
-    private final PostRepository postRepository;
 
     public List<RegionDto> getRegionList() {
         return regionRepository.findAll().stream()
@@ -33,8 +33,10 @@ public class RegionService {
     // 지역 테이블에 새로운 지역 추가
     @Transactional
     public Integer createRegion(CreateRegion.Request request) {
-        regionRepository.findByName(request.getRegionName())
-                .ifPresent(r -> new MinibusException(DUPLICATED_REGION));
+        Optional<Region> check = regionRepository.findByName(request.getRegionName());
+        if(check.isPresent()){
+            throw new MinibusException(DUPLICATED_REGION);
+        }
         Region region = Region.builder()
                 .name(request.getRegionName())
                 .build();
@@ -44,8 +46,10 @@ public class RegionService {
     // 지역 테이블의 지역 이름 변경
     @Transactional
     public Integer updateRegion(Integer regionId, UpdateRegion.Request request) {
-        regionRepository.findByName(request.getRegionName())
-                .ifPresent(t -> new MinibusException(DUPLICATED_REGION));
+        Optional<Region> check = regionRepository.findByName(request.getRegionName());
+        if(check.isPresent()){
+            throw new MinibusException(DUPLICATED_REGION);
+        }
         Region region = regionRepository.findById(regionId).orElseThrow(
                 () -> new MinibusException(REGION_NOT_FOUND)
         );
