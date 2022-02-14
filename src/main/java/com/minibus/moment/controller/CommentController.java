@@ -17,9 +17,6 @@ public class CommentController {
 
     private final CommentService commentService;
 
-    private final JwtTokenProvider jwtTokenProvider;
-    private final UserService userService;
-
     @GetMapping("/comments/{postId}")
     public GetCommentList.Response getCommentList(@PathVariable Long postId) {
         return new GetCommentList.Response(commentService.getCommentList(postId));
