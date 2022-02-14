@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Optional;
 
 import static com.minibus.moment.exception.MinibusErrorCode.DUPLICATED_REPORT_REASON;
 import static com.minibus.moment.exception.MinibusErrorCode.REPORT_REASON_NOT_FOUND;
@@ -19,14 +20,14 @@ import static com.minibus.moment.exception.MinibusErrorCode.REPORT_REASON_NOT_FO
 public class ReportService {
 
     private final ReportReasonRepository reportReasonRepository;
-    private final ReportRepository reportRepository;
 
     // 신고사유 추가
     @Transactional
     public Integer createReportReason(CreateReportReason.Request request) {
-        reportReasonRepository.findByContent(request.getContent()).ifPresent(
-                reportReason -> new MinibusException(DUPLICATED_REPORT_REASON)
-        );
+        Optional<ReportReason> check = reportReasonRepository.findByContent(request.getContent());
+        if(check.isPresent()){
+            throw new MinibusException(DUPLICATED_REPORT_REASON);
+        }
         ReportReason reportReason = ReportReason.builder()
                 .content(request.getContent())
                 .build();
@@ -35,9 +36,10 @@ public class ReportService {
 
     @Transactional
     public Integer updateReportReason(Integer reportReasonId, UpdateReportReason.Request request) {
-        reportReasonRepository.findByContent(request.getContent()).ifPresent(
-                reportReason -> new MinibusException(DUPLICATED_REPORT_REASON)
-        );
+        Optional<ReportReason> check = reportReasonRepository.findByContent(request.getContent());
+        if(check.isPresent()){
+            throw new MinibusException(DUPLICATED_REPORT_REASON);
+        }
         ReportReason reportReason = reportReasonRepository.findById(reportReasonId).orElseThrow(
                 () -> new MinibusException(REPORT_REASON_NOT_FOUND)
         );

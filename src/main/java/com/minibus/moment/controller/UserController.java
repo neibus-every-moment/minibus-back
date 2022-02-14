@@ -27,7 +27,7 @@ public class UserController {
         return new UpdateProfile.Response(userService.updateProfile(userId, profileImage));
     }
 
-    //    @PutMapping("/user/nickname/{userId}")
+    @PutMapping("/user/nickname/{userId}")
     public UpdateProfile.Response updateNickname(
             @PathVariable Long userId,
             @RequestBody UpdateProfile.Request request
