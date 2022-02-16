@@ -17,7 +17,7 @@ public class MinibusBackApplication {
         SpringApplication.run(MinibusBackApplication.class, args);
     }
 
-    
+
     @Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
