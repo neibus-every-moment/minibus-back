@@ -1,7 +1,7 @@
 package com.minibus.moment.controller;
 
-import com.minibus.moment.auth.config.Token;
-import com.minibus.moment.auth.service.JwtTokenProvider;
+import com.minibus.moment.service.Token;
+import com.minibus.moment.service.JwtTokenProvider;
 import com.minibus.moment.domain.user.User;
 import com.minibus.moment.domain.user.UserRepository;
 import com.minibus.moment.dto.user.Login;

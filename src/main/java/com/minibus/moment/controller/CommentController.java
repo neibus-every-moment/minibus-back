@@ -1,12 +1,10 @@
 package com.minibus.moment.controller;
 
-import com.minibus.moment.auth.service.JwtTokenProvider;
 import com.minibus.moment.dto.comment.CreateComment;
 import com.minibus.moment.dto.comment.GetCommentList;
 import com.minibus.moment.dto.comment.ReportComment;
 import com.minibus.moment.dto.comment.UpdateComment;
 import com.minibus.moment.service.CommentService;
-import com.minibus.moment.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

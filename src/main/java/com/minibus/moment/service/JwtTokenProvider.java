@@ -1,6 +1,5 @@
-package com.minibus.moment.auth.service;
+package com.minibus.moment.service;
 
-import com.minibus.moment.auth.config.Token;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;

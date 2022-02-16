@@ -1,4 +1,4 @@
-package com.minibus.moment.auth.config;
+package com.minibus.moment.service;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
