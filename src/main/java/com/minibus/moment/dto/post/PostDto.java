@@ -21,7 +21,7 @@ public class PostDto {
 
     private Long id;
 
-    private UserDto user;
+    private UserInfo user;
 
     private String text;
 
@@ -51,7 +51,7 @@ public class PostDto {
 
         return PostDto.builder()
                 .id(post.getId())
-                .user(UserDto.from(post.getUser()))
+                .user(UserInfo.from(post.getUser()))
                 .text(post.getContent())
                 .region(post.getRegion().getName())
                 .transportation(post.getTransportation().getName())
@@ -85,13 +85,13 @@ public class PostDto {
     @NoArgsConstructor
     @AllArgsConstructor
     @Builder
-    public static class UserDto {
+    public static class UserInfo {
         private Long id;
         private String avatar;
         private String nickname;
 
-        public static UserDto from(User user) {
-            return UserDto.builder()
+        public static UserInfo from(User user) {
+            return UserInfo.builder()
                     .id(user.getId())
                     .avatar(user.getProfileImage())
                     .nickname(user.getNickname())

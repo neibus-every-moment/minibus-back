@@ -17,7 +17,7 @@ public class CommentDto {
 
     private Long id;
 
-    private UserDto user;
+    private UserInfo user;
 
     private String text;
 
@@ -30,7 +30,7 @@ public class CommentDto {
     public static CommentDto from(Comment comment) {
         return CommentDto.builder()
                 .id(comment.getId())
-                .user(UserDto.from(comment.getUser()))
+                .user(UserInfo.from(comment.getUser()))
                 .text(comment.getContent())
                 .createdAt(comment.getCreatedAt())
                 .updatedAt(comment.getUpdatedAt())
@@ -41,13 +41,13 @@ public class CommentDto {
     @NoArgsConstructor
     @AllArgsConstructor
     @Builder
-    public static class UserDto {
+    public static class UserInfo {
         private Long id;
         private String avatar;
         private String nickname;
 
-        public static UserDto from(User user) {
-            return UserDto.builder()
+        public static UserInfo from(User user) {
+            return UserInfo.builder()
                     .id(user.getId())
                     .avatar(user.getProfileImage())
                     .nickname(user.getNickname())
