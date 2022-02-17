@@ -1,12 +1,18 @@
 package com.minibus.moment.controller;
 
-import com.minibus.moment.dto.api.*;
-import com.minibus.moment.service.EmoticonService;
+import com.minibus.moment.dto.post.*;
+import com.minibus.moment.dto.region.GetRegionList;
+import com.minibus.moment.dto.report.GetReportReasonList;
+import com.minibus.moment.dto.transportation.GetTransportationList;
+import com.minibus.moment.service.LikePostService;
 import com.minibus.moment.service.PostService;
 import com.minibus.moment.service.RegionService;
 import com.minibus.moment.service.TransportationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @RequestMapping("/api")
 @RequiredArgsConstructor
@@ -16,61 +22,69 @@ public class PostController {
     private final PostService postService;
     private final TransportationService transportationService;
     private final RegionService regionService;
-    private final EmoticonService emoticonService;
 
-    @GetMapping("/transportation")
+    private final LikePostService likePostService;
+
+    @GetMapping("/transportations")
     public GetTransportationList.Response getTransportationList() {
-        return new GetTransportationList.Response(transportationService.getTransportationList());
+        return GetTransportationList.Response.toResponse(transportationService.getTransportationList());
     }
 
     @GetMapping("/regions")
     public GetRegionList.Response getRegionList() {
-        return new GetRegionList.Response(regionService.getRegionList());
-    }
-
-    @GetMapping("/emoticons")
-    public GetEmoticonList.Response getEmoticonList() {
-        return new GetEmoticonList.Response(emoticonService.getEmoticonList());
+        return GetRegionList.Response.toResponse(regionService.getRegionList());
     }
 
     @GetMapping("/reasons")
     public GetReportReasonList.Response getReportReasonList() {
-        return new GetReportReasonList.Response(postService.getReportReasonList());
+        return GetReportReasonList.Response.toResponse(postService.getReportReasonList());
     }
 
-    @PostMapping("/list/best")
-    public GetPostList.Response getPostListBest(@RequestBody GetPostList.Request request) {
-        return new GetPostList.Response(postService.getPostListBest(request));
+    @GetMapping("/posts")
+    public GetPostList.Response getPostList(GetPostList.Request request) {
+        return new GetPostList.Response(postService.getPostList(request));
     }
 
-    @PostMapping("/list/newest")
-    public GetPostList.Response getPostListNewest(@RequestBody GetPostList.Request request) {
-        return new GetPostList.Response(postService.getPostListNewest(request));
-    }
-
-    @PostMapping("/post/report")
-    public boolean reportPost(@RequestBody ReportPost.Request request){
+    @PostMapping("/report")
+    public boolean reportPost(@RequestBody ReportPost.Request request) {
         return postService.reportPost(request);
     }
 
-    @PutMapping("/post/{postId}/like")
-    public boolean likePost(@PathVariable Long postId) {
-        return postService.like(postId);
-    }
-
-    @PutMapping("/post/{postId}/cancel")
-    public boolean cancelLikePost(@PathVariable Long postId) {
-        return postService.cancelLike(postId);
-    }
-
     @PostMapping("/post")
-    public CreatePost.Response createPost(@RequestBody CreatePost.Request request) {
-        return new CreatePost.Response(postService.createPost(request));
+    public CreatePost.Response createPost(
+            @RequestPart("img") List<MultipartFile> multipartFileList,
+            @RequestPart("request") CreatePost.Request request) {
+        return new CreatePost.Response(postService.createPost(multipartFileList, request));
+    }
+
+    @PutMapping("/post/{postId}")
+    public UpdatePost.Response updatePost(
+            @PathVariable Long postId,
+            @RequestBody UpdatePost.Request request
+    ) {
+        return new UpdatePost.Response(postService.updatePost(postId, request.getContent()));
+    }
+
+    @DeleteMapping("/post/{postId}")
+    public boolean deletePost(@PathVariable Long postId) {
+        return postService.deletePost(postId);
     }
 
     @GetMapping("/post/{postId}")
     public GetPost.Response getPost(@PathVariable Long postId) {
         return new GetPost.Response(postService.getPost(postId));
+    }
+
+    // 좋아요 기능. request 에 담긴 postId, userId로 좋아요 기능 실행 뒤 GetPost.Response반환
+    @PutMapping("/post/like/{postId}")
+    public ToLikePost.Response likePost(@PathVariable Long postId, @RequestBody ToLikePost.Request request) throws Exception {
+        return new ToLikePost.Response(likePostService.toLikePost(postId, request));
+    }
+
+    // LIKE_POST테이블에서 userId 검색하고 결과의 postId를 POST테이블에서 모두 검색하여 반환
+    @GetMapping("/list/my-like-post")
+    public GetPostList.Response getMyLikePostList(@RequestParam Long userId) {
+        return new GetPostList.Response(likePostService.getMyLikePostList(userId));
     }
 
 

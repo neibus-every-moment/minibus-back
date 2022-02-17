@@ -10,11 +10,18 @@ spring:
     password:
   jpa:
     hibernate:
-      ddl-auto: create
-    show-sql: true
+      ddl-auto: create-drop
     defer-datasource-initialization: true
   sql:
     init:
       platform: h2
+  profiles:
+    include:
+      - oauth
+      - aws
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB
 server:
   port: 8080

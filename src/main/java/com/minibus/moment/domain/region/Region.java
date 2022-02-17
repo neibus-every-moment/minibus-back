@@ -1,12 +1,10 @@
 package com.minibus.moment.domain.region;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
+@Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -20,4 +18,9 @@ public class Region {
     private Integer id;
 
     private String name;
+
+    public Integer update(String name) {
+        this.name = name;
+        return this.id;
+    }
 }

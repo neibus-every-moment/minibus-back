@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface TransportationRepository extends JpaRepository<Transportation, Integer> {
-    Optional<Transportation> findByNameEquals(String name);
+    Optional<Transportation> findByName(String name);
 }
