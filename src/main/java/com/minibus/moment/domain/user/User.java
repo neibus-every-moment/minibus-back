@@ -26,11 +26,16 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, unique = true)
     private String email;
+
+    @Column
+    private String password;
 
     @Column(columnDefinition = "TEXT")
     private String profileImage;
 
+    @Column(nullable = false)
     private String nickname;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
@@ -58,6 +63,11 @@ public class User {
 
     public Long updateNickname(String nickname) {
         this.nickname = nickname;
+        return this.id;
+    }
+
+    public Long updatePassword(String password) {
+        this.password = password;
         return this.id;
     }
 

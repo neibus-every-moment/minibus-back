@@ -16,6 +16,16 @@ public class Login {
     @NoArgsConstructor
     @AllArgsConstructor
     @Builder
+    public static class Request {
+        private String email;
+        private String password;
+    }
+
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
     public static class Response {
 
         private UserDto user;

@@ -2,6 +2,7 @@ package com.minibus.moment.controller;
 
 import com.minibus.moment.dto.comment.GetCommentList;
 import com.minibus.moment.dto.post.GetPostList;
+import com.minibus.moment.dto.user.FindPassword;
 import com.minibus.moment.dto.user.UpdateProfile;
 import com.minibus.moment.service.CommentService;
 import com.minibus.moment.service.PostService;
@@ -43,5 +44,10 @@ public class UserController {
     @GetMapping("/my-comments/{userId}")
     public GetCommentList.Response getCommentListByUser(@PathVariable Long userId) {
         return new GetCommentList.Response(commentService.getCommentListByUser(userId));
+    }
+
+    @PostMapping("/find")
+    public Long findPassword(@RequestBody FindPassword.Request request){
+        return userService.findPassword(request.getEmail());
     }
 }

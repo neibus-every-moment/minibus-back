@@ -1,4 +1,15 @@
 spring:
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: thdtmdgus5505@gmail.com
+    password: wyyolnlnnwlykbol
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: true
+          auth: true
   h2:
     console:
       enabled: true
@@ -17,7 +28,6 @@ spring:
       platform: h2
   profiles:
     include:
-      - oauth
       - aws
   servlet:
     multipart:

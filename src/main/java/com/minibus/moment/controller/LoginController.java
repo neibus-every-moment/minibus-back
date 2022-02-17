@@ -1,5 +1,9 @@
 package com.minibus.moment.controller;
 
+import com.minibus.moment.dto.user.SignUp;
+import com.minibus.moment.exception.MinibusErrorCode;
+import com.minibus.moment.exception.MinibusException;
+import com.minibus.moment.service.MailService;
 import com.minibus.moment.service.Token;
 import com.minibus.moment.service.JwtTokenProvider;
 import com.minibus.moment.domain.user.User;
@@ -18,7 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/api")
 @RequiredArgsConstructor
 @Slf4j
 public class LoginController {
@@ -27,15 +31,28 @@ public class LoginController {
     private final UserRepository userRepository;
     private final UserService userService;
 
+    private final MailService mailService;
+
+    @PostMapping("/signUp")
+    public String singUp(@RequestBody SignUp.Request request) {
+        userService.singUp(request);
+        return "Success!";
+    }
+
     // email로 요청 받으면 토큰을 발급
-    @PostMapping("/login")
-    public Token login(@RequestBody UserRequest userRequest, HttpServletResponse response) {
-        Token token = jwtTokenProvider.generateToken(userRequest.getEmail(), "USER");
-        saveOrUpdate(userRequest);
+    @PostMapping("/signIn")
+    public Login.Response login(@RequestBody Login.Request request, HttpServletResponse response) {
+
+        User user = userService.getUser(request.getEmail());
+        if(!user.getPassword().equals(request.getPassword())){
+            throw new MinibusException(MinibusErrorCode.USER_NOT_FOUND);
+        }
+        Token token = jwtTokenProvider.generateToken(user.getEmail(), "USER");
         Cookie cookie = new Cookie("Auth", token.getToken());
-        cookie.setHttpOnly(true);
+        cookie.setMaxAge(3600);
         response.addCookie(cookie);
-        return token;
+
+        return Login.Response.of(user);
     }
 
     @GetMapping("/login/{userId}")
