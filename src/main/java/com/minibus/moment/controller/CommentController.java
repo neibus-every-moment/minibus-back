@@ -2,8 +2,8 @@ package com.minibus.moment.controller;
 
 import com.minibus.moment.dto.comment.CreateComment;
 import com.minibus.moment.dto.comment.GetCommentList;
-import com.minibus.moment.dto.comment.ReportComment;
 import com.minibus.moment.dto.comment.UpdateComment;
+import com.minibus.moment.dto.post.ReportRequest;
 import com.minibus.moment.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -25,9 +25,12 @@ public class CommentController {
         return new CreateComment.Response(commentService.createComment(request));
     }
 
-    @PostMapping("/comment/report")
-    public boolean reportComment(@RequestBody ReportComment.Request request) {
-        return commentService.reportComment(request);
+    @PostMapping("/report/comment/{commentId}")
+    public boolean reportComment(
+            @PathVariable Long commentId,
+            @RequestBody ReportRequest request
+    ) {
+        return commentService.reportComment(commentId, request);
     }
 
     @PutMapping("/comment/{commentId}")

@@ -9,7 +9,7 @@ import com.minibus.moment.domain.user.User;
 import com.minibus.moment.domain.user.UserRepository;
 import com.minibus.moment.dto.comment.CommentDto;
 import com.minibus.moment.dto.comment.CreateComment;
-import com.minibus.moment.dto.comment.ReportComment;
+import com.minibus.moment.dto.post.ReportRequest;
 import com.minibus.moment.exception.MinibusException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -67,11 +67,11 @@ public class CommentService {
     }
 
     @Transactional
-    public boolean reportComment(ReportComment.Request request) {
+    public boolean reportComment(Long commentId, ReportRequest request) {
         ReportReason reportReason = reportReasonRepository.findByContent(request.getReportReason())
                 .orElseThrow(() -> new MinibusException(REPORT_REASON_NOT_FOUND)
                 );
-        Comment comment = commentRepository.findById(request.getCommentId())
+        Comment comment = commentRepository.findById(commentId)
                 .orElseThrow(() -> new MinibusException(COMMENT_NOT_FOUND)
                 );
 

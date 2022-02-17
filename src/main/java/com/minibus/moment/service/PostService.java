@@ -14,7 +14,7 @@ import com.minibus.moment.domain.user.UserRepository;
 import com.minibus.moment.dto.post.CreatePost;
 import com.minibus.moment.dto.post.GetPostList;
 import com.minibus.moment.dto.post.PostDto;
-import com.minibus.moment.dto.post.ReportPost;
+import com.minibus.moment.dto.post.ReportRequest;
 import com.minibus.moment.dto.report.ReportReasonDto;
 import com.minibus.moment.exception.MinibusException;
 import com.minibus.moment.service.uploader.S3Uploader;
@@ -115,11 +115,11 @@ public class PostService {
     }
 
     @Transactional
-    public boolean reportPost(ReportPost.Request request) {
+    public boolean reportPost(Long postId, ReportRequest request) {
         ReportReason reportReason = reportReasonRepository.findByContent(request.getReportReason())
                 .orElseThrow(() -> new MinibusException(REPORT_REASON_NOT_FOUND)
                 );
-        Post post = postRepository.findById(request.getPostId())
+        Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new MinibusException(POST_NOT_FOUND)
                 );
 

@@ -45,9 +45,12 @@ public class PostController {
         return new GetPostList.Response(postService.getPostList(request));
     }
 
-    @PostMapping("/report")
-    public boolean reportPost(@RequestBody ReportPost.Request request) {
-        return postService.reportPost(request);
+    @PostMapping("/report/post/{postId}")
+    public boolean reportPost(
+            @PathVariable Long postId,
+            @RequestBody ReportRequest request
+    ) {
+        return postService.reportPost(postId,request);
     }
 
     @PostMapping("/post")
