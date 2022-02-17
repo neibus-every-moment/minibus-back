@@ -1,16 +1,15 @@
 package com.minibus.moment.controller;
 
-import com.minibus.moment.dto.user.SignUp;
-import com.minibus.moment.exception.MinibusErrorCode;
-import com.minibus.moment.exception.MinibusException;
-import com.minibus.moment.service.MailService;
-import com.minibus.moment.service.Token;
-import com.minibus.moment.service.JwtTokenProvider;
 import com.minibus.moment.domain.user.User;
 import com.minibus.moment.domain.user.UserRepository;
 import com.minibus.moment.dto.user.Login;
+import com.minibus.moment.dto.user.SignUp;
 import com.minibus.moment.dto.user.UserInfoDto;
 import com.minibus.moment.dto.user.UserRequest;
+import com.minibus.moment.exception.MinibusErrorCode;
+import com.minibus.moment.exception.MinibusException;
+import com.minibus.moment.service.JwtTokenProvider;
+import com.minibus.moment.service.Token;
 import com.minibus.moment.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,8 +30,6 @@ public class LoginController {
     private final UserRepository userRepository;
     private final UserService userService;
 
-    private final MailService mailService;
-
     @PostMapping("/signUp")
     public String singUp(@RequestBody SignUp.Request request) {
         userService.singUp(request);
@@ -44,7 +41,7 @@ public class LoginController {
     public Login.Response login(@RequestBody Login.Request request, HttpServletResponse response) {
 
         User user = userService.getUser(request.getEmail());
-        if(!user.getPassword().equals(request.getPassword())){
+        if (!user.getPassword().equals(request.getPassword())) {
             throw new MinibusException(MinibusErrorCode.USER_NOT_FOUND);
         }
         Token token = jwtTokenProvider.generateToken(user.getEmail(), "USER");
